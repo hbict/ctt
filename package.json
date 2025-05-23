@@ -1,8 +1,8 @@
 {
-  "name": "att",
+  "name": "@calm/tt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mostcolm/att.git"
+    "url": "https://github.com/alexwendte/tt.git"
   },
   "scripts": {
     "build": "npx projen build",
@@ -58,9 +58,6 @@
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
-  "publishConfig": {
-    "access": "public"
-  },
   "version": "0.0.0",
   "jest": {
     "coverageProvider": "v8",
