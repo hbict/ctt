@@ -1,8 +1,11 @@
 {
   "dependencies": [
     {
+      "name": "@eslint/js",
+      "type": "build"
+    },
+    {
       "name": "@stylistic/eslint-plugin",
-      "version": "^2",
       "type": "build"
     },
     {
@@ -34,7 +37,11 @@
       "type": "build"
     },
     {
-      "name": "eslint-import-resolver-typescript",
+      "name": "eslint",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-functional",
       "type": "build"
     },
     {
@@ -42,8 +49,7 @@
       "type": "build"
     },
     {
-      "name": "eslint",
-      "version": "^9",
+      "name": "eslint-plugin-perfectionist",
       "type": "build"
     },
     {
@@ -56,30 +62,15 @@
       "type": "build"
     },
     {
-      "name": "jsii-diff",
-      "type": "build"
-    },
-    {
-      "name": "jsii-docgen",
-      "version": "^10.5.0",
-      "type": "build"
-    },
-    {
-      "name": "jsii-pacmak",
-      "type": "build"
-    },
-    {
-      "name": "jsii-rosetta",
-      "version": "~5.8.0",
-      "type": "build"
-    },
-    {
-      "name": "jsii",
-      "version": "~5.8.0",
+      "name": "prettier",
       "type": "build"
     },
     {
       "name": "projen",
+      "type": "build"
+    },
+    {
+      "name": "ts-deepmerge",
       "type": "build"
     },
     {
@@ -92,6 +83,10 @@
     },
     {
       "name": "typescript",
+      "type": "build"
+    },
+    {
+      "name": "typescript-eslint",
       "type": "build"
     }
   ],
