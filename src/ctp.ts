@@ -65,10 +65,14 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
 
     const lintTask = this.addTask('lint', {
       description: 'Runs prettier eslint against the codebase',
-      exec: 'prettier "**/*.ts" --write',
+      exec: 'prettier --write --no-error-on-unmatched-pattern $@ "{src,__tests__,projenrc}/**/*.ts" .projenrc.ts README.md',
+      receiveArgs: true,
     });
 
-    lintTask.exec('yarn eslint --ext .ts --fix');
+    lintTask.exec(
+      'yarn eslint --ext .ts --fix --no-error-on-unmatched-pattern $@ src __tests__ projenrc .projenrc.ts',
+      { receiveArgs: true },
+    );
 
     this.testTask.prependSpawn(new Task('lint', { receiveArgs: true }), {
       receiveArgs: true,

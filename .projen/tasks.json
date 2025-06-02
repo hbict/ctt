@@ -127,10 +127,12 @@
       "description": "Runs prettier eslint against the codebase",
       "steps": [
         {
-          "exec": "prettier \"**/*.ts\" --write"
+          "exec": "prettier --write --no-error-on-unmatched-pattern $@ \"{src,__tests__,projenrc}/**/*.ts\" .projenrc.ts README.md",
+          "receiveArgs": true
         },
         {
-          "exec": "yarn eslint --ext .ts --fix"
+          "exec": "yarn eslint --ext .ts --fix --no-error-on-unmatched-pattern $@ src __tests__ projenrc .projenrc.ts",
+          "receiveArgs": true
         }
       ]
     },
