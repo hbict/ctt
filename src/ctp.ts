@@ -1,4 +1,4 @@
-import { typescript } from 'projen';
+import { Task, typescript } from 'projen';
 import { ArrowParens, EndOfLine, TrailingComma } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
@@ -48,15 +48,30 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
 
     new EslintLatest(this);
 
-    this.tasks.tryFind('test')?.removeStep(1);
+    this.testTask.updateStep(1, {
+      exec: 'jest --passWithNoTests',
+      receiveArgs: true,
+    });
+
+    this.removeScript('test');
+
+    this.addScripts({
+      test: 'jest --passWithNoTests',
+    });
+
+    this.testTask.removeStep(1);
 
     this.removeTask('eslint');
 
     const lintTask = this.addTask('lint', {
       description: 'Runs prettier eslint against the codebase',
-      exec: 'prettier "**/*.ts" --write --write',
+      exec: 'prettier "**/*.ts" --write',
     });
 
     lintTask.exec('yarn eslint --ext .ts --fix');
+
+    this.testTask.prependSpawn(new Task('lint', { receiveArgs: true }), {
+      receiveArgs: true,
+    });
   }
 }

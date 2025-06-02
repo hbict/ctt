@@ -127,7 +127,7 @@
       "description": "Runs prettier eslint against the codebase",
       "steps": [
         {
-          "exec": "prettier \"**/*.ts\" --write --write"
+          "exec": "prettier \"**/*.ts\" --write"
         },
         {
           "exec": "yarn eslint --ext .ts --fix"
@@ -186,6 +186,10 @@
       "name": "test",
       "description": "Run tests",
       "steps": [
+        {
+          "spawn": "lint",
+          "receiveArgs": true
+        },
         {
           "exec": "jest --passWithNoTests --updateSnapshot",
           "receiveArgs": true
