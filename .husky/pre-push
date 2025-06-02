@@ -1,0 +1,2 @@
+echo "make sure the project is not out of sync with projenrc.ts"
+

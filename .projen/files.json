@@ -7,6 +7,9 @@
     ".github/workflows/release.yml",
     ".github/workflows/upgrade-main.yml",
     ".gitignore",
+    ".husky/commit-msg",
+    ".husky/pre-commit",
+    ".husky/pre-push",
     ".mergify.yml",
     ".npmignore",
     ".prettierignore",
@@ -14,6 +17,7 @@
     ".projen/deps.json",
     ".projen/files.json",
     ".projen/tasks.json",
+    "commitlint.config.js",
     "eslint.config.mjs",
     "LICENSE",
     "tsconfig.json"

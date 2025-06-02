@@ -49,4 +49,8 @@ junit.xml
 /dist/
 !/.eslintrc.json
 !/eslint.config.mjs
+!/commitlint.config.js
+!/.husky/commit-msg
+!/.husky/pre-commit
+!/.husky/pre-push
 !/.projenrc.ts

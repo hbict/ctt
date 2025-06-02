@@ -1,4 +1,4 @@
-import { Task, typescript } from 'projen';
+import { Task, TextFile, typescript } from 'projen';
 import { ArrowParens, EndOfLine, TrailingComma } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
@@ -15,7 +15,12 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
     // don't want to default the name
     const defaultOptions: Omit<TypeScriptProjectOptions, 'name'> = {
       defaultReleaseBranch: 'main',
-      devDeps: ['ts-deepmerge'],
+      devDeps: [
+        '@commitlint/cli',
+        '@commitlint/config-conventional',
+        'husky',
+        'ts-deepmerge',
+      ],
       disableTsconfigDev: true,
       eslint: false,
       prettier: true,
@@ -48,19 +53,31 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
 
     new EslintLatest(this);
 
-    this.testTask.updateStep(1, {
-      exec: 'jest --passWithNoTests',
+    /* testing & linting setup begin */
+    // don't want the test script to update snapshots and want to run coverage since this is what is used in the build
+    this.testTask.updateStep(0, {
+      exec: 'jest --passWithNoTests --coverage',
       receiveArgs: true,
     });
 
+    // we want our actual test script to not run with coverage
     this.removeScript('test');
 
+    // want to still have a package.json script for `test`
     this.addScripts({
       test: 'jest --passWithNoTests',
     });
 
+    // remove eslint spawn
     this.testTask.removeStep(1);
 
+    this.addTask('test:coverage', {
+      description: 'run tests with coverage',
+      exec: 'jest --passWithNoTests --coverage',
+      receiveArgs: true,
+    });
+
+    // no longer needed as we will use a more generic `lint` task
     this.removeTask('eslint');
 
     const lintTask = this.addTask('lint', {
@@ -77,5 +94,34 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
     this.testTask.prependSpawn(new Task('lint', { receiveArgs: true }), {
       receiveArgs: true,
     });
+    /* testing & linting setup end */
+
+    /* husky setup begin */
+    this.addScripts({
+      postinstall: 'husky',
+    });
+
+    new TextFile(this, 'commitlint.config.js', {
+      lines: [
+        "export default { extends: ['@commitlint/config-conventional'] };",
+        '\n',
+      ],
+    });
+
+    new TextFile(this, '.husky/commit-msg', {
+      lines: ['yarn commitlint --edit $1', '\n'],
+    });
+
+    new TextFile(this, '.husky/pre-commit', {
+      lines: ['yarn lint', 'yarn test:coverage', '\n'],
+    });
+
+    new TextFile(this, '.husky/pre-push', {
+      lines: [
+        'echo "make sure the project is not out of sync with projenrc.ts"',
+        '\n',
+      ],
+    });
+    /* husky setup end */
   }
 }
