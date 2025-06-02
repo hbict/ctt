@@ -32,6 +32,9 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
       projenrcTs: true,
       testdir: '__tests__',
       tsconfig: {
+        compilerOptions: {
+          rootDir: '.',
+        },
         include: ['.projenrc.ts', '__tests__/**/*.ts'],
       },
     };
