@@ -66,11 +66,11 @@ export default tseslint.config(
           allowNever: true,
         },
       ],
-      'functional/no-let': ['error'],
       'functional/immutable-data': [
         'error',
         { ignoreMapsAndSets: true, ignoreClasses: 'fieldsOnly' },
       ],
+      'functional/no-let': 'error',
       'import/export': 'off',
       'import/no-unresolved': [
         'error',

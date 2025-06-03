@@ -1,9 +1,10 @@
-import { JsonFile, Task, TextFile, typescript } from 'projen';
+import { JsonFile, Task, typescript } from 'projen';
 import { ArrowParens, EndOfLine, TrailingComma } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
 
 import { EslintLatest } from './eslint-latest';
+import { ManagedTextFile } from './managed-text-file';
 
 export type CalmTypescriptPackageOptions = Omit<
   TypeScriptProjectOptions,
@@ -102,14 +103,15 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
       postinstall: 'husky',
     });
 
-    new TextFile(this, 'commitlint.config.js', {
+    new ManagedTextFile(this, 'commitlint.config.js', {
       lines: [
         "export default { extends: ['@commitlint/config-conventional'] };",
         '\n',
       ],
     });
 
-    new TextFile(this, '.husky/commit-msg', {
+    new ManagedTextFile(this, '.husky/commit-msg', {
+      commentSymbol: '#',
       lines: ['yarn commitlint --edit $1', '\n'],
     });
 
@@ -120,11 +122,13 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
       },
     });
 
-    new TextFile(this, '.husky/pre-commit', {
+    new ManagedTextFile(this, '.husky/pre-commit', {
+      commentSymbol: '#',
       lines: ['yarn lint-staged', 'yarn test:coverage', '\n'],
     });
 
-    new TextFile(this, '.husky/pre-push', {
+    new ManagedTextFile(this, '.husky/pre-push', {
+      commentSymbol: '#',
       lines: [
         'echo "make sure the project is not out of sync with .projenrc.ts"',
         '\n',
