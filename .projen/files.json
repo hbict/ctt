@@ -10,6 +10,7 @@
     ".husky/commit-msg",
     ".husky/pre-commit",
     ".husky/pre-push",
+    ".lintstagedrc.json",
     ".mergify.yml",
     ".npmignore",
     ".prettierignore",

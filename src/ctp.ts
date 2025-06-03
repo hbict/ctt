@@ -1,4 +1,4 @@
-import { Task, TextFile, typescript } from 'projen';
+import { JsonFile, Task, TextFile, typescript } from 'projen';
 import { ArrowParens, EndOfLine, TrailingComma } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
@@ -19,6 +19,7 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
         '@commitlint/cli',
         '@commitlint/config-conventional',
         'husky',
+        'lint-staged',
         'ts-deepmerge',
       ],
       disableTsconfigDev: true,
@@ -112,13 +113,20 @@ export class CalmTypescriptPackage extends typescript.TypeScriptProject {
       lines: ['yarn commitlint --edit $1', '\n'],
     });
 
+    new JsonFile(this, '.lintstagedrc.json', {
+      obj: {
+        '*.md': 'yarn prettier --write',
+        '*.ts': 'yarn lint',
+      },
+    });
+
     new TextFile(this, '.husky/pre-commit', {
-      lines: ['yarn lint', 'yarn test:coverage', '\n'],
+      lines: ['yarn lint-staged', 'yarn test:coverage', '\n'],
     });
 
     new TextFile(this, '.husky/pre-push', {
       lines: [
-        'echo "make sure the project is not out of sync with projenrc.ts"',
+        'echo "make sure the project is not out of sync with .projenrc.ts"',
         '\n',
       ],
     });

@@ -51,6 +51,7 @@ junit.xml
 !/eslint.config.mjs
 !/commitlint.config.js
 !/.husky/commit-msg
+!/.lintstagedrc.json
 !/.husky/pre-commit
 !/.husky/pre-push
 !/.projenrc.ts

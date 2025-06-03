@@ -6,3 +6,4 @@
 4. package publishing/versioning
 5. commit lint
 6. add just typescript period which is extended by ctp and cta
+7. make sure the project is not out of sync with .projenrc.ts
