@@ -13,11 +13,11 @@ export class ManagedTextFile extends TextFile {
   private readonly commentSymbol: string;
 
   constructor(
-    scope: IConstruct,
+    project: IConstruct,
     filePath: string,
     options: MangedTextFileOptions = {},
   ) {
-    super(scope, filePath, options);
+    super(project, filePath, options);
 
     const defaultOptions = {
       commentSymbol: '//',

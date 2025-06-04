@@ -30,9 +30,6 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
-/test-reports/
-junit.xml
-/coverage/
 !/.github/workflows/build.yml
 /dist/changelog.md
 /dist/version.txt
@@ -49,7 +46,9 @@ junit.xml
 /dist/
 !/.eslintrc.json
 !/eslint.config.mjs
-!/commitlint.config.js
+test-reports
+!/vitest.config.ts
+!/.commitlintrc.json
 !/.husky/commit-msg
 !/.lintstagedrc.json
 !/.husky/pre-commit
