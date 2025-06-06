@@ -4,6 +4,8 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
+    exclude: ['**/dist/**', '**/lib/**', '**/node_modules/**'],
     globals: true,
+    include: ['**/*.{test}.[t]s?(x)'],
   },
 });

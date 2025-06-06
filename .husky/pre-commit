@@ -2,4 +2,4 @@
 
 yarn lint-staged
 yarn test:coverage
-
+yarn compile

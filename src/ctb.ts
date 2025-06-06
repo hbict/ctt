@@ -1,5 +1,10 @@
 import { typescript } from 'projen';
-import { ArrowParens, EndOfLine, TrailingComma } from 'projen/lib/javascript';
+import {
+  ArrowParens,
+  EndOfLine,
+  TrailingComma,
+  TypeScriptModuleResolution,
+} from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
 
@@ -37,6 +42,15 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
       testdir: '__tests__',
       tsconfig: {
         compilerOptions: {
+          baseUrl: '.',
+          // may not be compatible with all node modules, may have to change
+          module: 'NodeNext',
+          // may not be compatible with all node modules, may have to change
+          moduleResolution: TypeScriptModuleResolution.NODE_NEXT,
+          // need to define this here for vitest
+          paths: {
+            '*': ['types/*'],
+          },
           rootDir: '.',
         },
         include: ['.projenrc.ts', '__tests__/**/*.ts'],

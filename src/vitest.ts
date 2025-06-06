@@ -9,18 +9,34 @@ export class Vitest extends Component {
 
     project.addDevDeps('vitest', '@vitest/coverage-v8');
 
-    project.tsconfig?.addInclude('vitest.config.ts');
+    project.tsconfig?.addInclude('vitest.config.mts');
 
-    project.gitignore.addPatterns('test-reports');
+    project.tsconfig?.addInclude('types/**/*.ts');
 
-    new ManagedTextFile(project, 'vitest.config.ts', {
+    project.gitignore.addPatterns('test-reports/');
+
+    // needs to be .mts since we are using module NodeNext
+    new ManagedTextFile(project, 'vitest.config.mts', {
       lines: `import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
+    exclude: ['**/dist/**', '**/lib/**', '**/node_modules/**'],
     globals: true,
+    include: ['**/*.{test}.[t]s?(x)'],
   },
 });
+`.split('\n'),
+    });
+
+    // required because vite depends on those 3 types which are only defined in the dom
+    new ManagedTextFile(project, 'types/vite.d.ts', {
+      lines: `declare interface Worker {}
+declare interface WebSocket {}
+
+declare namespace WebAssembly {
+  interface Module {}
+}
 `.split('\n'),
     });
 

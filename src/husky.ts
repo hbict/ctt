@@ -30,7 +30,7 @@ export class Husky extends Component {
 
     new ManagedTextFile(project, '.husky/commit-msg', {
       commentSymbol: '#',
-      lines: ['yarn commitlint --edit $1', '\n'],
+      lines: ['yarn commitlint --edit $1', ''],
     });
 
     new ManagedJsonFile(project, '.lintstagedrc.json', {
@@ -42,14 +42,14 @@ export class Husky extends Component {
 
     new ManagedTextFile(project, '.husky/pre-commit', {
       commentSymbol: '#',
-      lines: ['yarn lint-staged', 'yarn test:coverage', '\n'],
+      lines: ['yarn lint-staged', 'yarn test:coverage', 'yarn compile', ''],
     });
 
     new ManagedTextFile(project, '.husky/pre-push', {
       commentSymbol: '#',
       lines: [
         'echo "make sure the project is not out of sync with .projenrc.ts"',
-        '\n',
+        '',
       ],
     });
   }

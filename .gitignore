@@ -46,8 +46,9 @@ jspm_packages/
 /dist/
 !/.eslintrc.json
 !/eslint.config.mjs
-test-reports
-!/vitest.config.ts
+test-reports/
+!/vitest.config.mts
+!/types/vite.d.ts
 !/.commitlintrc.json
 !/.husky/commit-msg
 !/.lintstagedrc.json

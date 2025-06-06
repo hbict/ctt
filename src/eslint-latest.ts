@@ -155,6 +155,6 @@ export default tseslint.config(
       '@typescript-eslint/require-await': 'off',
     },
   },
-  globalIgnores(['**/build/*', 'eslint.config.mjs']),
+  globalIgnores(['**/dist/*', '**/lib/*', 'eslint.config.mjs', 'types/*']),
 );
 `;

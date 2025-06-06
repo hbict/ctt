@@ -26,5 +26,6 @@
 /LICENSE linguist-generated
 /package.json linguist-generated
 /tsconfig.json linguist-generated
-/vitest.config.ts linguist-generated
+/types/vite.d.ts linguist-generated
+/vitest.config.mts linguist-generated
 /yarn.lock linguist-generated
