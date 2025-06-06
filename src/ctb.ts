@@ -52,6 +52,7 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
             '*': ['types/*'],
           },
           rootDir: '.',
+          types: ['vitest/globals'],
         },
         include: ['.projenrc.ts', '__tests__/**/*.ts'],
       },

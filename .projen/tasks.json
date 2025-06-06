@@ -208,6 +208,16 @@
         }
       ]
     },
+    "test:watch": {
+      "name": "test:watch",
+      "description": "run tests in watch mode",
+      "steps": [
+        {
+          "exec": "vitest",
+          "receiveArgs": true
+        }
+      ]
+    },
     "unbump": {
       "name": "unbump",
       "description": "Restores version to 0.0.0",

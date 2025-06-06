@@ -6,6 +6,6 @@ export default defineConfig({
   test: {
     exclude: ['**/dist/**', '**/lib/**', '**/node_modules/**'],
     globals: true,
-    include: ['**/*.{test}.[t]s?(x)'],
+    include: ['**/*.test.ts?(x)'],
   },
 });

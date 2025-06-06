@@ -18,6 +18,7 @@
     "pre-compile": "npx projen pre-compile",
     "release": "npx projen release",
     "test:coverage": "npx projen test:coverage",
+    "test:watch": "npx projen test:watch",
     "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",

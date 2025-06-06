@@ -23,7 +23,7 @@ export default defineConfig({
   test: {
     exclude: ['**/dist/**', '**/lib/**', '**/node_modules/**'],
     globals: true,
-    include: ['**/*.{test}.[t]s?(x)'],
+    include: ['**/*.test.ts?(x)'],
   },
 });
 `.split('\n'),
@@ -56,6 +56,7 @@ declare namespace WebAssembly {
     // want to still have a package.json script for `test`
     project.addScripts({
       test: 'vitest run --passWithNoTests',
+      'test:watch': 'npx projen test:watch',
     });
 
     project.addTask('test:coverage', {
@@ -64,6 +65,10 @@ declare namespace WebAssembly {
       receiveArgs: true,
     });
 
-    project.tasks.tryFind('test:watch')?.reset('vitest', { receiveArgs: true });
+    project.addTask('test:watch', {
+      description: 'run tests in watch mode',
+      exec: 'vitest',
+      receiveArgs: true,
+    });
   }
 }

@@ -32,7 +32,10 @@
       "*": [
         "types/*"
       ]
-    }
+    },
+    "types": [
+      "vitest/globals"
+    ]
   },
   "include": [
     "src/**/*.ts",
