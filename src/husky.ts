@@ -47,10 +47,27 @@ export class Husky extends Component {
 
     new ManagedTextFile(project, '.husky/pre-push', {
       commentSymbol: '#',
-      lines: [
-        'echo "make sure the project is not out of sync with .projenrc.ts"',
-        '',
-      ],
+      lines: `#!/bin/sh
+
+CYAN="\\033[1;36m"
+RED="\\033[1;31m"
+RESET="\\033[0m"
+
+# Run projen
+echo "\${CYAN}Verifying there are no uncommitted projen changes\${RESET}"
+yarn projen
+
+# Check for git changes
+if git diff --quiet; then
+  echo "✅ No changes detected. Proceeding with commit."
+  exit 0
+else
+  echo "\${RED}❌ ERROR: Running 'yarn projen' resulted in file changes.\${RESET}"
+  echo "\${RED}❌ Please commit these changes before proceeding.\${RESET}"
+  exit 1
+fi
+
+`.split('\n'),
     });
   }
 }
