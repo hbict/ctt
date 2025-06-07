@@ -2,7 +2,10 @@
   "name": "@calm/ctt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexwendte/ctt.git"
+    "url": "https://github.com/hbict/ctt.git"
+  },
+  "bin": {
+    "ctt": "bin/ctt.js"
   },
   "scripts": {
     "build": "npx projen build",
@@ -55,6 +58,9 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.1",
     "vitest": "^3.2.2"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.5.3"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",

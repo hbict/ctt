@@ -1,8 +1,9 @@
-import { CalmTypescriptPackage } from './src/ctp';
-const project = new CalmTypescriptPackage({
+import { CalmsTypescriptPackage } from './src/ctp';
+const project = new CalmsTypescriptPackage({
   authorEmail: 'mostcolm@gmail.com',
   authorName: 'Alex Wendte',
-  name: '@calm/ctt',
-  repository: 'https://github.com/alexwendte/ctt.git',
+  deps: ['@inquirer/prompts'],
+  packageJsonName: '@calm/ctt',
+  repository: 'https://github.com/hbict/ctt.git',
 });
 project.synth();

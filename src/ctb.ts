@@ -12,15 +12,24 @@ import { EslintLatest } from './eslint-latest';
 import { Husky } from './husky';
 import { Vitest } from './vitest';
 
-export type CalmTypescriptBaseOptions = Omit<
-  TypeScriptProjectOptions,
-  'defaultReleaseBranch'
->;
+export interface CalmsTypescriptBaseOptions
+  extends Omit<TypeScriptProjectOptions, 'defaultReleaseBranch' | 'name'> {
+  authorEmail: string;
 
-export class CalmTypescriptBase extends typescript.TypeScriptProject {
-  constructor(options: CalmTypescriptBaseOptions) {
+  authorName: string;
+
+  /**
+   * The name to use in the package.json file
+   */
+  packageJsonName: string;
+
+  repository: string;
+}
+
+export class CalmsTypescriptBase extends typescript.TypeScriptProject {
+  constructor(options: CalmsTypescriptBaseOptions) {
     // don't want to default the name
-    const defaultOptions: Omit<TypeScriptProjectOptions, 'name'> = {
+    const defaultOptions: TypeScriptProjectOptions = {
       defaultReleaseBranch: 'main',
       depsUpgradeOptions: {
         workflowOptions: {
@@ -38,6 +47,7 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
         },
       },
       jest: false,
+      name: options.packageJsonName,
       prettier: true,
       prettierOptions: {
         settings: {
@@ -55,6 +65,7 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
       tsconfig: {
         compilerOptions: {
           baseUrl: '.',
+          lib: ['ESNext'],
           // may not be compatible with all node modules, may have to change
           module: 'NodeNext',
           // may not be compatible with all node modules, may have to change
