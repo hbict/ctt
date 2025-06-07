@@ -1,4 +1,4 @@
-import { typescript } from 'projen';
+import { github, typescript } from 'projen';
 import {
   ArrowParens,
   EndOfLine,
@@ -25,6 +25,13 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
       devDeps: ['ts-deepmerge'],
       disableTsconfigDev: true,
       eslint: false,
+      githubOptions: {
+        pullRequestLintOptions: {
+          semanticTitleOptions: {
+            types: ['chore', 'docs', 'feat', 'fix', 'test'],
+          },
+        },
+      },
       jest: false,
       prettier: true,
       prettierOptions: {
@@ -70,5 +77,7 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
     new Vitest(this);
 
     new Husky(this);
+
+    new github.AutoQueue(this, { targetBranches: ['main'] });
   }
 }

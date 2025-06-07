@@ -54,4 +54,5 @@ test-reports/
 !/.lintstagedrc.json
 !/.husky/pre-commit
 !/.husky/pre-push
+!/.github/workflows/auto-queue.yml
 !/.projenrc.ts

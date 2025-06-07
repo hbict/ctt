@@ -6,6 +6,7 @@ const requiredFileNames = [
   '.commitlintrc.json',
   '.gitattributes',
   '.github/pull_request_template.md',
+  '.github/workflows/auto-queue.yml',
   '.github/workflows/build.yml',
   '.github/workflows/pull-request-lint.yml',
   '.github/workflows/release.yml',
