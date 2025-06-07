@@ -22,6 +22,11 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
     // don't want to default the name
     const defaultOptions: Omit<TypeScriptProjectOptions, 'name'> = {
       defaultReleaseBranch: 'main',
+      depsUpgradeOptions: {
+        workflowOptions: {
+          labels: ['auto-approve'],
+        },
+      },
       devDeps: ['ts-deepmerge'],
       disableTsconfigDev: true,
       eslint: false,
@@ -78,6 +83,9 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
 
     new Husky(this);
 
-    new github.AutoQueue(this, { targetBranches: ['main'] });
+    new github.AutoQueue(this, {
+      labels: ['auto-approve'],
+      targetBranches: ['main'],
+    });
   }
 }

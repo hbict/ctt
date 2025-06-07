@@ -72,7 +72,7 @@ jobs:
     permissions:
       pull-requests: write
       contents: write
-    if: (github.event.action == 'opened' || (github.event.action == 'edited' && github.event.changes.base))
+    if: (contains(github.event.pull_request.labels.*.name, 'auto-approve')) && (github.event.action == 'opened' || (github.event.action == 'edited' && github.event.changes.base))
     steps:
       - uses: peter-evans/enable-pull-request-automerge@v3
         with:
@@ -358,6 +358,7 @@ jobs:
             *Automatically created by projen via the "upgrade-main" workflow*
           branch: github-actions/upgrade-main
           title: "chore(deps): upgrade dependencies"
+          labels: auto-approve
           body: |-
             Upgrades project dependencies. See details in [workflow run].
 
