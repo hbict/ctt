@@ -64,9 +64,9 @@ export class EslintLatest extends Eslint {
 
 const eslintLatestMjs = `import eslint from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
-import perfectionist from 'eslint-plugin-perfectionist';
 import functional from 'eslint-plugin-functional';
 import importPlugin from 'eslint-plugin-import';
+import perfectionist from 'eslint-plugin-perfectionist';
 import { globalIgnores } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
@@ -116,22 +116,22 @@ export default tseslint.config(
           caughtErrors: 'all',
           caughtErrorsIgnorePattern: '^_',
           destructuredArrayIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
           ignoreRestSiblings: true,
+          varsIgnorePattern: '^_',
         },
       ],
       '@typescript-eslint/restrict-template-expressions': [
         'error',
         {
-          allowNumber: true,
           allowBoolean: true,
-          allowNullish: true,
           allowNever: true,
+          allowNullish: true,
+          allowNumber: true,
         },
       ],
       'functional/immutable-data': [
         'error',
-        { ignoreMapsAndSets: true, ignoreClasses: 'fieldsOnly' },
+        { ignoreClasses: 'fieldsOnly', ignoreMapsAndSets: true },
       ],
       'functional/no-let': 'error',
       'import/export': 'off',

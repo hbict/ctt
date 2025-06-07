@@ -35,14 +35,14 @@ describe('CalmTypescriptBase', () => {
   const project = new CalmTypescriptBase({ name: 'test-project' });
   const snapshot = synthSnapshot(project);
 
-  test.each(requiredFileNames)(
+  it.each(requiredFileNames)(
     'should include the required file: %s',
     fileName => {
       expect(Object.keys(snapshot)).toContain(fileName);
     },
   );
 
-  test('should not generate any files other than the required files', () => {
+  it('should not generate any files other than the required files', () => {
     const generatedFiles = Object.keys(snapshot);
     const unexpectedFiles = generatedFiles.filter(
       file => !requiredFileNames.includes(file),
@@ -50,4 +50,11 @@ describe('CalmTypescriptBase', () => {
 
     expect(unexpectedFiles).toEqual([]);
   });
+
+  it.each(requiredFileNames)(
+    'should have the correct contents for the required file: %s',
+    fileName => {
+      expect(snapshot[fileName]).toMatchSnapshot();
+    },
+  );
 });
