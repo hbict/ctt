@@ -1,4 +1,4 @@
-import { typescript } from 'projen';
+import { github, typescript } from 'projen';
 import {
   ArrowParens,
   EndOfLine,
@@ -22,9 +22,21 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
     // don't want to default the name
     const defaultOptions: Omit<TypeScriptProjectOptions, 'name'> = {
       defaultReleaseBranch: 'main',
+      depsUpgradeOptions: {
+        workflowOptions: {
+          labels: ['auto-approve'],
+        },
+      },
       devDeps: ['ts-deepmerge'],
       disableTsconfigDev: true,
       eslint: false,
+      githubOptions: {
+        pullRequestLintOptions: {
+          semanticTitleOptions: {
+            types: ['chore', 'docs', 'feat', 'fix', 'test'],
+          },
+        },
+      },
       jest: false,
       prettier: true,
       prettierOptions: {
@@ -70,5 +82,10 @@ export class CalmTypescriptBase extends typescript.TypeScriptProject {
     new Vitest(this);
 
     new Husky(this);
+
+    new github.AutoQueue(this, {
+      labels: ['auto-approve'],
+      targetBranches: ['main'],
+    });
   }
 }
