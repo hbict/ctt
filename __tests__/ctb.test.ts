@@ -1,6 +1,6 @@
 import { synthSnapshot } from 'projen/lib/util/synth';
 
-import { CalmTypescriptBase } from '../src';
+import { CalmsTypescriptBase } from '../src';
 
 const requiredFileNames = [
   '.commitlintrc.json',
@@ -32,8 +32,13 @@ const requiredFileNames = [
   'vitest.config.mts',
 ];
 
-describe('CalmTypescriptBase', () => {
-  const project = new CalmTypescriptBase({ name: 'test-project' });
+describe('CalmsTypescriptBase', () => {
+  const project = new CalmsTypescriptBase({
+    authorEmail: 'authorEmail',
+    authorName: 'authorName',
+    packageJsonName: 'test-project',
+    repository: 'https://github.com/hbict/repository.git',
+  });
   const snapshot = synthSnapshot(project);
 
   it.each(requiredFileNames)(

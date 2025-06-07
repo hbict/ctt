@@ -1,3 +1,3 @@
-import { CalmTypescriptBase } from './ctb';
+import { CalmsTypescriptBase } from './ctb';
 
-export class CalmTypescriptApp extends CalmTypescriptBase {}
+export class CalmsTypescriptApp extends CalmsTypescriptBase {}
