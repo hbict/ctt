@@ -50,7 +50,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-perfectionist": "^4.14.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.0",
+    "lint-staged": "^16.1.1",
     "prettier": "^3.5.3",
     "projen": "^0.92.10",
     "ts-deepmerge": "^7.0.3",
