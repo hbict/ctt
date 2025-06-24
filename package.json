@@ -51,12 +51,12 @@
     "eslint-plugin-perfectionist": "^4.15.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
-    "prettier": "^3.5.3",
-    "projen": "^0.93.0",
+    "prettier": "^3.6.0",
+    "projen": "^0.93.2",
     "ts-deepmerge": "^7.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.34.1",
+    "typescript-eslint": "^8.35.0",
     "vitest": "^3.2.4"
   },
   "dependencies": {
