@@ -6,4 +6,5 @@ export * from './husky';
 export * from './managed-json-file';
 export * from './managed-text-file';
 export * from './managed-yaml-file';
+export * from './types';
 export * from './vitest';

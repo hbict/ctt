@@ -90,7 +90,8 @@ const go = async () => {
   // ! this needs to write to the directory indicated by answers.directory
   fs.writeFileSync(
     '.projenrc.ts',
-    `import { ${projectClass} } from './src/ctp';
+    `import { ${projectClass} } from '@hbict/ctt';
+
 const project = new ${projectClass}({
   authorEmail: '${email}',
   authorName: '${name}',
@@ -100,6 +101,7 @@ const project = new ${projectClass}({
 project.synth();
 `,
   );
+
   project.synth();
 };
 
