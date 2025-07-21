@@ -60,7 +60,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@inquirer/prompts": "^7.6.0"
+    "@inquirer/prompts": "^7.7.0"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
