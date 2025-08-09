@@ -37,20 +37,20 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@eslint/js": "^9.32.0",
+    "@eslint/js": "^9.33.0",
     "@stylistic/eslint-plugin": "^4.4.1",
-    "@types/node": "^22.17.0",
+    "@types/node": "^22.17.1",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
     "@vitest/coverage-v8": "^3.2.4",
     "commit-and-tag-version": "^12",
     "constructs": "^10.0.0",
-    "eslint": "^9.32.0",
+    "eslint": "^9.33.0",
     "eslint-plugin-functional": "^9.0.2",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-perfectionist": "^4.15.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.4",
+    "lint-staged": "^16.1.5",
     "prettier": "^3.6.2",
     "projen": "^0.95.2",
     "ts-deepmerge": "^7.0.3",
@@ -60,7 +60,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@inquirer/prompts": "^7.8.0"
+    "@inquirer/prompts": "^7.8.1"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
