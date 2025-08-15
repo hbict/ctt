@@ -1,6 +1,6 @@
 import { synthSnapshot } from 'projen/lib/util/synth';
 
-import { CalmsTypescriptBase } from '../src';
+import { CalmsProjectType, CalmsTypescriptBase } from '../src';
 
 const requiredFileNames = [
   '.commitlintrc.json',
@@ -36,6 +36,7 @@ describe('CalmsTypescriptBase', () => {
   const project = new CalmsTypescriptBase({
     authorEmail: 'authorEmail',
     authorName: 'authorName',
+    calmsProjectType: CalmsProjectType.App,
     packageJsonName: 'test-project',
     repository: 'https://github.com/hbict/repository.git',
   });

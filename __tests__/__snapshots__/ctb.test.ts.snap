@@ -645,10 +645,6 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
       "type": "build",
     },
     {
-      "name": "ts-deepmerge",
-      "type": "build",
-    },
-    {
       "name": "ts-node",
       "type": "build",
     },
@@ -951,13 +947,13 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
       "name": "upgrade",
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@commitlint/cli,@commitlint/config-conventional,@eslint/js,@stylistic/eslint-plugin,@types/node,@vitest/coverage-v8,eslint,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,husky,lint-staged,prettier,projen,ts-deepmerge,ts-node,typescript,typescript-eslint,vitest",
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@commitlint/cli,@commitlint/config-conventional,@eslint/js,@stylistic/eslint-plugin,@types/node,@vitest/coverage-v8,eslint,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,husky,lint-staged,prettier,projen,ts-node,typescript,typescript-eslint,vitest",
         },
         {
           "exec": "yarn install --check-files",
         },
         {
-          "exec": "yarn upgrade @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen ts-deepmerge ts-node typescript typescript-eslint vitest",
+          "exec": "yarn upgrade @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen ts-node typescript typescript-eslint vitest",
         },
         {
           "exec": "npx projen",
@@ -1316,7 +1312,6 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
     "lint-staged": "*",
     "prettier": "*",
     "projen": "*",
-    "ts-deepmerge": "*",
     "ts-node": "*",
     "typescript": "*",
     "typescript-eslint": "*",
@@ -1343,8 +1338,8 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
     "package": "npx projen package",
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
-    "postinstall": "husky",
     "pre-compile": "npx projen pre-compile",
+    "prepare": "husky",
     "projen": "npx projen",
     "release": "npx projen release",
     "test": "vitest run --passWithNoTests",
@@ -1395,6 +1390,7 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
     "stripInternal": true,
     "target": "ES2020",
     "types": [
+      "node",
       "vitest/globals",
     ],
   },

@@ -1,10 +1,19 @@
+import deepmerge from 'deepmerge';
 import { SampleFile } from 'projen';
-import { merge } from 'ts-deepmerge';
 
-import { CalmsTypescriptBase, CalmsTypescriptBaseOptions } from './ctb';
+import {
+  CalmsProjectType,
+  CalmsTypescriptBase,
+  CalmsTypescriptBaseOptions,
+} from './ctb';
+
+export type AddRequiredDefaultCalmsTypescriptPackageOptions<TOptionalOptions> =
+  {
+    calmsProjectType: CalmsProjectType;
+  } & TOptionalOptions;
 
 export interface CalmsTypescriptPackageOptions
-  extends CalmsTypescriptBaseOptions {
+  extends Omit<CalmsTypescriptBaseOptions, 'calmsProjectType'> {
   /**
    * The scripts that will be added as bins to the package.json will be stubbed out for you to populate. Set shouldAddBinScripts to false to not include any bin scripts
    * @default [packageJsonName.after('/')]
@@ -24,17 +33,16 @@ export class CalmsTypescriptPackage extends CalmsTypescriptBase {
     const defaultBinScriptName =
       packageJsonNameParts[1] || packageJsonNameParts[0];
 
-    const defaultOptions: Omit<
-      CalmsTypescriptPackageOptions,
-      'authorEmail' | 'authorName' | 'packageJsonName' | 'repository'
+    const defaultOptions: AddRequiredDefaultCalmsTypescriptPackageOptions<
+      Partial<CalmsTypescriptPackageOptions>
     > = {
       binScriptNames:
         options.shouldAddBinScripts === false ? [] : [defaultBinScriptName],
+      calmsProjectType: CalmsProjectType.Package,
     };
-    const mergedOptions: CalmsTypescriptPackageOptions = merge(
-      defaultOptions,
-      options,
-    );
+    const mergedOptions = deepmerge<
+      AddRequiredDefaultCalmsTypescriptPackageOptions<CalmsTypescriptPackageOptions>
+    >(defaultOptions, options);
 
     super(mergedOptions);
 

@@ -1,11 +1,11 @@
 import { Component } from 'projen';
-import { NodeProject } from 'projen/lib/javascript';
 
+import { CalmsProjectType, CalmsTypescriptBase } from './ctb';
 import { ManagedJsonFile } from './managed-json-file';
 import { ManagedTextFile } from './managed-text-file';
 
 export class Husky extends Component {
-  constructor(project: NodeProject) {
+  constructor(project: CalmsTypescriptBase) {
     super(project);
 
     project.addDevDeps(
@@ -15,9 +15,11 @@ export class Husky extends Component {
       'lint-staged',
     );
 
-    project.addScripts({
-      postinstall: 'husky',
-    });
+    if (project.calmsProjectType !== CalmsProjectType.Package) {
+      project.addScripts({
+        prepare: 'husky',
+      });
+    }
 
     new ManagedJsonFile(project, '.commitlintrc.json', {
       obj: {

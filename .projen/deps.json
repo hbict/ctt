@@ -77,10 +77,6 @@
       "type": "build"
     },
     {
-      "name": "ts-deepmerge",
-      "type": "build"
-    },
-    {
       "name": "ts-node",
       "type": "build"
     },
@@ -98,6 +94,10 @@
     },
     {
       "name": "@inquirer/prompts",
+      "type": "runtime"
+    },
+    {
+      "name": "deepmerge",
       "type": "runtime"
     }
   ],

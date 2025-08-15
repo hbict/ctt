@@ -1,6 +1,6 @@
+import deepmerge from 'deepmerge';
 import { Task } from 'projen';
 import { Eslint, EslintOptions, NodeProject } from 'projen/lib/javascript';
-import { merge } from 'ts-deepmerge';
 
 import { ManagedTextFile } from './managed-text-file';
 
@@ -10,7 +10,7 @@ export class EslintLatest extends Eslint {
       dirs: [],
     };
 
-    const mergedOptions = merge(defaultOptions, options || {});
+    const mergedOptions = deepmerge(defaultOptions, options || {});
 
     super(project, mergedOptions);
 

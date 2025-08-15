@@ -1,22 +1,37 @@
-import { github, typescript } from 'projen';
+import deepmerge from 'deepmerge';
+import { AutoQueue } from 'projen/lib/github';
 import {
   ArrowParens,
   EndOfLine,
   TrailingComma,
   TypeScriptModuleResolution,
 } from 'projen/lib/javascript';
-import { TypeScriptProjectOptions } from 'projen/lib/typescript';
-import { merge } from 'ts-deepmerge';
+import {
+  TypeScriptProject,
+  TypeScriptProjectOptions,
+} from 'projen/lib/typescript';
 
 import { EslintLatest } from './eslint-latest';
 import { Husky } from './husky';
 import { Vitest } from './vitest';
+
+export enum CalmsProjectType {
+  App = 'app',
+  Package = 'package',
+}
+
+export type AddRequiredDefaultCalmsTypescriptBaseOptions<TOptionalOptions> = {
+  defaultReleaseBranch: string;
+  name: string;
+} & TOptionalOptions;
 
 export interface CalmsTypescriptBaseOptions
   extends Omit<TypeScriptProjectOptions, 'defaultReleaseBranch' | 'name'> {
   authorEmail: string;
 
   authorName: string;
+
+  calmsProjectType: CalmsProjectType;
 
   /**
    * The name to use in the package.json file
@@ -26,67 +41,70 @@ export interface CalmsTypescriptBaseOptions
   repository: string;
 }
 
-export class CalmsTypescriptBase extends typescript.TypeScriptProject {
+export class CalmsTypescriptBase extends TypeScriptProject {
+  public readonly calmsProjectType: CalmsProjectType;
+
   constructor(options: CalmsTypescriptBaseOptions) {
     // don't want to default the name
-    const defaultOptions: TypeScriptProjectOptions = {
-      defaultReleaseBranch: 'main',
-      depsUpgradeOptions: {
-        workflowOptions: {
-          labels: ['auto-approve'],
-        },
-      },
-      devDeps: ['ts-deepmerge'],
-      disableTsconfigDev: true,
-      eslint: false,
-      githubOptions: {
-        pullRequestLintOptions: {
-          semanticTitleOptions: {
-            types: ['chore', 'docs', 'feat', 'fix', 'test'],
+    const defaultOptions: AddRequiredDefaultCalmsTypescriptBaseOptions<TypeScriptProjectOptions> =
+      {
+        defaultReleaseBranch: 'main',
+        depsUpgradeOptions: {
+          workflowOptions: {
+            labels: ['auto-approve'],
           },
         },
-      },
-      jest: false,
-      name: options.packageJsonName,
-      prettier: true,
-      prettierOptions: {
-        settings: {
-          arrowParens: ArrowParens.AVOID,
-          endOfLine: EndOfLine.LF,
-          printWidth: 80,
-          semi: true,
-          singleQuote: true,
-          trailingComma: TrailingComma.ALL,
-        },
-      },
-      projenrcTs: true,
-      sampleCode: false,
-      testdir: '__tests__',
-      tsconfig: {
-        compilerOptions: {
-          baseUrl: '.',
-          lib: ['ESNext'],
-          // may not be compatible with all node modules, may have to change
-          module: 'NodeNext',
-          // may not be compatible with all node modules, may have to change
-          moduleResolution: TypeScriptModuleResolution.NODE_NEXT,
-          // need to define this here for vitest
-          paths: {
-            '*': ['types/*'],
+        disableTsconfigDev: true,
+        eslint: false,
+        githubOptions: {
+          pullRequestLintOptions: {
+            semanticTitleOptions: {
+              types: ['chore', 'docs', 'feat', 'fix', 'test'],
+            },
           },
-          rootDir: '.',
-          types: ['vitest/globals'],
         },
-        include: ['.projenrc.ts', '__tests__/**/*.ts'],
-      },
-    };
+        jest: false,
+        name: options.packageJsonName,
+        prettier: true,
+        prettierOptions: {
+          settings: {
+            arrowParens: ArrowParens.AVOID,
+            endOfLine: EndOfLine.LF,
+            printWidth: 80,
+            semi: true,
+            singleQuote: true,
+            trailingComma: TrailingComma.ALL,
+          },
+        },
+        projenrcTs: true,
+        sampleCode: false,
+        testdir: '__tests__',
+        tsconfig: {
+          compilerOptions: {
+            baseUrl: '.',
+            lib: ['ESNext'],
+            // may not be compatible with all node modules, may have to change
+            module: 'NodeNext',
+            // may not be compatible with all node modules, may have to change
+            moduleResolution: TypeScriptModuleResolution.NODE_NEXT,
+            // need to define this here for vitest
+            paths: {
+              '*': ['types/*'],
+            },
+            rootDir: '.',
+            types: ['node', 'vitest/globals'],
+          },
+          include: ['.projenrc.ts', '__tests__/**/*.ts'],
+        },
+      };
 
-    const mergedOptions: TypeScriptProjectOptions = merge(
-      defaultOptions,
-      options,
-    );
+    const mergedOptions = deepmerge<
+      AddRequiredDefaultCalmsTypescriptBaseOptions<CalmsTypescriptBaseOptions>
+    >(defaultOptions, options);
 
     super(mergedOptions);
+
+    this.calmsProjectType = mergedOptions.calmsProjectType;
 
     new EslintLatest(this);
 
@@ -94,7 +112,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
 
     new Husky(this);
 
-    new github.AutoQueue(this, {
+    new AutoQueue(this, {
       labels: ['auto-approve'],
       targetBranches: ['main'],
     });

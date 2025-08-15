@@ -26,8 +26,7 @@
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
     "projen": "npx projen",
-    "test": "vitest run --passWithNoTests",
-    "postinstall": "husky"
+    "test": "vitest run --passWithNoTests"
   },
   "author": {
     "name": "Alex Wendte",
@@ -53,14 +52,14 @@
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "projen": "^0.94.2",
-    "ts-deepmerge": "^7.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.36.0",
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@inquirer/prompts": "^7.6.0"
+    "@inquirer/prompts": "^7.6.0",
+    "deepmerge": "^4.3.1"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
