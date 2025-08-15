@@ -45,6 +45,8 @@ export class CalmsTypescriptBase extends TypeScriptProject {
   public readonly calmsProjectType: CalmsProjectType;
 
   constructor(options: CalmsTypescriptBaseOptions) {
+    const defaultOutDir = 'build';
+
     // don't want to default the name
     const defaultOptions: AddRequiredDefaultCalmsTypescriptBaseOptions<TypeScriptProjectOptions> =
       {
@@ -62,6 +64,9 @@ export class CalmsTypescriptBase extends TypeScriptProject {
               types: ['chore', 'docs', 'feat', 'fix', 'test'],
             },
           },
+        },
+        gitIgnoreOptions: {
+          ignorePatterns: [`${defaultOutDir}/`],
         },
         jest: false,
         name: options.packageJsonName,
@@ -87,6 +92,7 @@ export class CalmsTypescriptBase extends TypeScriptProject {
             module: 'NodeNext',
             // may not be compatible with all node modules, may have to change
             moduleResolution: TypeScriptModuleResolution.NODE_NEXT,
+            outDir: defaultOutDir,
             // need to define this here for vitest
             paths: {
               '*': ['types/*'],

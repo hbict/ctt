@@ -46,6 +46,12 @@ export class CalmsTypescriptPackage extends CalmsTypescriptBase {
 
     super(mergedOptions);
 
+    this.addFields({
+      files: [`${this.tsconfig?.compilerOptions?.outDir}/src`],
+      main: `${this.tsconfig?.compilerOptions?.outDir}/src/index.js`,
+      types: `${this.tsconfig?.compilerOptions?.outDir}/src/index.d.ts`,
+    });
+
     mergedOptions.binScriptNames?.forEach(binScriptName => {
       new SampleFile(this, `bin/${binScriptName}.js`, {
         contents: `#!/usr/bin/env node
