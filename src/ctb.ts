@@ -34,6 +34,15 @@ export interface CalmsTypescriptBaseOptions
   calmsProjectType: CalmsProjectType;
 
   /**
+   * @example
+   * - `^1.0.0`
+   * - `1.1.0-rc.0`
+   *
+   * @default `*` (will resolve to latest version)
+   */
+  cttVersionSpecifier?: string;
+
+  /**
    * The name to use in the package.json file
    */
   packageJsonName: string;
@@ -56,6 +65,7 @@ export class CalmsTypescriptBase extends TypeScriptProject {
             labels: ['auto-approve'],
           },
         },
+        devDeps: [options.cttVersionSpecifier ?? '@calm/ctt'],
         disableTsconfigDev: true,
         eslint: false,
         githubOptions: {
@@ -82,6 +92,11 @@ export class CalmsTypescriptBase extends TypeScriptProject {
           },
         },
         projenrcTs: true,
+        pullRequestTemplateContents: [
+          `# ${options.packageJsonName} README`,
+          // added to allow blank line at end of file
+          '',
+        ],
         sampleCode: false,
         testdir: '__tests__',
         tsconfig: {

@@ -6,4 +6,7 @@ const project = new CalmsTypescriptPackage({
   packageJsonName: '@calm/ctt',
   repository: 'https://github.com/hbict/ctt.git',
 });
+
+project.deps.removeDependency('@calm/ctt');
+
 project.synth();
