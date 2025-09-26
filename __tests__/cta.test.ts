@@ -1,7 +1,7 @@
 import { synthSnapshot } from 'projen/lib/util/synth';
 import { describe, expect, it } from 'vitest';
 
-import { CalmsTypescriptApp } from '../src';
+import { CalmsTypescriptApp } from '../packages/ctt/src';
 
 const requiredFileNames = [
   '.commitlintrc.json',

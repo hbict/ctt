@@ -56,6 +56,5 @@ test-reports/
 !/.github/workflows/update-snapshots.yml
 !/.github/workflows/auto-queue.yml
 !/.npmrc
-examples/
 !/pnpm-workspace.yaml
 !/.projenrc.ts

@@ -253,13 +253,13 @@
       },
       "steps": [
         {
-          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@commitlint/cli,@commitlint/config-conventional,@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,husky,lint-staged,prettier,projen,ts-deepmerge,tsx,typescript,typescript-eslint,vitest,@inquirer/prompts"
+          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@commitlint/cli,@commitlint/config-conventional,@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,husky,lint-staged,prettier,projen,ts-deepmerge,tsx,typescript,typescript-eslint,vitest"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen ts-deepmerge tsx typescript typescript-eslint vitest @inquirer/prompts"
+          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen ts-deepmerge tsx typescript typescript-eslint vitest"
         },
         {
           "exec": "npx projen"

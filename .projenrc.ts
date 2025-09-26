@@ -1,27 +1,38 @@
-import { TextFile } from 'projen';
+import { CalmsTypescriptBase } from './packages/ctt/src/ctb';
+import { CalmsTypescriptPackage } from './packages/ctt/src/ctp';
+import { ManagedYamlFile } from './packages/ctt/src/managed-yaml-file';
+import { TypescriptExecutor } from './packages/ctt/src/types';
 
-import { CalmsTypescriptPackage } from './src/ctp';
-import { TypescriptExecutor } from './src/types';
-
-const project = new CalmsTypescriptPackage({
+// Root project is now a CalmsTypescriptBase instead of CalmsTypescriptPackage
+const project = new CalmsTypescriptBase({
   authorEmail: 'mostcolm@gmail.com',
   authorName: 'Alex Wendte',
-  deps: ['@inquirer/prompts'],
-  entrypoint: 'src/index.ts', // Change main entry to src/index.ts
-  packageJsonName: '@calm/ctt',
+  packageJsonName: 'ctt-workspace',
   typescriptExecutor: TypescriptExecutor.Tsx,
   versionControlRepoName: 'ctt',
 });
 
-// Remove types field from package.json
-project.addFields({ types: undefined });
-
-// Add examples to .gitignore so they don't get linted as part of main project
-project.addGitIgnore('examples/');
-
-// Create pnpm-workspace.yaml for workspace configuration
-new TextFile(project, 'pnpm-workspace.yaml', {
-  lines: ['packages:', '  - "examples/*"'],
+// Create pnpm-workspace.yaml for workspace configuration using ManagedYamlFile
+new ManagedYamlFile(project, 'pnpm-workspace.yaml', {
+  obj: {
+    packages: ['packages/*', 'examples/*'],
+  },
 });
+
+// Create packages/ctt directory with @calm/ctt package
+const cttPackage = new CalmsTypescriptPackage({
+  authorEmail: 'mostcolm@gmail.com',
+  authorName: 'Alex Wendte',
+  deps: ['@inquirer/prompts'],
+  entrypoint: 'src/index.ts',
+  outdir: 'packages/ctt',
+  packageJsonName: '@calm/ctt',
+  parent: project,
+  typescriptExecutor: TypescriptExecutor.Tsx,
+  versionControlRepoName: 'ctt',
+});
+
+// Remove types field from @calm/ctt package.json
+cttPackage.addFields({ types: undefined });
 
 project.synth();
