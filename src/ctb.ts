@@ -149,6 +149,11 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       });
     }
 
+    if (this.typescriptExecutor === TypescriptExecutor.Tsx) {
+      this.addDevDeps('tsx');
+      this.deps.removeDependency('ts-node');
+    }
+
     this.calmsEslint = new CalmsEslint(this);
 
     this.vitest = new Vitest(this);
