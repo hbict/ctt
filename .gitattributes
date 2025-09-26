@@ -7,8 +7,10 @@
 /.github/pull_request_template.md linguist-generated
 /.github/workflows/auto-queue.yml linguist-generated
 /.github/workflows/build.yml linguist-generated
+/.github/workflows/copilot-setup-steps.yml linguist-generated
 /.github/workflows/pull-request-lint.yml linguist-generated
 /.github/workflows/release.yml linguist-generated
+/.github/workflows/update-snapshots.yml linguist-generated
 /.github/workflows/upgrade-main.yml linguist-generated
 /.gitignore linguist-generated
 /.husky/commit-msg linguist-generated
@@ -16,7 +18,7 @@
 /.husky/pre-push linguist-generated
 /.lintstagedrc.json linguist-generated
 /.mergify.yml linguist-generated
-/.npmignore linguist-generated
+/.npmrc linguist-generated
 /.prettierignore linguist-generated
 /.prettierrc.json linguist-generated
 /.projen/** linguist-generated
@@ -26,7 +28,6 @@
 /eslint.config.mjs linguist-generated
 /LICENSE linguist-generated
 /package.json linguist-generated
+/pnpm-lock.yaml linguist-generated
 /tsconfig.json linguist-generated
-/types/vite.d.ts linguist-generated
 /vitest.config.mts linguist-generated
-/yarn.lock linguist-generated

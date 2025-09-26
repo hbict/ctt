@@ -8,6 +8,11 @@ export class Husky extends Component {
   constructor(project: NodeProject) {
     super(project);
 
+    if (project.parent) {
+      project.logger.debug('skipping husky steps for subproject');
+      return;
+    }
+
     project.addDevDeps(
       '@commitlint/cli',
       '@commitlint/config-conventional',
@@ -16,7 +21,7 @@ export class Husky extends Component {
     );
 
     project.addScripts({
-      postinstall: 'husky',
+      prepare: 'husky',
     });
 
     new ManagedJsonFile(project, '.commitlintrc.json', {
