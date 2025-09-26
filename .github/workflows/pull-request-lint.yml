@@ -28,5 +28,6 @@ jobs:
             docs
             feat
             fix
+            refactor
             test
           requireScope: false

@@ -18,18 +18,24 @@ export interface CalmsTypescriptPackageOptions
   shouldAddBinScripts?: boolean;
 }
 
+export type CalmsTypescriptPackageOptionsWithDefaults = {
+  binScriptNames: string[];
+  entrypoint: string;
+} & CalmsTypescriptPackageOptions;
+
 export class CalmsTypescriptPackage extends CalmsTypescriptBase {
   constructor(options: CalmsTypescriptPackageOptions) {
     const packageJsonNameParts = options.packageJsonName.split('/');
     const defaultBinScriptName =
       packageJsonNameParts[1] || packageJsonNameParts[0];
 
-    const defaultOptions: Omit<
-      CalmsTypescriptPackageOptions,
-      'authorEmail' | 'authorName' | 'packageJsonName' | 'repository'
-    > = {
+    const defaultOptions: CalmsTypescriptPackageOptionsWithDefaults = {
+      authorEmail: options.authorEmail,
+      authorName: options.authorName,
       binScriptNames:
         options.shouldAddBinScripts === false ? [] : [defaultBinScriptName],
+      entrypoint: 'build/src/index.js',
+      packageJsonName: options.packageJsonName,
     };
     const mergedOptions: CalmsTypescriptPackageOptions = merge(
       defaultOptions,
@@ -39,9 +45,10 @@ export class CalmsTypescriptPackage extends CalmsTypescriptBase {
     super(mergedOptions);
 
     mergedOptions.binScriptNames?.forEach(binScriptName => {
-      new SampleFile(this, `bin/${binScriptName}.js`, {
+      new SampleFile(this, `bin/${binScriptName}.ts`, {
         contents: `#!/usr/bin/env node
-require('../lib/src/cli/${binScriptName}.js');`,
+
+import '../lib/src/cli/${binScriptName}.ts';`,
       });
       new SampleFile(this, `src/cli/${binScriptName}.ts`, {
         contents: `console.log('i am ${binScriptName}');`,
@@ -52,11 +59,12 @@ require('../lib/src/cli/${binScriptName}.js');`,
       const binScripts = mergedOptions.binScriptNames.reduce(
         (acc, binScriptName) => ({
           ...acc,
-          [binScriptName]: `bin/${binScriptName}.js`,
+          [binScriptName]: `build/bin/${binScriptName}.js`,
         }),
         {},
       );
       this.package.addField('bin', binScripts);
+      this.tsconfig?.addInclude('bin/**/*.ts');
     }
   }
 }
