@@ -4,14 +4,18 @@ import { TypeScriptProject } from 'projen/lib/typescript';
 import { ManagedTextFile } from './managed-text-file';
 
 export class Vitest extends Component {
+  public readonly testCoverageTask: Task;
+
+  public readonly testWatchTask: Task;
+
+  public readonly updateSnapshotsTask: Task;
+
   constructor(project: TypeScriptProject) {
     super(project);
 
     project.addDevDeps('vitest', '@vitest/coverage-v8');
 
     project.tsconfig?.addInclude('vitest.config.mts');
-
-    project.tsconfig?.addInclude('types/**/*.ts');
 
     project.gitignore.addPatterns('test-reports/');
 
@@ -26,17 +30,6 @@ export default defineConfig({
     include: ['**/*.test.ts?(x)'],
   },
 });
-`.split('\n'),
-    });
-
-    // required because vite depends on those 3 types which are only defined in the dom
-    new ManagedTextFile(project, 'types/vite.d.ts', {
-      lines: `declare interface Worker {}
-declare interface WebSocket {}
-
-declare namespace WebAssembly {
-  interface Module {}
-}
 `.split('\n'),
     });
 
@@ -59,15 +52,21 @@ declare namespace WebAssembly {
       'test:watch': 'npx projen test:watch',
     });
 
-    project.addTask('test:coverage', {
+    this.testCoverageTask = project.addTask('test:coverage', {
       description: 'run tests with coverage',
       exec: 'vitest run --passWithNoTests --coverage',
       receiveArgs: true,
     });
 
-    project.addTask('test:watch', {
+    this.testWatchTask = project.addTask('test:watch', {
       description: 'run tests in watch mode',
       exec: 'vitest',
+      receiveArgs: true,
+    });
+
+    this.updateSnapshotsTask = project.addTask('test:update-snapshots', {
+      description: 'run tests and update snapshots',
+      exec: 'vitest run ---u',
       receiveArgs: true,
     });
   }

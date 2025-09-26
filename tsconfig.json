@@ -2,17 +2,16 @@
 {
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "lib",
+    "outDir": "build",
     "alwaysStrict": true,
     "declaration": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "inlineSourceMap": true,
     "inlineSources": true,
     "lib": [
-      "ESNext"
+      "esnext"
     ],
-    "module": "NodeNext",
+    "module": "node16",
     "noEmitOnError": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -25,25 +24,24 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "stripInternal": true,
-    "target": "ES2020",
+    "target": "es2024",
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "moduleResolution": "nodenext",
-    "paths": {
-      "*": [
-        "types/*"
-      ]
-    },
-    "types": [
-      "vitest/globals"
-    ]
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node16",
+    "skipLibCheck": true,
+    "sourceMap": true
   },
   "include": [
     "src/**/*.ts",
     ".projenrc.ts",
     "__tests__/**/*.ts",
     "vitest.config.mts",
-    "types/**/*.ts",
+    "bin/**/*.ts",
     "projenrc/**/*.ts"
   ],
-  "exclude": []
+  "exclude": [
+    "**/node_modules/*",
+    "**/build/*"
+  ]
 }

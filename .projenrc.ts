@@ -1,9 +1,13 @@
 import { CalmsTypescriptPackage } from './src/ctp';
+import { TypescriptExecutor } from './src/types';
+
 const project = new CalmsTypescriptPackage({
   authorEmail: 'mostcolm@gmail.com',
   authorName: 'Alex Wendte',
   deps: ['@inquirer/prompts'],
   packageJsonName: '@calm/ctt',
-  repository: 'https://github.com/hbict/ctt.git',
+  typescriptExecutor: TypescriptExecutor.Tsx,
+  versionControlRepoName: 'ctt',
 });
+
 project.synth();

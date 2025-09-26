@@ -1,4 +1,5 @@
 import { synthSnapshot } from 'projen/lib/util/synth';
+import { describe, expect, it } from 'vitest';
 
 import { CalmsTypescriptBase } from '../src';
 
@@ -8,8 +9,10 @@ const requiredFileNames = [
   '.github/pull_request_template.md',
   '.github/workflows/auto-queue.yml',
   '.github/workflows/build.yml',
+  '.github/workflows/copilot-setup-steps.yml',
   '.github/workflows/pull-request-lint.yml',
   '.github/workflows/release.yml',
+  '.github/workflows/update-snapshots.yml',
   '.github/workflows/upgrade-main.yml',
   '.gitignore',
   '.husky/commit-msg',
@@ -17,7 +20,7 @@ const requiredFileNames = [
   '.husky/pre-push',
   '.lintstagedrc.json',
   '.mergify.yml',
-  '.npmignore',
+  '.npmrc',
   '.prettierignore',
   '.prettierrc.json',
   '.projen/deps.json',
@@ -28,7 +31,6 @@ const requiredFileNames = [
   'package.json',
   'README.md',
   'tsconfig.json',
-  'types/vite.d.ts',
   'vitest.config.mts',
 ];
 
@@ -37,7 +39,6 @@ describe('CalmsTypescriptBase', () => {
     authorEmail: 'authorEmail',
     authorName: 'authorName',
     packageJsonName: 'test-project',
-    repository: 'https://github.com/hbict/repository.git',
   });
   const snapshot = synthSnapshot(project);
 

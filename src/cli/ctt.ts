@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { input, select } from '@inquirer/prompts';
 
 import { TemplateUserFriendly } from '../types';
