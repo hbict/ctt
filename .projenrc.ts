@@ -1,3 +1,4 @@
+import { CalmsTypescriptApp } from './packages/ctt/src/cta';
 import { CalmsTypescriptBase } from './packages/ctt/src/ctb';
 import { CalmsTypescriptPackage } from './packages/ctt/src/ctp';
 import { ManagedYamlFile } from './packages/ctt/src/managed-yaml-file';
@@ -34,5 +35,29 @@ const cttPackage = new CalmsTypescriptPackage({
 
 // Remove types field from @calm/ctt package.json
 cttPackage.addFields({ types: undefined });
+
+// Example CalmsTypescriptApp
+new CalmsTypescriptApp({
+  authorEmail: 'mostcolm@gmail.com',
+  authorName: 'Alex Wendte',
+  devDeps: ['@calm/ctt@workspace:*'],
+  github: false,
+  outdir: 'examples/cta',
+  packageJsonName: 'example-cta',
+  parent: project,
+  typescriptExecutor: TypescriptExecutor.Tsx,
+});
+
+// Example CalmsTypescriptPackage
+new CalmsTypescriptPackage({
+  authorEmail: 'mostcolm@gmail.com',
+  authorName: 'Alex Wendte',
+  devDeps: ['@calm/ctt@workspace:*'],
+  github: false,
+  outdir: 'examples/ctp',
+  packageJsonName: 'example-ctp',
+  parent: project,
+  typescriptExecutor: TypescriptExecutor.Tsx,
+});
 
 project.synth();
