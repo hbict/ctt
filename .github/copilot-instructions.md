@@ -31,16 +31,18 @@ pnpm install
 # Note: This will trigger husky setup automatically via the 'prepare' script
 ```
 
+**Alternative Setup**: The repository includes a `copilot-setup-steps.yml` GitHub Actions workflow that automatically handles the complete setup including Node.js version, pnpm installation, and dependency installation from the lock file.
+
 ### Build Process
 
 ```bash
 # Full build (recommended for development)
-npm run build
+pnpm run build
 # OR using projen directly
 npx projen build
 
 # Compile only (faster, no tests/linting)
-npm run compile
+pnpm run compile
 # OR
 npx projen compile
 ```
@@ -56,20 +58,20 @@ npx projen compile
 
 ```bash
 # Run tests (basic, no coverage)
-npm test
+pnpm test
 
 # Run tests with coverage (used in CI)
-npm run test:coverage
+pnpm run test:coverage
 # OR
 npx projen test:coverage
 
 # Watch mode for development
-npm run test:watch
+pnpm run test:watch
 # OR
 npx projen test:watch
 
 # Update snapshots
-npm run test:update-snapshots
+pnpm run test:update-snapshots
 # OR
 npx projen test:update-snapshots
 ```
@@ -78,7 +80,7 @@ npx projen test:update-snapshots
 
 ```bash
 # Run linting and formatting (auto-fixes)
-npm run lint
+pnpm run lint
 # OR
 npx projen lint
 ```
@@ -94,8 +96,8 @@ npx projen lint
 ```bash
 # After building, run the CLI tool
 node build/bin/ctt.js [directory]
-# OR using npm bin
-npx @calm/ctt [directory]
+# OR using pnpm
+pnpm exec @calm/ctt [directory]
 ```
 
 ### Important Timing Notes
@@ -108,7 +110,7 @@ npx @calm/ctt [directory]
 ### Common Issues and Workarounds
 
 1. **Always run `pnpm install` before building** - The project uses pnpm workspaces and specific versions
-2. **Snapshot test failures**: Run `npm run test:update-snapshots` to fix mismatched snapshots
+2. **Snapshot test failures**: Run `pnpm run test:update-snapshots` to fix mismatched snapshots
 3. **Projen sync issues**: If you see "self mutation" errors, run `npx projen` to regenerate files
 4. **Git hooks failing**: Ensure all changes are committed before pushing (pre-push hook runs `yarn projen`)
 
@@ -167,7 +169,7 @@ npx @calm/ctt [directory]
 **GitHub Actions** (`.github/workflows/`):
 
 - `build.yml`: Main CI pipeline (build, test, lint) with self-mutation detection
-- `copilot-setup-steps.yml`: Copilot-specific setup workflow
+- `copilot-setup-steps.yml`: Automated setup workflow (Node.js, pnpm, dependencies)
 - `pull-request-lint.yml`: PR title and content validation
 - `release.yml`: Automated releases
 - `update-snapshots.yml`: Automated snapshot updates
