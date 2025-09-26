@@ -215,6 +215,45 @@ pnpm exec @calm/ctt [directory]
 - `.gitignore`: Excludes build/, node_modules/, coverage/
 - `.npmrc`: pnpm configuration with resolution-mode=highest
 
+## Commit Message Requirements
+
+**IMPORTANT**: All commits and pull request titles must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification as enforced by commitlint.
+
+### Required Format
+
+```
+<type>: <description>
+
+[optional body]
+```
+
+### Allowed Types
+
+- `chore`: Maintenance tasks, dependency updates, build changes
+- `docs`: Documentation changes
+- `feat`: New features
+- `fix`: Bug fixes
+- `refactor`: Code restructuring without functional changes
+- `test`: Adding or modifying tests
+
+### Rules
+
+- **Type is required**: Must be one of the allowed types above
+- **Description is required**: Brief summary in present tense
+- **Blank line required**: Must have blank line between title and body (if body exists)
+- **No scope required**: Scopes are optional in this project
+
+### Examples
+
+```
+feat: add new CLI template option
+fix: resolve build failure on Windows
+docs: update installation instructions
+chore: bump dependencies to latest versions
+```
+
+**Validation**: Commit messages are validated by a pre-commit hook using commitlint, and PR titles are validated by GitHub Actions.
+
 ## Trust These Instructions
 
 These instructions have been thoroughly validated by running all commands and exploring the complete codebase. Only perform additional searches if:
