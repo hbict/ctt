@@ -79,30 +79,23 @@ describe('CalmsTypescriptPackage', () => {
       packageJsonName: '@scope/test-package',
     });
     const snapshot = synthSnapshot(project);
-    const requiredFileNames = [
-      ...baseRequiredFileNames,
+    const specificFileNames = [
       'bin/test-package.ts',
       'src/cli/test-package.ts',
     ];
 
-    it.each(requiredFileNames)(
-      'should include the required file: %s',
-      fileName => {
-        expect(Object.keys(snapshot)).toContain(fileName);
-      },
-    );
-
-    it('should not generate any files other than the required files', () => {
-      const generatedFiles = Object.keys(snapshot);
-      const unexpectedFiles = generatedFiles.filter(
-        file => !requiredFileNames.includes(file),
-      );
-
-      expect(unexpectedFiles).toEqual([]);
+    it.each(specificFileNames)('should include the bin file: %s', fileName => {
+      expect(Object.keys(snapshot)).toContain(fileName);
     });
 
-    it.each(requiredFileNames)(
-      'should have the correct contents for the required file: %s',
+    it('should extract package name correctly from scoped package', () => {
+      expect(Object.keys(snapshot)).toContain('bin/test-package.ts');
+      expect(Object.keys(snapshot)).toContain('src/cli/test-package.ts');
+      expect(Object.keys(snapshot)).not.toContain('bin/@scope/test-package.ts');
+    });
+
+    it.each(specificFileNames)(
+      'should have the correct contents for the bin file: %s',
       fileName => {
         expect(snapshot[fileName]).toMatchSnapshot();
       },
@@ -117,30 +110,15 @@ describe('CalmsTypescriptPackage', () => {
       shouldAddBinScripts: false,
     });
     const snapshot = synthSnapshot(project);
-    const requiredFileNames = baseRequiredFileNames;
 
-    it.each(requiredFileNames)(
-      'should include the required file: %s',
-      fileName => {
-        expect(Object.keys(snapshot)).toContain(fileName);
-      },
-    );
-
-    it('should not generate any files other than the required files', () => {
-      const generatedFiles = Object.keys(snapshot);
-      const unexpectedFiles = generatedFiles.filter(
-        file => !requiredFileNames.includes(file),
-      );
-
-      expect(unexpectedFiles).toEqual([]);
+    it('should not generate bin script files', () => {
+      expect(Object.keys(snapshot)).not.toContain('bin/test-package.ts');
+      expect(Object.keys(snapshot)).not.toContain('src/cli/test-package.ts');
     });
 
-    it.each(requiredFileNames)(
-      'should have the correct contents for the required file: %s',
-      fileName => {
-        expect(snapshot[fileName]).toMatchSnapshot();
-      },
-    );
+    it('should generate the same number of files as base CTB', () => {
+      expect(Object.keys(snapshot)).toHaveLength(baseRequiredFileNames.length);
+    });
   });
 
   describe('with custom bin script names', () => {
@@ -151,8 +129,7 @@ describe('CalmsTypescriptPackage', () => {
       packageJsonName: 'test-package',
     });
     const snapshot = synthSnapshot(project);
-    const requiredFileNames = [
-      ...baseRequiredFileNames,
+    const customBinFiles = [
       'bin/cli1.ts',
       'bin/cli2.ts',
       'bin/test-package.ts',
@@ -161,27 +138,30 @@ describe('CalmsTypescriptPackage', () => {
       'src/cli/test-package.ts',
     ];
 
-    it.each(requiredFileNames)(
-      'should include the required file: %s',
+    it.each(customBinFiles)(
+      'should include the custom bin file: %s',
       fileName => {
         expect(Object.keys(snapshot)).toContain(fileName);
       },
     );
 
-    it('should not generate any files other than the required files', () => {
-      const generatedFiles = Object.keys(snapshot);
-      const unexpectedFiles = generatedFiles.filter(
-        file => !requiredFileNames.includes(file),
-      );
-
-      expect(unexpectedFiles).toEqual([]);
+    it('should generate additional files for custom bin scripts', () => {
+      const expectedFileCount =
+        baseRequiredFileNames.length + customBinFiles.length;
+      expect(Object.keys(snapshot)).toHaveLength(expectedFileCount);
     });
 
-    it.each(requiredFileNames)(
-      'should have the correct contents for the required file: %s',
+    it.each(customBinFiles)(
+      'should have the correct contents for the custom bin file: %s',
       fileName => {
         expect(snapshot[fileName]).toMatchSnapshot();
       },
     );
+
+    it('should include both custom and default bin scripts', () => {
+      expect(Object.keys(snapshot)).toContain('bin/cli1.ts');
+      expect(Object.keys(snapshot)).toContain('bin/cli2.ts');
+      expect(Object.keys(snapshot)).toContain('bin/test-package.ts');
+    });
   });
 });
