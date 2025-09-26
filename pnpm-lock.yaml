@@ -85,6 +85,143 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1)
 
+  examples/CTA:
+    dependencies:
+      '@calm/ctt':
+        specifier: workspace:*
+        version: link:../..
+    devDependencies:
+      '@eslint/js':
+        specifier: '*'
+        version: 9.36.0
+      '@stylistic/eslint-plugin':
+        specifier: '*'
+        version: 4.4.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@types/node':
+        specifier: ^22
+        version: 22.18.6
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8
+        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/parser':
+        specifier: ^8
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@vitest/coverage-v8':
+        specifier: '*'
+        version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
+      eslint:
+        specifier: '*'
+        version: 9.36.0(jiti@2.6.0)
+      eslint-import-resolver-typescript:
+        specifier: '*'
+        version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-functional:
+        specifier: '*'
+        version: 9.0.2(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      eslint-plugin-import:
+        specifier: '*'
+        version: 2.32.0(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint-import-resolver-typescript@4.4.4)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-perfectionist:
+        specifier: '*'
+        version: 4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      prettier:
+        specifier: '*'
+        version: 3.6.2
+      ts-deepmerge:
+        specifier: '*'
+        version: 7.0.3
+      tsx:
+        specifier: '*'
+        version: 4.20.6
+      typescript:
+        specifier: '*'
+        version: 5.9.2
+      typescript-eslint:
+        specifier: '*'
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      vitest:
+        specifier: '*'
+        version: 3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1)
+
+  examples/CTP:
+    dependencies:
+      '@calm/ctt':
+        specifier: workspace:*
+        version: link:../..
+    devDependencies:
+      '@commitlint/cli':
+        specifier: '*'
+        version: 19.8.1(@types/node@22.18.6)(typescript@5.9.2)
+      '@commitlint/config-conventional':
+        specifier: '*'
+        version: 19.8.1
+      '@eslint/js':
+        specifier: '*'
+        version: 9.36.0
+      '@stylistic/eslint-plugin':
+        specifier: '*'
+        version: 4.4.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@types/node':
+        specifier: ^22
+        version: 22.18.6
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8
+        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/parser':
+        specifier: ^8
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@vitest/coverage-v8':
+        specifier: '*'
+        version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
+      commit-and-tag-version:
+        specifier: ^12
+        version: 12.6.0
+      constructs:
+        specifier: ^10.0.0
+        version: 10.4.2
+      eslint:
+        specifier: '*'
+        version: 9.36.0(jiti@2.6.0)
+      eslint-import-resolver-typescript:
+        specifier: '*'
+        version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-functional:
+        specifier: '*'
+        version: 9.0.2(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      eslint-plugin-import:
+        specifier: '*'
+        version: 2.32.0(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint-import-resolver-typescript@4.4.4)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-perfectionist:
+        specifier: '*'
+        version: 4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      husky:
+        specifier: '*'
+        version: 9.1.7
+      lint-staged:
+        specifier: '*'
+        version: 16.2.1
+      prettier:
+        specifier: '*'
+        version: 3.6.2
+      projen:
+        specifier: '*'
+        version: 0.96.3(constructs@10.4.2)
+      ts-deepmerge:
+        specifier: '*'
+        version: 7.0.3
+      tsx:
+        specifier: '*'
+        version: 4.20.6
+      typescript:
+        specifier: '*'
+        version: 5.9.2
+      typescript-eslint:
+        specifier: '*'
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      vitest:
+        specifier: '*'
+        version: 3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1)
+
 packages:
 
   '@ampproject/remapping@2.3.0':

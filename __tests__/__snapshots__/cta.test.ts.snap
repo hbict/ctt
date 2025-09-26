@@ -537,8 +537,8 @@ test-reports/
 !/.husky/pre-push
 !/.github/workflows/copilot-setup-steps.yml
 !/.github/workflows/update-snapshots.yml
-!/.npmrc
 !/.github/workflows/auto-queue.yml
+!/.npmrc
 !/.projenrc.ts
 "
 `;
@@ -2411,7 +2411,7 @@ export default defineConfig(
       '@typescript-eslint/require-await': 'off',
     },
   },
-  globalIgnores(['**/build/*', '**/coverage/*', '**/node_modules/*', 'eslint.config.mjs']),
+  globalIgnores(['**/build/*', '**/coverage/*', '**/node_modules/*', 'examples/**/*', 'eslint.config.mjs']),
 );
 "
 `;

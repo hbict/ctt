@@ -43,7 +43,7 @@ export default defineConfig(
       '@typescript-eslint/require-await': 'off',
     },
   },
-  globalIgnores(['**/build/*', '**/coverage/*', '**/node_modules/*', 'eslint.config.mjs']),
+  globalIgnores(['**/build/*', '**/coverage/*', '**/node_modules/*', 'examples/**/*', 'eslint.config.mjs']),
 );
 `;
 
