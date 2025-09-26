@@ -208,6 +208,16 @@
         }
       ]
     },
+    "test:update-snapshots": {
+      "name": "test:update-snapshots",
+      "description": "update test snapshots",
+      "steps": [
+        {
+          "exec": "vitest run -u",
+          "receiveArgs": true
+        }
+      ]
+    },
     "test:watch": {
       "name": "test:watch",
       "description": "run tests in watch mode",

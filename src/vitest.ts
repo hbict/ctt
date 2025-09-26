@@ -70,5 +70,11 @@ declare namespace WebAssembly {
       exec: 'vitest',
       receiveArgs: true,
     });
+
+    project.addTask('test:update-snapshots', {
+      description: 'update test snapshots',
+      exec: 'vitest run -u',
+      receiveArgs: true,
+    });
   }
 }

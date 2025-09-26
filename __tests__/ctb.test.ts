@@ -10,6 +10,7 @@ const requiredFileNames = [
   '.github/workflows/build.yml',
   '.github/workflows/pull-request-lint.yml',
   '.github/workflows/release.yml',
+  '.github/workflows/update-snapshots.yml',
   '.github/workflows/upgrade-main.yml',
   '.gitignore',
   '.husky/commit-msg',

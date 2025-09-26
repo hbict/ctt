@@ -1,4 +1,5 @@
 import { github, typescript } from 'projen';
+import { JobPermission } from 'projen/lib/github/workflows-model';
 import {
   ArrowParens,
   EndOfLine,
@@ -98,5 +99,85 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       labels: ['auto-approve'],
       targetBranches: ['main'],
     });
+
+    // Add update-snapshots workflow
+    if (this.github) {
+      const updateSnapshotsWorkflow = new github.GithubWorkflow(
+        this.github,
+        'update-snapshots',
+        {
+          force: true,
+        },
+      );
+
+      updateSnapshotsWorkflow.on({
+        workflowDispatch: {
+          inputs: {
+            branch: {
+              default: 'main',
+              description: 'Branch to update snapshots on',
+              required: false,
+              type: 'string',
+            },
+          },
+        },
+      });
+
+      updateSnapshotsWorkflow.addJob('update-snapshots', {
+        name: 'Update Snapshots',
+        permissions: {
+          contents: JobPermission.WRITE,
+        },
+        runsOn: ['ubuntu-latest'],
+        steps: [
+          {
+            name: 'Checkout',
+            uses: 'actions/checkout@v4',
+            with: {
+              ref: '$' + '{{ github.event.inputs.branch || github.ref }}',
+              token: '$' + '{{ secrets.GITHUB_TOKEN }}',
+            },
+          },
+          {
+            name: 'Setup Node.js',
+            uses: 'actions/setup-node@v4',
+            with: {
+              cache: 'yarn',
+              nodeVersion: '18',
+            },
+          },
+          {
+            name: 'Install dependencies',
+            run: 'yarn install --check-files',
+          },
+          {
+            name: 'Update snapshots',
+            run: 'npx projen test:update-snapshots',
+          },
+          {
+            id: 'changes',
+            name: 'Check for changes',
+            run: [
+              'git add .',
+              'if git diff --staged --quiet; then',
+              '  echo "has_changes=false" >> $GITHUB_OUTPUT',
+              'else',
+              '  echo "has_changes=true" >> $GITHUB_OUTPUT',
+              'fi',
+            ].join('\n'),
+          },
+          {
+            if: "steps.changes.outputs.has_changes == 'true'",
+            name: 'Commit and push changes',
+            run: [
+              'git config --local user.email "action@github.com"',
+              'git config --local user.name "GitHub Action"',
+              'git commit -m "chore: update test snapshots"',
+              'git push',
+            ].join('\n'),
+          },
+        ],
+      });
+    }
   }
 }

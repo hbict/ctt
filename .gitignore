@@ -55,4 +55,5 @@ test-reports/
 !/.husky/pre-commit
 !/.husky/pre-push
 !/.github/workflows/auto-queue.yml
+!/.github/workflows/update-snapshots.yml
 !/.projenrc.ts
