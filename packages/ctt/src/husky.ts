@@ -61,14 +61,14 @@ RESET="\\033[0m"
 
 # Run projen
 echo "\${CYAN}Verifying there are no uncommitted projen changes\${RESET}"
-yarn projen
+${this.project.projenCommand}
 
 # Check for git changes
 if git diff --quiet; then
   echo "\${GREEN}✅ No changes detected. Proceeding with commit.\${RESET}"
   exit 0
 else
-  echo "\${RED}❌ ERROR: Running 'yarn projen' resulted in file changes.\${RESET}"
+  echo "\${RED}❌ ERROR: Running '${this.project.projenCommand}' resulted in file changes.\${RESET}"
   echo "\${RED}❌ Please commit these changes before proceeding.\${RESET}"
   exit 1
 fi
