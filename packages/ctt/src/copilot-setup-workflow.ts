@@ -50,7 +50,7 @@ export class CopilotSetupWorkflow {
         },
         {
           name: 'Install dependencies',
-          run: project.package.installCommand,
+          run: project.package.installAndUpdateLockfileCommand,
         },
       ],
     });

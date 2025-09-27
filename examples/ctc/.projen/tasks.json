@@ -93,7 +93,12 @@
       "description": "Install project dependencies using frozen lockfile",
       "steps": [
         {
-          "exec": "pnpm i --frozen-lockfile"
+          "exec": "pnpm install",
+          "condition": "test -n \"$GITHUB_COPILOT_API_TOKEN\""
+        },
+        {
+          "exec": "pnpm install --frozen-lockfile",
+          "condition": "test -z \"$GITHUB_COPILOT_API_TOKEN\""
         }
       ]
     },
@@ -154,17 +159,7 @@
           "receiveArgs": true
         },
         {
-          "spawn": "test:coverage",
-          "receiveArgs": true
-        }
-      ]
-    },
-    "test:coverage": {
-      "name": "test:coverage",
-      "description": "run tests with coverage",
-      "steps": [
-        {
-          "exec": "vitest run --passWithNoTests --coverage",
+          "exec": "vitest run --coverage --pass-with-no-tests",
           "receiveArgs": true
         }
       ]
@@ -203,7 +198,7 @@
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @calm/ctt @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 aws-cdk aws-cdk-lib eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist prettier rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
+          "exec": "pnpm update @calm/ctt @eslint/js @stylistic/eslint-plugin @types/node @vitest/coverage-v8 aws-cdk aws-cdk-lib eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist prettier rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
         },
         {
           "exec": "npx projen"

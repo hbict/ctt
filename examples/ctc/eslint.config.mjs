@@ -21,6 +21,7 @@ export default defineConfig(
       parser: tseslint.parser,
       parserOptions: {
         projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     rules: {
@@ -1121,5 +1122,5 @@ export default defineConfig(
       '@typescript-eslint/require-await': 'off',
     },
   },
-  globalIgnores(['**/build/*', '**/coverage/*', '**/node_modules/*', 'examples/**/*', 'packages/**/*', 'eslint.config.mjs']),
+  globalIgnores(['**/build/*', '**/coverage/*', '**/node_modules/*', '**/eslint.config.mjs']),
 );

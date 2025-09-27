@@ -11,8 +11,7 @@ import { merge } from 'ts-deepmerge';
 
 import { CalmsEslint } from './calms-eslint';
 import { CopilotSetupWorkflow } from './copilot-setup-workflow';
-import { Husky } from './husky';
-import { ManagedTextFile } from './managed-text-file';
+import { GitHooks } from './git-hooks';
 import { TypescriptExecutor } from './types';
 import { UpdateSnapshotsWorkflow } from './update-snapshots-workflow';
 import { Vitest } from './vitest';
@@ -48,7 +47,11 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
 
   public readonly defaultTask: Task;
 
-  public readonly husky: Husky;
+  public readonly gitHooks?: GitHooks;
+
+  public readonly lintTask: Task;
+
+  public readonly runBinaryCommand: string;
 
   public readonly typescriptExecutor: TypescriptExecutor;
 
@@ -77,6 +80,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       // most projects will not have a main file
       entrypoint: '',
       eslint: false,
+      github: !options.parent,
       githubOptions: {
         pullRequestLintOptions: {
           semanticTitleOptions: {
@@ -137,7 +141,35 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
 
     super(mergedOptions);
 
+    this.runBinaryCommand =
+      this.package.packageManager === NodePackageManager.PNPM
+        ? 'pnpm exec'
+        : 'npx';
+
     this.typescriptExecutor = mergedOptions.typescriptExecutor;
+
+    this.calmsEslint = new CalmsEslint(this);
+
+    this.lintTask = this.calmsEslint.lintTask;
+
+    this.vitest = new Vitest(this);
+
+    if (this.parent) {
+      this.tryRemoveFile('.npmrc');
+    } else {
+      this.gitHooks = new GitHooks(this);
+
+      if (this.github) {
+        this.copilotSetupWorkflow = new CopilotSetupWorkflow(this);
+
+        this.updateSnapshotsWorkflow = new UpdateSnapshotsWorkflow(this);
+
+        new github.AutoQueue(this, {
+          labels: ['auto-approve'],
+          targetBranches: ['main'],
+        });
+      }
+    }
 
     const defaultTask = this.tasks.tryFind('default');
     if (defaultTask) {
@@ -154,30 +186,19 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       this.deps.removeDependency('ts-node');
     }
 
-    // Set up default pre-compile task to clean build directory
     this.preCompileTask.reset('rimraf build');
-
-    this.calmsEslint = new CalmsEslint(this);
-
-    this.vitest = new Vitest(this);
-
-    this.husky = new Husky(this);
-
-    if (this.github) {
-      this.copilotSetupWorkflow = new CopilotSetupWorkflow(this);
-
-      this.updateSnapshotsWorkflow = new UpdateSnapshotsWorkflow(this);
-
-      new github.AutoQueue(this, {
-        labels: ['auto-approve'],
-        targetBranches: ['main'],
-      });
-    }
-
-    this.tryRemoveFile('.npmrc');
 
     this.addFields({ pnpm: undefined });
 
-    new ManagedTextFile(this, '.npmrc', { lines: ['resolution-mode=highest'] });
+    this.package.installCiTask.reset(`${this.package.packageManager} install`, {
+      condition: 'test -n "$GITHUB_COPILOT_API_TOKEN"',
+    });
+
+    this.package.installCiTask.exec(
+      `${this.package.packageManager} install --frozen-lockfile`,
+      {
+        condition: 'test -z "$GITHUB_COPILOT_API_TOKEN"',
+      },
+    );
   }
 }
