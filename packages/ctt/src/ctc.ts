@@ -1,9 +1,15 @@
+import { Task } from 'projen';
+
 import { CalmsTypescriptBase, CalmsTypescriptBaseOptions } from './ctb';
 import { ManagedJsonFile } from './managed-json-file';
 
 export interface CalmsTypescriptCdkOptions extends CalmsTypescriptBaseOptions {}
 
 export class CalmsTypescriptCdk extends CalmsTypescriptBase {
+  public readonly deployTask: Task;
+  public readonly deployDevTask: Task;
+  public readonly deployUatTask: Task;
+  public readonly deployProdTask: Task;
   constructor(options: CalmsTypescriptCdkOptions) {
     super(options);
 
@@ -20,25 +26,25 @@ export class CalmsTypescriptCdk extends CalmsTypescriptBase {
     this.postCompileTask.reset('cdk synth --silent');
 
     // Add deploy tasks for different environments
-    this.addTask('deploy', {
+    this.deployTask = this.addTask('deploy', {
       description: 'Deploy to dev stage',
       exec: 'cdk deploy dev/*',
       receiveArgs: true,
     });
 
-    this.addTask('deploy:dev', {
+    this.deployDevTask = this.addTask('deploy:dev', {
       description: 'Deploy to dev stage',
       exec: 'cdk deploy dev/*',
       receiveArgs: true,
     });
 
-    this.addTask('deploy:uat', {
+    this.deployUatTask = this.addTask('deploy:uat', {
       description: 'Deploy to UAT stage',
       exec: 'cdk deploy uat/*',
       receiveArgs: true,
     });
 
-    this.addTask('deploy:prod', {
+    this.deployProdTask = this.addTask('deploy:prod', {
       description: 'Deploy to production stage',
       exec: 'cdk deploy prod/*',
       receiveArgs: true,

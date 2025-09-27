@@ -263,3 +263,80 @@ These instructions have been thoroughly validated by running all commands and ex
 3. The repository structure has changed significantly from what's documented
 
 All build, test, and lint commands have been verified to work correctly in the current repository state.
+
+## TypeScript Coding Standards
+
+### Optional Chaining
+
+Use the optional chaining operator (`?.`) wherever possible to avoid unnecessary if statements.
+
+**✅ Good:**
+
+```typescript
+this.tsconfig?.addInclude('cdk/**/*.ts');
+project.testTask?.spawn(newTask);
+```
+
+**❌ Avoid:**
+
+```typescript
+if (this.tsconfig) {
+  this.tsconfig.addInclude('cdk/**/*.ts');
+}
+```
+
+### Task Access
+
+Prefer using instance task properties over `tryFind` when accessing common tasks.
+
+**✅ Good:**
+
+```typescript
+this.preCompileTask.reset('rimraf build');
+this.postCompileTask.reset('cdk synth --silent');
+this.compileTask.reset('tsc --noEmit');
+```
+
+**❌ Avoid:**
+
+```typescript
+const preCompileTask = this.tasks.tryFind('pre-compile');
+if (preCompileTask) {
+  preCompileTask.reset('rimraf build');
+}
+```
+
+### Common Task Properties Available
+
+- `this.preCompileTask`
+- `this.postCompileTask`
+- `this.compileTask`
+- `this.testTask`
+- `this.defaultTask`
+
+### Component Instance Storage
+
+When creating components that define tasks, always save the tasks to instance properties for later access. Also save component instances to the base class for reuse.
+
+**✅ Good:**
+
+```typescript
+export class MyComponent extends Component {
+  public readonly myCustomTask: Task;
+
+  constructor(project: TypeScriptProject) {
+    super(project);
+    this.myCustomTask = project.addTask('my-task', { ... });
+  }
+}
+
+// In base class:
+export class CalmsTypescriptBase extends typescript.TypeScriptProject {
+  public readonly myComponent: MyComponent;
+
+  constructor(options: CalmsTypescriptBaseOptions) {
+    super(mergedOptions);
+    this.myComponent = new MyComponent(this);
+  }
+}
+```

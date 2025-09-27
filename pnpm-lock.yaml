@@ -122,6 +122,9 @@ importers:
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
       ts-deepmerge:
         specifier: ^7.0.3
         version: 7.0.3
@@ -304,7 +307,7 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       rimraf:
-        specifier: '*'
+        specifier: ^6.0.1
         version: 6.0.1
       ts-deepmerge:
         specifier: ^7.0.3
