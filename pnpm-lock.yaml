@@ -65,6 +65,9 @@ importers:
       projen:
         specifier: ^0.96.3
         version: 0.96.3(constructs@10.4.2)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
       ts-deepmerge:
         specifier: ^7.0.3
         version: 7.0.3
