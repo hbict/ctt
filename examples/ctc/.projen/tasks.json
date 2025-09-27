@@ -26,7 +26,7 @@
       "description": "Only compile",
       "steps": [
         {
-          "exec": "tsc --build"
+          "exec": "tsc -p tsconfig.json --noEmit"
         }
       ]
     },
@@ -36,6 +36,46 @@
       "steps": [
         {
           "exec": "tsx .projenrc.ts"
+        }
+      ]
+    },
+    "deploy": {
+      "name": "deploy",
+      "description": "Deploy to dev stage",
+      "steps": [
+        {
+          "exec": "cdk deploy dev/*",
+          "receiveArgs": true
+        }
+      ]
+    },
+    "deploy:dev": {
+      "name": "deploy:dev",
+      "description": "Deploy to dev stage",
+      "steps": [
+        {
+          "exec": "cdk deploy dev/*",
+          "receiveArgs": true
+        }
+      ]
+    },
+    "deploy:prod": {
+      "name": "deploy:prod",
+      "description": "Deploy to production stage",
+      "steps": [
+        {
+          "exec": "cdk deploy prod/*",
+          "receiveArgs": true
+        }
+      ]
+    },
+    "deploy:uat": {
+      "name": "deploy:uat",
+      "description": "Deploy to UAT stage",
+      "steps": [
+        {
+          "exec": "cdk deploy uat/*",
+          "receiveArgs": true
         }
       ]
     },
@@ -85,7 +125,12 @@
     },
     "post-compile": {
       "name": "post-compile",
-      "description": "Runs after successful compilation"
+      "description": "Runs after successful compilation",
+      "steps": [
+        {
+          "exec": "cdk synth --silent"
+        }
+      ]
     },
     "post-upgrade": {
       "name": "post-upgrade",
@@ -96,7 +141,7 @@
       "description": "Prepare the project for compilation",
       "steps": [
         {
-          "exec": "rimraf build"
+          "exec": "rimraf build cdk.out"
         }
       ]
     },
@@ -152,13 +197,13 @@
       },
       "steps": [
         {
-          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,prettier,rimraf,ts-deepmerge,tsx,typescript,typescript-eslint,vitest"
+          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,aws-cdk,aws-cdk-lib,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,prettier,rimraf,ts-deepmerge,tsx,typescript,typescript-eslint,vitest"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @calm/ctt @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist prettier rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
+          "exec": "pnpm update @calm/ctt @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 aws-cdk aws-cdk-lib eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist prettier rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
         },
         {
           "exec": "npx projen"

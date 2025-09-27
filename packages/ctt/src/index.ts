@@ -1,6 +1,7 @@
 export * from './copilot-setup-workflow';
 export * from './cta';
 export * from './ctb';
+export * from './ctc';
 export * from './ctp';
 export * from './eslint';
 export * from './eslint';

@@ -72,7 +72,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
           labels: ['auto-approve'],
         },
       },
-      devDeps: ['ts-deepmerge'],
+      devDeps: ['ts-deepmerge', 'rimraf'],
       disableTsconfigDev: true,
       // most projects will not have a main file
       entrypoint: '',
@@ -153,6 +153,9 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       this.addDevDeps('tsx');
       this.deps.removeDependency('ts-node');
     }
+
+    // Set up default pre-compile task to clean build directory
+    this.preCompileTask.reset('rimraf build');
 
     this.calmsEslint = new CalmsEslint(this);
 
