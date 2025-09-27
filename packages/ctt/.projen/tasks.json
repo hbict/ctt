@@ -21,6 +21,24 @@
         }
       ]
     },
+    "bump": {
+      "name": "bump",
+      "description": "Bumps version based on latest git tag and generates a changelog entry",
+      "env": {
+        "OUTFILE": "package.json",
+        "CHANGELOG": "dist/changelog.md",
+        "BUMPFILE": "dist/version.txt",
+        "RELEASETAG": "dist/releasetag.txt",
+        "RELEASE_TAG_PREFIX": "",
+        "BUMP_PACKAGE": "commit-and-tag-version@^12"
+      },
+      "steps": [
+        {
+          "builtin": "release/bump-version"
+        }
+      ],
+      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
+    },
     "compile": {
       "name": "compile",
       "description": "Only compile",
@@ -39,6 +57,19 @@
         }
       ]
     },
+    "eslint": {
+      "name": "eslint",
+      "description": "Runs eslint against the codebase",
+      "env": {
+        "ESLINT_USE_FLAT_CONFIG": "false"
+      },
+      "steps": [
+        {
+          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern $@ src __tests__ build-tools",
+          "receiveArgs": true
+        }
+      ]
+    },
     "install": {
       "name": "install",
       "description": "Install project dependencies and update lockfile (non-frozen)",
@@ -54,20 +85,6 @@
       "steps": [
         {
           "exec": "pnpm i --frozen-lockfile"
-        }
-      ]
-    },
-    "lint": {
-      "name": "lint",
-      "description": "Runs prettier eslint against the codebase",
-      "steps": [
-        {
-          "exec": "prettier --write --no-error-on-unmatched-pattern **/*.{ts,tsx} --ignore-path .gitignore",
-          "receiveArgs": true
-        },
-        {
-          "exec": "eslint . --ext .ts,tsx -c ./eslint.config.mjs --fix --no-error-on-unmatched-pattern",
-          "receiveArgs": true
         }
       ]
     },
@@ -100,13 +117,40 @@
         }
       ]
     },
+    "release": {
+      "name": "release",
+      "description": "Prepare a release from \"main\" branch",
+      "env": {
+        "RELEASE": "true"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    },
     "test": {
       "name": "test",
       "description": "Run tests",
       "steps": [
         {
-          "spawn": "lint",
+          "exec": "jest --passWithNoTests --updateSnapshot",
           "receiveArgs": true
+        },
+        {
+          "spawn": "eslint"
         },
         {
           "spawn": "test:coverage",
@@ -136,11 +180,27 @@
     },
     "test:watch": {
       "name": "test:watch",
-      "description": "run tests in watch mode",
+      "description": "Run jest in watch mode",
       "steps": [
         {
-          "exec": "vitest",
-          "receiveArgs": true
+          "exec": "jest --watch"
+        }
+      ]
+    },
+    "unbump": {
+      "name": "unbump",
+      "description": "Restores version to 0.0.0",
+      "env": {
+        "OUTFILE": "package.json",
+        "CHANGELOG": "dist/changelog.md",
+        "BUMPFILE": "dist/version.txt",
+        "RELEASETAG": "dist/releasetag.txt",
+        "RELEASE_TAG_PREFIX": "",
+        "BUMP_PACKAGE": "commit-and-tag-version@^12"
+      },
+      "steps": [
+        {
+          "builtin": "release/reset-version"
         }
       ]
     },
@@ -152,13 +212,13 @@
       },
       "steps": [
         {
-          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,prettier,rimraf,ts-deepmerge,tsx,typescript,typescript-eslint,vitest,@inquirer/prompts"
+          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,@vitest/coverage-v8,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,prettier,ts-jest,tsx,typescript,vitest,@inquirer/prompts"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist prettier rimraf ts-deepmerge tsx typescript typescript-eslint vitest @inquirer/prompts"
+          "exec": "pnpm update @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commit-and-tag-version eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit prettier ts-jest tsx typescript vitest @inquirer/prompts"
         },
         {
           "exec": "npx projen"

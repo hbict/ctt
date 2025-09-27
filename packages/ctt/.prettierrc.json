@@ -1,8 +1,7 @@
 {
   "arrowParens": "avoid",
   "endOfLine": "lf",
-  "printWidth": 80,
-  "semi": true,
+  "printWidth": 120,
   "singleQuote": true,
   "trailingComma": "all",
   "overrides": []

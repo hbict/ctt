@@ -3,7 +3,17 @@
 * text=auto eol=lf
 /.eslintrc.json linguist-generated
 /.gitattributes linguist-generated
+/.github/copilot-instructions.md linguist-generated
+/.github/instructions/test.instructions.md linguist-generated
+/.github/instructions/typescript.instructions.md linguist-generated
+/.github/pull_request_template.md linguist-generated
+/.github/workflows/auto-queue.yml linguist-generated
+/.github/workflows/copilot-setup-steps.yml linguist-generated
+/.github/workflows/pull-request-lint.yml linguist-generated
+/.github/workflows/update-snapshots.yml linguist-generated
+/.github/workflows/upgrade-main.yml linguist-generated
 /.gitignore linguist-generated
+/.npmignore linguist-generated
 /.npmrc linguist-generated
 /.prettierignore linguist-generated
 /.prettierrc.json linguist-generated
@@ -11,9 +21,9 @@
 /.projen/deps.json linguist-generated
 /.projen/files.json linguist-generated
 /.projen/tasks.json linguist-generated
-/eslint.config.mjs linguist-generated
 /LICENSE linguist-generated
 /package.json linguist-generated
 /pnpm-lock.yaml linguist-generated
+/tsconfig.dev.json linguist-generated
 /tsconfig.json linguist-generated
 /vitest.config.mts linguist-generated

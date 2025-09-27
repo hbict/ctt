@@ -52,19 +52,19 @@ export default defineConfig({
       'test:watch': 'npx projen test:watch',
     });
 
-    this.testCoverageTask = project.addTask('test:coverage', {
+    this.testCoverageTask = project.tasks.tryFind('test:coverage') || project.addTask('test:coverage', {
       description: 'run tests with coverage',
       exec: 'vitest run --passWithNoTests --coverage',
       receiveArgs: true,
     });
 
-    this.testWatchTask = project.addTask('test:watch', {
+    this.testWatchTask = project.tasks.tryFind('test:watch') || project.addTask('test:watch', {
       description: 'run tests in watch mode',
       exec: 'vitest',
       receiveArgs: true,
     });
 
-    this.updateSnapshotsTask = project.addTask('test:update-snapshots', {
+    this.updateSnapshotsTask = project.tasks.tryFind('test:update-snapshots') || project.addTask('test:update-snapshots', {
       description: 'run tests and update snapshots',
       exec: 'vitest run ---u',
       receiveArgs: true,

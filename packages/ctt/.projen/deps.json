@@ -1,16 +1,11 @@
 {
   "dependencies": [
     {
-      "name": "@eslint/js",
-      "type": "build"
-    },
-    {
-      "name": "@stylistic/eslint-plugin",
+      "name": "@types/jest",
       "type": "build"
     },
     {
       "name": "@types/node",
-      "version": "^22",
       "type": "build"
     },
     {
@@ -28,7 +23,12 @@
       "type": "build"
     },
     {
-      "name": "eslint",
+      "name": "commit-and-tag-version",
+      "version": "^12",
+      "type": "build"
+    },
+    {
+      "name": "eslint-config-prettier",
       "type": "build"
     },
     {
@@ -36,15 +36,25 @@
       "type": "build"
     },
     {
-      "name": "eslint-plugin-functional",
-      "type": "build"
-    },
-    {
       "name": "eslint-plugin-import",
       "type": "build"
     },
     {
-      "name": "eslint-plugin-perfectionist",
+      "name": "eslint-plugin-prettier",
+      "type": "build"
+    },
+    {
+      "name": "eslint",
+      "version": "^9",
+      "type": "build"
+    },
+    {
+      "name": "jest",
+      "type": "build"
+    },
+    {
+      "name": "jest-junit",
+      "version": "^16",
       "type": "build"
     },
     {
@@ -52,11 +62,7 @@
       "type": "build"
     },
     {
-      "name": "rimraf",
-      "type": "build"
-    },
-    {
-      "name": "ts-deepmerge",
+      "name": "ts-jest",
       "type": "build"
     },
     {
@@ -65,10 +71,6 @@
     },
     {
       "name": "typescript",
-      "type": "build"
-    },
-    {
-      "name": "typescript-eslint",
       "type": "build"
     },
     {

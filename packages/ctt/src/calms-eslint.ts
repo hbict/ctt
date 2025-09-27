@@ -82,11 +82,13 @@ export class CalmsEslint extends Eslint {
       lines: calmsEslintMjs.split('\n'),
     });
 
-    // remove eslint spawn
-    project.testTask.removeStep(0);
-
-    // no longer needed as we will use a more generic `lint` task
-    project.removeTask('eslint');
+    // remove eslint spawn (only if eslint task exists)
+    const eslintTask = project.tasks.tryFind('eslint');
+    if (eslintTask) {
+      project.testTask.removeStep(0);
+      // no longer needed as we will use a more generic `lint` task
+      project.removeTask('eslint');
+    }
 
     const lintTask = project.addTask('lint', {
       description: 'Runs prettier eslint against the codebase',

@@ -1,3 +1,5 @@
+export * from './copilot-instruction';
+export * from './copilot-instructions';
 export * from './copilot-setup-workflow';
 export * from './cta';
 export * from './ctb';
