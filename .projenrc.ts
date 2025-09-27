@@ -1,5 +1,6 @@
 import { CalmsTypescriptApp } from './packages/ctt/src/cta';
 import { CalmsTypescriptBase } from './packages/ctt/src/ctb';
+import { CalmsTypescriptCdk } from './packages/ctt/src/ctc';
 import { CalmsTypescriptPackage } from './packages/ctt/src/ctp';
 import { ManagedYamlFile } from './packages/ctt/src/managed-yaml-file';
 import { TypescriptExecutor } from './packages/ctt/src/types';
@@ -56,6 +57,18 @@ new CalmsTypescriptPackage({
   github: false,
   outdir: 'examples/ctp',
   packageJsonName: 'example-ctp',
+  parent: project,
+  typescriptExecutor: TypescriptExecutor.Tsx,
+});
+
+// Example CalmsTypescriptCdk
+new CalmsTypescriptCdk({
+  authorEmail: 'mostcolm@gmail.com',
+  authorName: 'Alex Wendte',
+  devDeps: ['@calm/ctt@workspace:*'],
+  github: false,
+  outdir: 'examples/ctc',
+  packageJsonName: 'example-ctc',
   parent: project,
   typescriptExecutor: TypescriptExecutor.Tsx,
 });

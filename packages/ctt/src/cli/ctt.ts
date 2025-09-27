@@ -10,6 +10,7 @@ const promptUser = async () => {
   const template = await select({
     choices: [
       TemplateUserFriendly.CalmsTypescriptApp,
+      TemplateUserFriendly.CalmsTypescriptCdk,
       TemplateUserFriendly.CalmsTypescriptPackage,
       TemplateUserFriendly.CalmsTypescriptBase,
     ],
