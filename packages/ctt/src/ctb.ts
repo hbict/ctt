@@ -44,7 +44,7 @@ export type CalmsTypescriptBaseOptionsWithDefaults = {
 export class CalmsTypescriptBase extends typescript.TypeScriptProject {
   public readonly calmsEslint: CalmsEslint;
 
-  public readonly copilotSetupWorkflow: CopilotSetupWorkflow;
+  public readonly copilotSetupWorkflow?: CopilotSetupWorkflow;
 
   public readonly defaultTask: Task;
 
@@ -52,7 +52,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
 
   public readonly typescriptExecutor: TypescriptExecutor;
 
-  public readonly updateSnapshotsWorkflow: UpdateSnapshotsWorkflow;
+  public readonly updateSnapshotsWorkflow?: UpdateSnapshotsWorkflow;
 
   public readonly vitest: Vitest;
 
@@ -160,19 +160,21 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
 
     this.husky = new Husky(this);
 
-    this.copilotSetupWorkflow = new CopilotSetupWorkflow(this);
+    if (this.github) {
+      this.copilotSetupWorkflow = new CopilotSetupWorkflow(this);
 
-    this.updateSnapshotsWorkflow = new UpdateSnapshotsWorkflow(this);
+      this.updateSnapshotsWorkflow = new UpdateSnapshotsWorkflow(this);
+
+      new github.AutoQueue(this, {
+        labels: ['auto-approve'],
+        targetBranches: ['main'],
+      });
+    }
 
     this.tryRemoveFile('.npmrc');
 
     this.addFields({ pnpm: undefined });
 
     new ManagedTextFile(this, '.npmrc', { lines: ['resolution-mode=highest'] });
-
-    new github.AutoQueue(this, {
-      labels: ['auto-approve'],
-      targetBranches: ['main'],
-    });
   }
 }

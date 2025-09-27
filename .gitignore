@@ -54,6 +54,7 @@ test-reports/
 !/.husky/pre-push
 !/.github/workflows/copilot-setup-steps.yml
 !/.github/workflows/update-snapshots.yml
-!/.npmrc
 !/.github/workflows/auto-queue.yml
+!/.npmrc
+!/pnpm-workspace.yaml
 !/.projenrc.ts

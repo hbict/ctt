@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@inquirer/prompts':
-        specifier: ^7.8.6
-        version: 7.8.6(@types/node@22.18.6)
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.8.1
@@ -69,6 +65,178 @@ importers:
       projen:
         specifier: ^0.96.3
         version: 0.96.3(constructs@10.4.2)
+      ts-deepmerge:
+        specifier: ^7.0.3
+        version: 7.0.3
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+      typescript-eslint:
+        specifier: ^8.44.1
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1)
+
+  examples/cta:
+    devDependencies:
+      '@calm/ctt':
+        specifier: workspace:*
+        version: link:../../packages/ctt
+      '@eslint/js':
+        specifier: ^9.36.0
+        version: 9.36.0
+      '@stylistic/eslint-plugin':
+        specifier: ^4.4.1
+        version: 4.4.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@types/node':
+        specifier: ^22
+        version: 22.18.6
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8
+        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/parser':
+        specifier: ^8
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@vitest/coverage-v8':
+        specifier: ^3.2.4
+        version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
+      eslint:
+        specifier: ^9.36.0
+        version: 9.36.0(jiti@2.6.0)
+      eslint-import-resolver-typescript:
+        specifier: ^4.4.4
+        version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-functional:
+        specifier: ^9.0.2
+        version: 9.0.2(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      eslint-plugin-import:
+        specifier: ^2.32.0
+        version: 2.32.0(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint-import-resolver-typescript@4.4.4)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-perfectionist:
+        specifier: ^4.15.0
+        version: 4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
+      ts-deepmerge:
+        specifier: ^7.0.3
+        version: 7.0.3
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+      typescript-eslint:
+        specifier: ^8.44.1
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1)
+
+  examples/ctp:
+    devDependencies:
+      '@calm/ctt':
+        specifier: workspace:*
+        version: link:../../packages/ctt
+      '@eslint/js':
+        specifier: ^9.36.0
+        version: 9.36.0
+      '@stylistic/eslint-plugin':
+        specifier: ^4.4.1
+        version: 4.4.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@types/node':
+        specifier: ^22
+        version: 22.18.6
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8
+        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/parser':
+        specifier: ^8
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@vitest/coverage-v8':
+        specifier: ^3.2.4
+        version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
+      eslint:
+        specifier: ^9.36.0
+        version: 9.36.0(jiti@2.6.0)
+      eslint-import-resolver-typescript:
+        specifier: ^4.4.4
+        version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-functional:
+        specifier: ^9.0.2
+        version: 9.0.2(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      eslint-plugin-import:
+        specifier: ^2.32.0
+        version: 2.32.0(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint-import-resolver-typescript@4.4.4)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-perfectionist:
+        specifier: ^4.15.0
+        version: 4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
+      ts-deepmerge:
+        specifier: ^7.0.3
+        version: 7.0.3
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+      typescript-eslint:
+        specifier: ^8.44.1
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1)
+
+  packages/ctt:
+    dependencies:
+      '@inquirer/prompts':
+        specifier: ^7.8.6
+        version: 7.8.6(@types/node@22.18.6)
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.36.0
+        version: 9.36.0
+      '@stylistic/eslint-plugin':
+        specifier: ^4.4.1
+        version: 4.4.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@types/node':
+        specifier: ^22
+        version: 22.18.6
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8
+        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@typescript-eslint/parser':
+        specifier: ^8
+        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      '@vitest/coverage-v8':
+        specifier: ^3.2.4
+        version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
+      eslint:
+        specifier: ^9.36.0
+        version: 9.36.0(jiti@2.6.0)
+      eslint-import-resolver-typescript:
+        specifier: ^4.4.4
+        version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-functional:
+        specifier: ^9.0.2
+        version: 9.0.2(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      eslint-plugin-import:
+        specifier: ^2.32.0
+        version: 2.32.0(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint-import-resolver-typescript@4.4.4)(eslint@9.36.0(jiti@2.6.0))
+      eslint-plugin-perfectionist:
+        specifier: ^4.15.0
+        version: 4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       ts-deepmerge:
         specifier: ^7.0.3
         version: 7.0.3
