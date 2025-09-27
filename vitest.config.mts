@@ -4,8 +4,10 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    exclude: ['**/dist/**', '**/lib/**', '**/node_modules/**'],
-    globals: true,
+    clearMocks: false,
+    exclude: ['**/dist/**', '**/build/**', '**/node_modules/**'],
     include: ['**/*.test.ts?(x)'],
+    mockReset: true,
+    restoreMocks: false,
   },
 });

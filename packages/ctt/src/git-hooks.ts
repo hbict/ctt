@@ -4,8 +4,12 @@ import { NodeProject } from 'projen/lib/javascript';
 import { ManagedJsonFile } from './managed-json-file';
 import { ManagedTextFile } from './managed-text-file';
 
-export class Husky extends Component {
-  constructor(project: NodeProject) {
+export class GitHooks extends Component {
+  constructor(
+    project: {
+      runBinaryCommand: string;
+    } & NodeProject,
+  ) {
     super(project);
 
     if (project.parent) {
@@ -33,26 +37,36 @@ export class Husky extends Component {
       },
     });
 
-    new ManagedTextFile(project, '.husky/commit-msg', {
-      commentSymbol: '#',
-      lines: ['yarn commitlint --edit $1', ''],
-    });
-
     new ManagedJsonFile(project, '.lintstagedrc.json', {
       obj: {
-        '*.md': 'yarn prettier --write',
-        '*.ts': 'yarn lint',
+        '*.md': `${project.runBinaryCommand} prettier --write`,
+        '*.ts': `${project.runScriptCommand} lint`,
       },
+    });
+
+    new ManagedTextFile(project, '.husky/commit-msg', {
+      commentSymbol: '#',
+      lines: ['set -e', `${project.runBinaryCommand} commitlint --edit $1`, ''],
+      shebang: '#!/bin/sh',
     });
 
     new ManagedTextFile(project, '.husky/pre-commit', {
       commentSymbol: '#',
-      lines: ['yarn lint-staged', 'yarn test:coverage', 'yarn compile', ''],
+      lines: [
+        'set -e',
+        `${project.runBinaryCommand} lint-staged`,
+        `${project.runScriptCommand} test`,
+        `${project.runScriptCommand} compile`,
+        '',
+      ],
+      shebang: '#!/bin/sh',
     });
 
     new ManagedTextFile(project, '.husky/pre-push', {
       commentSymbol: '#',
-      lines: `#!/bin/sh
+      lines: `set -e
+
+lint
 
 CYAN="\\033[1;36m"
 RED="\\033[1;31m"
@@ -74,6 +88,7 @@ else
 fi
 
 `.split('\n'),
+      shebang: '#!/bin/sh',
     });
   }
 }

@@ -23,12 +23,6 @@ importers:
       '@types/node':
         specifier: ^22
         version: 22.18.6
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^8
-        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/parser':
-        specifier: ^8
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
@@ -98,12 +92,6 @@ importers:
       '@types/node':
         specifier: ^22
         version: 22.18.6
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^8
-        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/parser':
-        specifier: ^8
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
@@ -158,12 +146,6 @@ importers:
       '@types/node':
         specifier: ^22
         version: 22.18.6
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^8
-        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/parser':
-        specifier: ^8
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
@@ -224,12 +206,6 @@ importers:
       '@types/node':
         specifier: ^22
         version: 22.18.6
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^8
-        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/parser':
-        specifier: ^8
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
@@ -285,12 +261,6 @@ importers:
       '@types/node':
         specifier: ^22
         version: 22.18.6
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^8
-        version: 8.44.1(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      '@typescript-eslint/parser':
-        specifier: ^8
-        version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))

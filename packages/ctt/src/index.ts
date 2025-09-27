@@ -5,7 +5,7 @@ export * from './ctc';
 export * from './ctp';
 export * from './eslint';
 export * from './eslint';
-export * from './husky';
+export * from './git-hooks';
 export * from './managed-json-file';
 export * from './managed-text-file';
 export * from './managed-yaml-file';

@@ -118,7 +118,12 @@
       "description": "Install project dependencies using frozen lockfile",
       "steps": [
         {
-          "exec": "pnpm i --frozen-lockfile"
+          "exec": "pnpm install",
+          "condition": "test -n \"$GITHUB_COPILOT_API_TOKEN\""
+        },
+        {
+          "exec": "pnpm install --frozen-lockfile",
+          "condition": "test -z \"$GITHUB_COPILOT_API_TOKEN\""
         }
       ]
     },
@@ -194,22 +199,10 @@
       "description": "Run tests",
       "steps": [
         {
-          "spawn": "lint",
-          "receiveArgs": true
+          "exec": "npx projen lint"
         },
         {
-          "spawn": "test:coverage",
-          "receiveArgs": true
-        }
-      ]
-    },
-    "test:coverage": {
-      "name": "test:coverage",
-      "description": "run tests with coverage",
-      "steps": [
-        {
-          "exec": "vitest run --passWithNoTests --coverage",
-          "receiveArgs": true
+          "exec": "vitest run --pass-with-no-tests"
         }
       ]
     },
@@ -264,7 +257,7 @@
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
+          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
         },
         {
           "exec": "npx projen"

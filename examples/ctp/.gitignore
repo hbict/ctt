@@ -30,13 +30,12 @@ jspm_packages/
 .cache
 !/.prettierignore
 !/.prettierrc.json
+!/.npmrc
 !/__tests__/
 !/tsconfig.json
 !/src/
 /build
 /dist/
-!/.eslintrc.json
 !/eslint.config.mjs
 test-reports/
 !/vitest.config.mts
-!/.npmrc

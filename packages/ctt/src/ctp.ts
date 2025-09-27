@@ -48,7 +48,7 @@ export class CalmsTypescriptPackage extends CalmsTypescriptBase {
       new SampleFile(this, `bin/${binScriptName}.ts`, {
         contents: `#!/usr/bin/env node
 
-import '../lib/src/cli/${binScriptName}.ts';`,
+import '../src/cli/${binScriptName}.ts';`,
       });
       new SampleFile(this, `src/cli/${binScriptName}.ts`, {
         contents: `console.log('i am ${binScriptName}');`,

@@ -7,10 +7,17 @@ export interface MangedTextFileOptions extends TextFileOptions {
    * @default '//'
    */
   readonly commentSymbol?: string;
+
+  /**
+   * A marker to indicate which interpreter to run
+   */
+  readonly shebang?: string;
 }
 
 export class ManagedTextFile extends TextFile {
   private readonly commentSymbol: string;
+
+  private readonly shebang?: string;
 
   constructor(
     project: IConstruct,
@@ -29,6 +36,7 @@ export class ManagedTextFile extends TextFile {
     };
 
     this.commentSymbol = mergedOptions.commentSymbol;
+    this.shebang = mergedOptions.shebang;
   }
 
   protected synthesizeContent(_: IResolver): string | undefined {
@@ -39,6 +47,7 @@ export class ManagedTextFile extends TextFile {
     }
 
     return [
+      ...(this.shebang ? [this.shebang, ''] : []),
       ...(this.marker ? [`${this.commentSymbol} ${this.marker}`, ''] : []),
       ...content.split('\n'),
     ].join('\n');

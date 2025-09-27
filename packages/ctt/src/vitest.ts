@@ -4,13 +4,15 @@ import { TypeScriptProject } from 'projen/lib/typescript';
 import { ManagedTextFile } from './managed-text-file';
 
 export class Vitest extends Component {
-  public readonly testCoverageTask: Task;
-
   public readonly testWatchTask: Task;
 
   public readonly updateSnapshotsTask: Task;
 
-  constructor(project: TypeScriptProject) {
+  constructor(
+    project: {
+      lintTask: Task;
+    } & TypeScriptProject,
+  ) {
     super(project);
 
     project.addDevDeps('vitest', '@vitest/coverage-v8');
@@ -25,38 +27,21 @@ export class Vitest extends Component {
 
 export default defineConfig({
   test: {
-    exclude: ['**/dist/**', '**/lib/**', '**/node_modules/**'],
-    globals: true,
+    clearMocks: false,
+    exclude: ['**/dist/**', '**/build/**', '**/node_modules/**'],
     include: ['**/*.test.ts?(x)'],
+    mockReset: true,
+    restoreMocks: false,
   },
 });
 `.split('\n'),
     });
 
-    // don't want the test script to update snapshots and want to run coverage since this is what is used in the build
-    project.testTask.spawn(
-      new Task('test:coverage', {
-        receiveArgs: true,
-      }),
-      {
-        receiveArgs: true,
-      },
-    );
+    project.testTask.reset(project.runTaskCommand(project.lintTask));
 
-    // we want our actual test script to not run with coverage
-    project.removeScript('test');
+    project.testTask.exec('vitest run --pass-with-no-tests');
 
-    // want to still have a package.json script for `test`
-    project.addScripts({
-      test: 'vitest run --passWithNoTests',
-      'test:watch': 'npx projen test:watch',
-    });
-
-    this.testCoverageTask = project.addTask('test:coverage', {
-      description: 'run tests with coverage',
-      exec: 'vitest run --passWithNoTests --coverage',
-      receiveArgs: true,
-    });
+    project.addScripts({ 'test:watch': 'npx projen test:watch' });
 
     this.testWatchTask = project.addTask('test:watch', {
       description: 'run tests in watch mode',

@@ -1,6 +1,5 @@
-import { Task } from 'projen';
-import { Eslint, EslintOptions, NodeProject } from 'projen/lib/javascript';
-import { merge } from 'ts-deepmerge';
+import { Component, Task } from 'projen';
+import { NodeProject } from 'projen/lib/javascript';
 
 import { customTextRules } from './eslint';
 import { ManagedTextFile } from './managed-text-file';
@@ -44,19 +43,15 @@ export default defineConfig(
       '@typescript-eslint/require-await': 'off',
     },
   },
-  globalIgnores(['**/build/*', '**/coverage/*', '**/node_modules/*', 'examples/**/*', 'packages/**/*', 'eslint.config.mjs']),
+  globalIgnores(['**/build/*', '**/coverage/*', '**/node_modules/*', '**/eslint.config.mjs']),
 );
 `;
 
-export class CalmsEslint extends Eslint {
-  constructor(project: NodeProject, options?: EslintOptions) {
-    const defaultOptions: EslintOptions = {
-      dirs: [],
-    };
+export class CalmsEslint extends Component {
+  public readonly lintTask: Task;
 
-    const mergedOptions = merge(defaultOptions, options || {});
-
-    super(project, mergedOptions);
+  constructor(project: NodeProject) {
+    super(project);
 
     project.deps.removeDependency('@typescript-eslint');
     project.deps.removeDependency('@typescript');
@@ -83,26 +78,15 @@ export class CalmsEslint extends Eslint {
       lines: calmsEslintMjs.split('\n'),
     });
 
-    // remove eslint spawn
-    project.testTask.removeStep(0);
-
-    // no longer needed as we will use a more generic `lint` task
-    project.removeTask('eslint');
-
-    const lintTask = project.addTask('lint', {
+    this.lintTask = project.addTask('lint', {
       description: 'Runs prettier eslint against the codebase',
       exec: 'prettier --write --no-error-on-unmatched-pattern **/*.{ts,tsx} --ignore-path .gitignore',
       receiveArgs: true,
     });
 
-    lintTask.exec(
+    this.lintTask.exec(
       'eslint . --ext .ts,tsx -c ./eslint.config.mjs --fix --no-error-on-unmatched-pattern',
       { receiveArgs: true },
     );
-
-    // want to add the lint task back to the test task for the build pipeline
-    project.testTask.spawn(new Task('lint', { receiveArgs: true }), {
-      receiveArgs: true,
-    });
   }
 }

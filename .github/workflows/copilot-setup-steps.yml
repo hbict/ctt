@@ -26,4 +26,4 @@ jobs:
         with:
           version: 10.x.x
       - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+        run: pnpm i --no-frozen-lockfile

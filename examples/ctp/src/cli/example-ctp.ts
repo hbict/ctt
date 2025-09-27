@@ -1,1 +1,3 @@
-console.log('i am example-ctp');
+export const examplePackage = {
+  name: 'example-ctp',
+};
