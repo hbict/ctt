@@ -82,6 +82,10 @@
       "type": "build"
     },
     {
+      "name": "rimraf",
+      "type": "build"
+    },
+    {
       "name": "ts-deepmerge",
       "type": "build"
     },
