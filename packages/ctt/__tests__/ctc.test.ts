@@ -6,6 +6,9 @@ import { CalmsTypescriptCdk } from '../src';
 const requiredFileNames = [
   '.commitlintrc.json',
   '.gitattributes',
+  '.github/copilot-instructions.md',
+  '.github/instructions/test.instructions.md',
+  '.github/instructions/typescript.instructions.md',
   '.github/pull_request_template.md',
   '.github/workflows/auto-queue.yml',
   '.github/workflows/build.yml',
@@ -33,6 +36,7 @@ const requiredFileNames = [
   'package.json',
   'tsconfig.json',
   'vitest.config.mts',
+];
 ];
 
 describe('CalmsTypescriptCdk', () => {

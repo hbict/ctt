@@ -2,6 +2,9 @@
 
 * text=auto eol=lf
 /.gitattributes linguist-generated
+/.github/copilot-instructions.md linguist-generated
+/.github/instructions/test.instructions.md linguist-generated
+/.github/instructions/typescript.instructions.md linguist-generated
 /.gitignore linguist-generated
 /.npmrc linguist-generated
 /.prettierignore linguist-generated

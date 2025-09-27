@@ -10,6 +10,8 @@ import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
 
 import { CalmsEslint } from './calms-eslint';
+import { CopilotInstruction } from './copilot-instruction';
+import { CopilotInstructions } from './copilot-instructions';
 import { CopilotSetupWorkflow } from './copilot-setup-workflow';
 import { GitHooks } from './git-hooks';
 import { TypescriptExecutor } from './types';
@@ -43,6 +45,8 @@ export type CalmsTypescriptBaseOptionsWithDefaults = {
 export class CalmsTypescriptBase extends typescript.TypeScriptProject {
   public readonly calmsEslint: CalmsEslint;
 
+  public readonly copilotInstructions: CopilotInstructions;
+
   public readonly copilotSetupWorkflow?: CopilotSetupWorkflow;
 
   public readonly defaultTask: Task;
@@ -50,6 +54,8 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
   public readonly gitHooks?: GitHooks;
 
   public readonly lintTask: Task;
+
+  public readonly repoInstructions: CopilotInstruction;
 
   public readonly runBinaryCommand: string;
 
@@ -153,6 +159,42 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
     this.lintTask = this.calmsEslint.lintTask;
 
     this.vitest = new Vitest(this);
+
+    // Add Copilot Instructions
+    this.copilotInstructions = new CopilotInstructions(this);
+
+    // Add repository-level copilot instructions
+    this.repoInstructions = new CopilotInstruction(
+      this,
+      '.github/copilot-instructions.md',
+      {
+        appliesTo:
+          "Development in the CTT (Calm's TypeScript Templates) repository",
+        content: `This repository provides projen-based TypeScript templates for creating consistent project structures.
+
+## Key Components
+- **CalmsTypescriptBase**: Base template with common TypeScript project setup
+- **CalmsTypescriptPackage**: Extended template for npm packages
+- **CalmsTypescriptApp**: Extended template for applications
+
+## Development Workflow
+1. Use \`pnpm install\` to install dependencies
+2. Use \`pnpm run build\` to build the project
+3. Use \`pnpm run test\` to run tests
+4. Use \`pnpm run lint\` to lint and format code
+
+## Projen Usage
+- All configuration is managed through \`.projenrc.ts\`
+- Run \`npx projen\` to regenerate project files
+- Templates use projen components for consistent structure
+
+## Testing
+- Uses Vitest for testing with snapshot validation
+- Tests validate generated project files and configurations
+- Snapshots ensure consistency across project generations`,
+        name: 'CTT Repository',
+      },
+    );
 
     if (this.parent) {
       this.tryRemoveFile('.npmrc');

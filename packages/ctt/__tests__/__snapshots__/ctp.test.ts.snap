@@ -45,6 +45,9 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
 * text=auto eol=lf
 /.commitlintrc.json linguist-generated
 /.gitattributes linguist-generated
+/.github/copilot-instructions.md linguist-generated
+/.github/instructions/test.instructions.md linguist-generated
+/.github/instructions/typescript.instructions.md linguist-generated
 /.github/pull_request_template.md linguist-generated
 /.github/workflows/auto-queue.yml linguist-generated
 /.github/workflows/build.yml linguist-generated
@@ -553,6 +556,9 @@ jspm_packages/
 !/eslint.config.mjs
 test-reports/
 !/vitest.config.mts
+!/.github/instructions/typescript.instructions.md
+!/.github/instructions/test.instructions.md
+!/.github/copilot-instructions.md
 !/.commitlintrc.json
 !/.lintstagedrc.json
 !/.husky/commit-msg
@@ -789,6 +795,9 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
   "files": [
     ".commitlintrc.json",
     ".gitattributes",
+    ".github/copilot-instructions.md",
+    ".github/instructions/test.instructions.md",
+    ".github/instructions/typescript.instructions.md",
     ".github/pull_request_template.md",
     ".github/workflows/auto-queue.yml",
     ".github/workflows/build.yml",
