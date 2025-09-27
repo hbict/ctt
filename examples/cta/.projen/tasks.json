@@ -110,10 +110,12 @@
       "description": "Run tests",
       "steps": [
         {
-          "exec": "npx projen lint"
+          "spawn": "lint",
+          "receiveArgs": true
         },
         {
-          "exec": "vitest run --pass-with-no-tests"
+          "exec": "vitest run --coverage --pass-with-no-tests",
+          "receiveArgs": true
         }
       ]
     },

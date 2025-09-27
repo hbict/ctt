@@ -37,9 +37,15 @@ export default defineConfig({
 `.split('\n'),
     });
 
-    project.testTask.reset(project.runTaskCommand(project.lintTask));
+    project.testTask.reset();
 
-    project.testTask.exec('vitest run --pass-with-no-tests');
+    project.testTask.spawn(project.lintTask, {
+      receiveArgs: true,
+    });
+
+    project.testTask.exec('vitest run --coverage --pass-with-no-tests', {
+      receiveArgs: true,
+    });
 
     project.addScripts({ 'test:watch': 'npx projen test:watch' });
 

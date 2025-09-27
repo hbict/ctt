@@ -12,11 +12,6 @@ export class GitHooks extends Component {
   ) {
     super(project);
 
-    if (project.parent) {
-      project.logger.debug('skipping husky steps for subproject');
-      return;
-    }
-
     project.addDevDeps(
       '@commitlint/cli',
       '@commitlint/config-conventional',
@@ -46,7 +41,12 @@ export class GitHooks extends Component {
 
     new ManagedTextFile(project, '.husky/commit-msg', {
       commentSymbol: '#',
-      lines: ['set -e', `${project.runBinaryCommand} commitlint --edit $1`, ''],
+      lines: [
+        'set -e',
+        '',
+        `${project.runBinaryCommand} commitlint --edit $1`,
+        '',
+      ],
       shebang: '#!/bin/sh',
     });
 
@@ -54,6 +54,7 @@ export class GitHooks extends Component {
       commentSymbol: '#',
       lines: [
         'set -e',
+        '',
         `${project.runBinaryCommand} lint-staged`,
         `${project.runScriptCommand} test`,
         `${project.runScriptCommand} compile`,
@@ -65,8 +66,6 @@ export class GitHooks extends Component {
     new ManagedTextFile(project, '.husky/pre-push', {
       commentSymbol: '#',
       lines: `set -e
-
-lint
 
 CYAN="\\033[1;36m"
 RED="\\033[1;31m"
