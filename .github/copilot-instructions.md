@@ -358,29 +358,7 @@ const files = [
 
 ## Testing Standards
 
-### For Test Files (`**/*.test.ts`, `**/*-test.ts`)
-
-#### Never Test Implementation Details
-
-Focus on testing behavior and outputs, not internal implementation details.
-
-**❌ Avoid:**
-
-```typescript
-// Testing constructor names, internal properties, etc.
-expect(project.constructor.name).toBe('CalmsTypescriptCdk');
-expect(project.internalProperty).toBeDefined();
-```
-
-**✅ Good:**
-
-```typescript
-// Test behavior and outputs
-expect(generatedFiles).toContain('package.json');
-expect(snapshot[fileName]).toMatchSnapshot();
-```
-
-#### Use Snapshot Tests for Generated Files
+### Use Snapshot Tests for Generated Files
 
 For projen-based projects, snapshot tests automatically validate dependencies and tasks through generated files like `.projen/deps.json` and `.projen/tasks.json`. Avoid redundant explicit testing of these when snapshots cover them.
 
