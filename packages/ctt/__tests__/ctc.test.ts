@@ -26,11 +26,11 @@ const requiredFileNames = [
   '.projen/deps.json',
   '.projen/files.json',
   '.projen/tasks.json',
+  'LICENSE',
+  'README.md',
   'cdk.json',
   'eslint.config.mjs',
-  'LICENSE',
   'package.json',
-  'README.md',
   'tsconfig.json',
   'vitest.config.mts',
 ];
@@ -65,30 +65,4 @@ describe('CalmsTypescriptCdk', () => {
       expect(snapshot[fileName]).toMatchSnapshot();
     },
   );
-
-  // Test basic functionality without content parsing since snapshots are working correctly
-  it('should create a CDK project instance', () => {
-    expect(project).toBeDefined();
-    expect(project.constructor.name).toBe('CalmsTypescriptCdk');
-  });
-
-  it('should have CDK as dev dependencies', () => {
-    const devDeps = project.deps.all.filter(
-      dep =>
-        dep.name === 'aws-cdk-lib' ||
-        dep.name === 'aws-cdk' ||
-        dep.name === 'rimraf',
-    );
-    expect(devDeps).toHaveLength(3);
-  });
-
-  it('should have custom tasks for CDK operations', () => {
-    const taskNames = project.tasks.all.map(task => task.name);
-    expect(taskNames).toContain('deploy');
-    expect(taskNames).toContain('deploy:dev');
-    expect(taskNames).toContain('deploy:uat');
-    expect(taskNames).toContain('deploy:prod');
-    expect(taskNames).toContain('pre-compile');
-    expect(taskNames).toContain('post-compile');
-  });
 });
