@@ -733,6 +733,10 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
       "type": "build",
     },
     {
+      "name": "rimraf",
+      "type": "build",
+    },
+    {
       "name": "ts-deepmerge",
       "type": "build",
     },
@@ -956,6 +960,11 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
     "pre-compile": {
       "description": "Prepare the project for compilation",
       "name": "pre-compile",
+      "steps": [
+        {
+          "exec": "rimraf build",
+        },
+      ],
     },
     "release": {
       "description": "Prepare a release from "main" branch",
@@ -1050,13 +1059,13 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
       "name": "upgrade",
       "steps": [
         {
-          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@commitlint/cli,@commitlint/config-conventional,@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,husky,lint-staged,prettier,projen,ts-deepmerge,ts-node,typescript,typescript-eslint,vitest",
+          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@commitlint/cli,@commitlint/config-conventional,@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,husky,lint-staged,prettier,projen,rimraf,ts-deepmerge,ts-node,typescript,typescript-eslint,vitest",
         },
         {
           "exec": "pnpm i --no-frozen-lockfile",
         },
         {
-          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen ts-deepmerge ts-node typescript typescript-eslint vitest",
+          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen rimraf ts-deepmerge ts-node typescript typescript-eslint vitest",
         },
         {
           "exec": "npx projen",
@@ -2444,6 +2453,7 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
     "lint-staged": "*",
     "prettier": "*",
     "projen": "*",
+    "rimraf": "*",
     "ts-deepmerge": "*",
     "ts-node": "*",
     "typescript": "*",

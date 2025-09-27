@@ -11,32 +11,13 @@ export class CalmsTypescriptCdk extends CalmsTypescriptBase {
     this.addDevDeps('aws-cdk-lib', 'aws-cdk');
 
     // Override the compile task to use tsc --noEmit
-    const compileTask = this.tasks.tryFind('compile');
-    if (compileTask) {
-      compileTask.reset('tsc -p tsconfig.json --noEmit');
-    }
+    this.compileTask.reset('tsc -p tsconfig.json --noEmit');
 
     // Add pre-compile task to clean build and cdk.out directories
-    const preCompileTask = this.tasks.tryFind('pre-compile');
-    if (preCompileTask) {
-      preCompileTask.reset('rimraf build cdk.out');
-    } else {
-      this.addTask('pre-compile', {
-        description: 'Clean build and cdk.out directories',
-        exec: 'rimraf build cdk.out',
-      });
-    }
+    this.preCompileTask.reset('rimraf build cdk.out');
 
     // Add post-compile task to run cdk synth
-    const postCompileTask = this.tasks.tryFind('post-compile');
-    if (postCompileTask) {
-      postCompileTask.reset('cdk synth --silent');
-    } else {
-      this.addTask('post-compile', {
-        description: 'Synthesize CDK app',
-        exec: 'cdk synth --silent',
-      });
-    }
+    this.postCompileTask.reset('cdk synth --silent');
 
     // Add deploy tasks for different environments
     this.addTask('deploy', {
@@ -129,11 +110,6 @@ export class CalmsTypescriptCdk extends CalmsTypescriptBase {
     this.gitignore.addPatterns('cdk.out/', '*.js', '*.d.ts', '!cdk/bin/app.ts');
 
     // Update TypeScript configuration to include CDK directories
-    if (this.tsconfig) {
-      this.tsconfig.addInclude('cdk/**/*.ts');
-    }
-
-    // Add rimraf dev dependency for cleaning
-    this.addDevDeps('rimraf');
+    this.tsconfig?.addInclude('cdk/**/*.ts');
   }
 }

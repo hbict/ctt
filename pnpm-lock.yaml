@@ -144,10 +144,10 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ctt
       '@eslint/js':
-        specifier: '*'
+        specifier: ^9.36.0
         version: 9.36.0
       '@stylistic/eslint-plugin':
-        specifier: '*'
+        specifier: ^4.4.1
         version: 4.4.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@types/node':
         specifier: ^22
@@ -159,49 +159,49 @@ importers:
         specifier: ^8
         version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       '@vitest/coverage-v8':
-        specifier: '*'
+        specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1))
       aws-cdk:
-        specifier: '*'
+        specifier: ^2.1029.3
         version: 2.1029.3
       aws-cdk-lib:
-        specifier: '*'
+        specifier: ^2.217.0
         version: 2.217.0(constructs@10.4.2)
       eslint:
-        specifier: '*'
+        specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
       eslint-import-resolver-typescript:
-        specifier: '*'
+        specifier: ^4.4.4
         version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.36.0(jiti@2.6.0))
       eslint-plugin-functional:
-        specifier: '*'
+        specifier: ^9.0.2
         version: 9.0.2(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       eslint-plugin-import:
-        specifier: '*'
+        specifier: ^2.32.0
         version: 2.32.0(@typescript-eslint/parser@8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint-import-resolver-typescript@4.4.4)(eslint@9.36.0(jiti@2.6.0))
       eslint-plugin-perfectionist:
-        specifier: '*'
+        specifier: ^4.15.0
         version: 4.15.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       prettier:
-        specifier: '*'
+        specifier: ^3.6.2
         version: 3.6.2
       rimraf:
-        specifier: '*'
+        specifier: ^6.0.1
         version: 6.0.1
       ts-deepmerge:
-        specifier: '*'
+        specifier: ^7.0.3
         version: 7.0.3
       tsx:
-        specifier: '*'
+        specifier: ^4.20.6
         version: 4.20.6
       typescript:
-        specifier: '*'
+        specifier: ^5.9.2
         version: 5.9.2
       typescript-eslint:
-        specifier: '*'
+        specifier: ^8.44.1
         version: 8.44.1(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
       vitest:
-        specifier: '*'
+        specifier: ^3.2.4
         version: 3.2.4(@types/node@22.18.6)(jiti@2.6.0)(jsdom@25.0.1)(tsx@4.20.6)(yaml@2.8.1)
 
   examples/ctp:
@@ -303,6 +303,9 @@ importers:
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
+      rimraf:
+        specifier: '*'
+        version: 6.0.1
       ts-deepmerge:
         specifier: ^7.0.3
         version: 7.0.3
