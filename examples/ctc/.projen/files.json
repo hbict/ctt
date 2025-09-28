@@ -1,9 +1,6 @@
 {
   "files": [
     ".gitattributes",
-    ".github/copilot-instructions.md",
-    ".github/instructions/test.instructions.md",
-    ".github/instructions/typescript.instructions.md",
     ".gitignore",
     ".prettierignore",
     ".prettierrc.json",

@@ -39,9 +39,6 @@ jspm_packages/
 !/eslint.config.mjs
 test-reports/
 !/vitest.config.mts
-!/.github/instructions/typescript.instructions.md
-!/.github/instructions/test.instructions.md
-!/.github/copilot-instructions.md
 !/cdk.json
 cdk.out/
 *.js

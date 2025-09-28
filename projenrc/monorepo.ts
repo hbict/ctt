@@ -17,5 +17,38 @@ export class Monorepo extends CalmsTypescriptBase {
         packages: ['packages/*', 'examples/*'],
       },
     });
+
+    // Add more detailed instructions for the CTT monorepo
+    if (this.repoInstructions) {
+      this.repoInstructions
+        .updateContent(`This repository provides projen-based TypeScript templates for creating consistent project structures.
+
+## Key Components
+- **CalmsTypescriptBase**: Base template with common TypeScript project setup
+- **CalmsTypescriptPackage**: Extended template for npm packages
+- **CalmsTypescriptApp**: Extended template for applications
+
+## Development Workflow
+1. Use \`pnpm install\` to install dependencies
+2. Use \`pnpm run build\` to build the project
+3. Use \`pnpm run test\` to run tests
+4. Use \`pnpm run lint\` to lint and format code
+
+## Projen Usage
+- All configuration is managed through \`.projenrc.ts\`
+- Run \`npx projen\` to regenerate project files
+- Templates use projen components for consistent structure
+
+## Testing
+- Uses Vitest for testing with snapshot validation
+- Tests validate generated project files and configurations
+- Snapshots ensure consistency across project generations
+
+**DO NOT** manually edit files managed by projen - they will be overwritten.
+
+To make changes:
+1. Edit the \`.projenrc.ts\` file
+2. Run \`npx projen\` to regenerate managed files`);
+    }
   }
 }

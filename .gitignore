@@ -47,14 +47,14 @@ jspm_packages/
 !/eslint.config.mjs
 test-reports/
 !/vitest.config.mts
-!/.github/instructions/typescript.instructions.md
-!/.github/instructions/test.instructions.md
-!/.github/copilot-instructions.md
 !/.commitlintrc.json
 !/.lintstagedrc.json
 !/.husky/commit-msg
 !/.husky/pre-commit
 !/.husky/pre-push
+!/.github/instructions/typescript.instructions.md
+!/.github/instructions/test.instructions.md
+!/.github/copilot-instructions.md
 !/.github/workflows/copilot-setup-steps.yml
 !/.github/workflows/update-snapshots.yml
 !/.github/workflows/auto-queue.yml

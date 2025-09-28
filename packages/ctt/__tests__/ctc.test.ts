@@ -37,7 +37,6 @@ const requiredFileNames = [
   'tsconfig.json',
   'vitest.config.mts',
 ];
-];
 
 describe('CalmsTypescriptCdk', () => {
   const project = new CalmsTypescriptCdk({

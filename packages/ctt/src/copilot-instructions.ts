@@ -46,7 +46,7 @@ export class CopilotInstructions extends Component {
     // Create default instructions if requested
     if (options.includeTypeScriptInstructions !== false) {
       this.typescriptInstruction = this.addInstruction('typescript', {
-        appliesTo: 'TypeScript development in this repository',
+        applyTo: '**/*.ts,**/*.tsx',
         content: `## TypeScript Development Guidelines
 
 ### Code Style
@@ -71,7 +71,7 @@ export class CopilotInstructions extends Component {
 
     if (options.includeTestInstructions !== false) {
       this.testInstruction = this.addInstruction('test', {
-        appliesTo: 'Testing patterns and practices in this repository',
+        applyTo: '**/*.test.ts,**/*.spec.ts',
         content: `## Testing Guidelines
 
 ### Test Structure
