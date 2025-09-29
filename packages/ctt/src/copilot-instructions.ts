@@ -55,7 +55,7 @@ export class CopilotInstructions extends Component {
     });
 
     this.testInstruction = this.addInstruction('test', {
-      applyTo: '**/*.test.ts,**/*.spec.ts',
+      applyTo: '**/__tests__/*.ts,**/*.test.ts',
       content: `## Test Structure
 - Use Vitest as the testing framework
 - Place tests in \`__tests__\` directory with \`.test.ts\` extension

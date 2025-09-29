@@ -2,7 +2,7 @@
 
 ---
 
-## applyTo: "**/\*.test.ts,**/\*.spec.ts"
+## applyTo: "**/**tests**/\*.ts,**/\*.test.ts"
 
 # Testing Instructions
 
