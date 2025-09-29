@@ -46,7 +46,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-perfectionist": "^4.15.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.1",
+    "lint-staged": "^16.2.3",
     "prettier": "^3.6.2",
     "projen": "^0.96.3",
     "rimraf": "^6.0.1",
