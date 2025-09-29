@@ -83,10 +83,12 @@ export class CopilotInstructions extends Component {
     options: { name?: string } & Omit<CopilotInstructionOptions, 'name'>,
   ): CopilotInstruction {
     const instructionName = options.name ?? name;
-    const filePath = `${this.basePath}/${name}.instructions.md`;
+    const filePath =
+      options.filePath ?? `${this.basePath}/${name}.instructions.md`;
 
-    const instruction = new CopilotInstruction(this.project, filePath, {
+    const instruction = new CopilotInstruction(this.project, {
       ...options,
+      filePath,
       name: instructionName,
     });
 

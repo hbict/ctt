@@ -169,21 +169,18 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       this.copilotInstructions = new CopilotInstructions(this);
 
       // Add repository-level copilot instructions
-      this.repoInstructions = new CopilotInstruction(
-        this,
-        '.github/copilot-instructions.md',
-        {
-          applyTo: '**/*',
-          content: `This repository uses projen and @calm/ctt for project management.
+      this.repoInstructions = new CopilotInstruction(this, {
+        applyTo: '**/*',
+        content: `This repository uses projen and @calm/ctt for project management.
 
 **DO NOT** manually edit files managed by projen - they will be overwritten.
 
 To make changes:
 1. Edit the \`.projenrc.ts\` file
 2. Run \`npx projen\` to regenerate managed files`,
-          name: this.name,
-        },
-      );
+        filePath: '.github/copilot-instructions.md',
+        name: this.name,
+      });
 
       if (this.github) {
         this.copilotSetupWorkflow = new CopilotSetupWorkflow(this);

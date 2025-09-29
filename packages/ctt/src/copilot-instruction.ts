@@ -15,6 +15,12 @@ export interface CopilotInstructionOptions extends MangedTextFileOptions {
   readonly content?: string;
 
   /**
+   * Custom file path for the instruction file
+   * @default `.github/instructions/${name}.instructions.md`
+   */
+  readonly filePath?: string;
+
+  /**
    * The name of the instruction (e.g., 'typescript', 'testing')
    */
   readonly name: string;
@@ -27,14 +33,13 @@ export class CopilotInstruction extends ManagedTextFile {
 
   private contentLines: readonly string[] = [];
 
-  constructor(
-    project: IConstruct,
-    filePath: string,
-    options: CopilotInstructionOptions,
-  ) {
+  constructor(project: IConstruct, options: CopilotInstructionOptions) {
+    const filePath =
+      options.filePath ??
+      `.github/instructions/${options.name}.instructions.md`;
+
     super(project, filePath, {
       ...options,
-      commentSymbol: '<!-- ',
     });
 
     this.name = options.name;
@@ -101,32 +106,46 @@ export class CopilotInstruction extends ManagedTextFile {
   /**
    * Reset the instruction content like projen tasks
    */
-  public reset(content?: string): void {
+  public reset(content?: string, options?: { applyTo?: string }): void {
     if (content !== undefined) {
       this.contentLines = content.split('\n');
     } else {
       this.contentLines = [];
     }
+
+    // Note: applyTo is readonly, so we can't modify it after construction
+    // If you need to change applyTo, create a new CopilotInstruction instance
+    if (options?.applyTo) {
+      console.warn(
+        'applyTo cannot be modified after construction. Create a new CopilotInstruction instance instead.',
+      );
+    }
   }
 
   protected synthesizeContent(_resolver: IResolver): string | undefined {
-    // Build the complete file content including frontmatter and header
-    const allLines = [
-      '---',
-      `applyTo: "${this.applyTo}"`,
-      '---',
-      '',
+    // Build frontmatter first
+    const frontmatter = ['---', `applyTo: "${this.applyTo}"`, '---'];
+
+    // Build content section
+    const contentSection = [
       `# ${this.name} Instructions`,
       '',
       ...this.contentLines,
     ];
 
-    const content = allLines.join('\n');
+    // Combine all parts immutably
+    const baseParts = [frontmatter.join('\n'), ''];
 
+    // Add marker if needed and content
     if (this.marker) {
-      return `<!-- ${this.marker} -->\n\n${content}`;
+      return [
+        ...baseParts,
+        `<!-- ${this.marker} -->`,
+        '',
+        contentSection.join('\n'),
+      ].join('\n');
     }
 
-    return content;
+    return [...baseParts, contentSection.join('\n')].join('\n');
   }
 }
