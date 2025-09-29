@@ -34,21 +34,19 @@ export class CopilotInstructions extends Component {
     // Create default instructions
     this.typescriptInstruction = this.addInstruction('typescript', {
       applyTo: '**/*.ts,**/*.tsx',
-      content: `## TypeScript Development Guidelines
-
-### Code Style
+      content: `## Code Style
 - Use strict TypeScript configuration with all strict checks enabled
 - Prefer explicit types over \`any\` - use proper typing
 - Use optional chaining (\`?.\`) wherever possible to avoid unnecessary if statements
 - Use nullish coalescing (\`??\`) for default value assignment
 - ALWAYS prefer concise syntax like \`obj?.method()\` over verbose \`if (obj) { obj.method(); }\` unless multiple statements depend on the condition
 
-### Project Structure
+## Project Structure
 - Follow the established project structure with \`src/\` for source code
 - Place tests in \`__tests__/\` directory with \`.test.ts\` extension
 - Use proper module imports/exports
 
-### Best Practices
+## Best Practices
 - Keep functions and classes focused and single-purpose
 - Use meaningful variable and function names
 - Document complex logic with comments
@@ -58,20 +56,18 @@ export class CopilotInstructions extends Component {
 
     this.testInstruction = this.addInstruction('test', {
       applyTo: '**/*.test.ts,**/*.spec.ts',
-      content: `## Testing Guidelines
-
-### Test Structure
+      content: `## Test Structure
 - Use Vitest as the testing framework
 - Place tests in \`__tests__\` directory with \`.test.ts\` extension
 - Use descriptive test names that explain what is being tested
 
-### Test Patterns
+## Test Patterns
 - Use \`describe\` blocks to group related tests
 - Use snapshot tests for generated files validation
 - Test both success and error conditions
 - Mock external dependencies appropriately
 
-### Coverage
+## Coverage
 - Aim for high test coverage
 - Focus on testing critical business logic
 - Include integration tests for complex workflows`,

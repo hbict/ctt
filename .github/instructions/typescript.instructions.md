@@ -6,9 +6,7 @@
 
 # TypeScript Instructions
 
-## TypeScript Development Guidelines
-
-### Code Style
+## Code Style
 
 - Use strict TypeScript configuration with all strict checks enabled
 - Prefer explicit types over `any` - use proper typing
@@ -16,13 +14,13 @@
 - Use nullish coalescing (`??`) for default value assignment
 - ALWAYS prefer concise syntax like `obj?.method()` over verbose `if (obj) { obj.method(); }` unless multiple statements depend on the condition
 
-### Project Structure
+## Project Structure
 
 - Follow the established project structure with `src/` for source code
 - Place tests in `__tests__/` directory with `.test.ts` extension
 - Use proper module imports/exports
 
-### Best Practices
+## Best Practices
 
 - Keep functions and classes focused and single-purpose
 - Use meaningful variable and function names
