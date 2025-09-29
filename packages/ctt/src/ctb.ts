@@ -181,7 +181,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
 To make changes:
 1. Edit the \`.projenrc.ts\` file
 2. Run \`npx projen\` to regenerate managed files`,
-          name: 'CTT Repository',
+          name: this.name,
         },
       );
 

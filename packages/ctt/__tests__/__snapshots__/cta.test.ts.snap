@@ -60,7 +60,7 @@ exports[`CalmsTypescriptApp > should have the correct contents for the required 
 applyTo: "**/*"
 ---
 
-# CTT Repository Instructions
+# test-project Instructions
 
 This repository uses projen and @calm/ctt for project management.
 
@@ -115,6 +115,7 @@ applyTo: "**/*.ts,**/*.tsx"
 - Prefer explicit types over \`any\` - use proper typing
 - Use optional chaining (\`?.\`) wherever possible to avoid unnecessary if statements
 - Use nullish coalescing (\`??\`) for default value assignment
+- ALWAYS prefer concise syntax like \`obj?.method()\` over verbose \`if (obj) { obj.method(); }\` unless multiple statements depend on the condition
 
 ### Project Structure
 - Follow the established project structure with \`src/\` for source code

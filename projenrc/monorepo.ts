@@ -19,9 +19,8 @@ export class Monorepo extends CalmsTypescriptBase {
     });
 
     // Add more detailed instructions for the CTT monorepo
-    if (this.repoInstructions) {
-      this.repoInstructions
-        .updateContent(`This repository provides projen-based TypeScript templates for creating consistent project structures.
+    this.repoInstructions
+      ?.reset(`This repository provides projen-based TypeScript templates for creating consistent project structures.
 
 ## Key Components
 - **CalmsTypescriptBase**: Base template with common TypeScript project setup
@@ -49,6 +48,5 @@ export class Monorepo extends CalmsTypescriptBase {
 To make changes:
 1. Edit the \`.projenrc.ts\` file
 2. Run \`npx projen\` to regenerate managed files`);
-    }
   }
 }

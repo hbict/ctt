@@ -12,26 +12,14 @@ export interface CopilotInstructionsOptions {
    * @default '.github/instructions'
    */
   readonly basePath?: string;
-
-  /**
-   * Whether to include default test instructions
-   * @default true
-   */
-  readonly includeTestInstructions?: boolean;
-
-  /**
-   * Whether to include default TypeScript instructions
-   * @default true
-   */
-  readonly includeTypeScriptInstructions?: boolean;
 }
 
 export class CopilotInstructions extends Component {
   public readonly basePath: string;
 
-  public readonly testInstruction?: CopilotInstruction;
+  public readonly testInstruction: CopilotInstruction;
 
-  public readonly typescriptInstruction?: CopilotInstruction;
+  public readonly typescriptInstruction: CopilotInstruction;
 
   private readonly instructions: Map<string, CopilotInstruction> = new Map();
 
@@ -43,17 +31,17 @@ export class CopilotInstructions extends Component {
 
     this.basePath = options.basePath ?? '.github/instructions';
 
-    // Create default instructions if requested
-    if (options.includeTypeScriptInstructions !== false) {
-      this.typescriptInstruction = this.addInstruction('typescript', {
-        applyTo: '**/*.ts,**/*.tsx',
-        content: `## TypeScript Development Guidelines
+    // Create default instructions
+    this.typescriptInstruction = this.addInstruction('typescript', {
+      applyTo: '**/*.ts,**/*.tsx',
+      content: `## TypeScript Development Guidelines
 
 ### Code Style
 - Use strict TypeScript configuration with all strict checks enabled
 - Prefer explicit types over \`any\` - use proper typing
 - Use optional chaining (\`?.\`) wherever possible to avoid unnecessary if statements
 - Use nullish coalescing (\`??\`) for default value assignment
+- ALWAYS prefer concise syntax like \`obj?.method()\` over verbose \`if (obj) { obj.method(); }\` unless multiple statements depend on the condition
 
 ### Project Structure
 - Follow the established project structure with \`src/\` for source code
@@ -65,14 +53,12 @@ export class CopilotInstructions extends Component {
 - Use meaningful variable and function names
 - Document complex logic with comments
 - Leverage TypeScript's type system for better code safety`,
-        name: 'TypeScript',
-      });
-    }
+      name: 'TypeScript',
+    });
 
-    if (options.includeTestInstructions !== false) {
-      this.testInstruction = this.addInstruction('test', {
-        applyTo: '**/*.test.ts,**/*.spec.ts',
-        content: `## Testing Guidelines
+    this.testInstruction = this.addInstruction('test', {
+      applyTo: '**/*.test.ts,**/*.spec.ts',
+      content: `## Testing Guidelines
 
 ### Test Structure
 - Use Vitest as the testing framework
@@ -89,9 +75,8 @@ export class CopilotInstructions extends Component {
 - Aim for high test coverage
 - Focus on testing critical business logic
 - Include integration tests for complex workflows`,
-        name: 'Testing',
-      });
-    }
+      name: 'Testing',
+    });
   }
 
   /**

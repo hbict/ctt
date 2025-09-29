@@ -40,21 +40,11 @@ export class CopilotInstruction extends ManagedTextFile {
     this.name = options.name;
     this.applyTo = options.applyTo;
 
-    // Initialize content lines with GitHub copilot format
-    this.contentLines = [
-      '---',
-      `applyTo: "${options.applyTo}"`,
-      '---',
-      '',
-      `# ${options.name} Instructions`,
-      '',
-      ...options.content.split('\n'),
-    ];
+    // Initialize content lines with only the actual content
+    this.contentLines = options.content.split('\n');
 
-    // Add all lines to the file
-    this.contentLines.forEach(line => {
-      this.addLine(line);
-    });
+    // Add all lines to the file (including header/frontmatter)
+    this._addAllLines();
   }
 
   /**
@@ -62,87 +52,81 @@ export class CopilotInstruction extends ManagedTextFile {
    */
   public append(content: string): void {
     this.contentLines = [...this.contentLines, '', ...content.split('\n')];
-    this._rebuildFile();
+    this._addAllLines();
   }
 
   /**
    * Insert content at a specific line number (1-based indexing)
    */
-  public insertAt(lineNumber: number, content: string): void {
+  public insert(lineNumber: number, content: string): void {
     const newLines = content.split('\n');
     this.contentLines = [
       ...this.contentLines.slice(0, lineNumber - 1),
       ...newLines,
       ...this.contentLines.slice(lineNumber - 1),
     ];
-    this._rebuildFile();
+    this._addAllLines();
   }
 
   /**
-   * Prepend content to the instruction (after frontmatter and title)
+   * Prepend content to the instruction
    */
   public prepend(content: string): void {
-    const headerEndIndex = this.contentLines.findIndex(
-      (line, index) => index > 5 && line.trim() !== '' && !line.startsWith('#'),
-    );
-
-    const insertIndex = headerEndIndex === -1 ? 6 : headerEndIndex;
     const newLines = content.split('\n');
-
-    this.contentLines = [
-      ...this.contentLines.slice(0, insertIndex),
-      '',
-      ...newLines,
-      ...this.contentLines.slice(insertIndex),
-    ];
-    this._rebuildFile();
+    this.contentLines = ['', ...newLines, ...this.contentLines];
+    this._addAllLines();
   }
 
   /**
-   * Remove content at a specific line number (1-based indexing)
+   * Remove content at line numbers (1-based indexing)
    */
-  public removeAt(lineNumber: number): void {
+  public remove(startLineNumber: number, endLineNumber?: number): void {
+    const end = endLineNumber ?? startLineNumber;
     this.contentLines = [
-      ...this.contentLines.slice(0, lineNumber - 1),
-      ...this.contentLines.slice(lineNumber),
+      ...this.contentLines.slice(0, startLineNumber - 1),
+      ...this.contentLines.slice(end),
     ];
-    this._rebuildFile();
+    this._addAllLines();
   }
 
   /**
-   * Replace content at a specific line number (1-based indexing)
+   * Replace content at line numbers (1-based indexing)
    */
-  public replaceAt(lineNumber: number, content: string): void {
+  public replace(
+    startLineNumber: number,
+    endLineNumber: number,
+    content: string,
+  ): void {
     const newLines = content.split('\n');
     this.contentLines = [
-      ...this.contentLines.slice(0, lineNumber - 1),
+      ...this.contentLines.slice(0, startLineNumber - 1),
       ...newLines,
-      ...this.contentLines.slice(lineNumber),
+      ...this.contentLines.slice(endLineNumber),
     ];
-    this._rebuildFile();
+    this._addAllLines();
   }
 
   /**
-   * Update the main instruction content (everything after the title)
+   * Reset the instruction content like projen tasks
    */
-  public updateContent(content: string): void {
-    // Keep frontmatter and title, replace everything else
-    const titleIndex = this.contentLines.findIndex(line =>
-      line.startsWith('# '),
-    );
-    if (titleIndex !== -1) {
-      this.contentLines = [
-        ...this.contentLines.slice(0, titleIndex + 1),
-        '',
-        ...content.split('\n'),
-      ];
-      this._rebuildFile();
-    }
+  public reset(content: string): void {
+    this.contentLines = content.split('\n');
+    this._addAllLines();
   }
 
   protected synthesizeContent(_resolver: IResolver): string | undefined {
-    // Override to use our internal lines instead of the parent's lines
-    const content = this.contentLines.join('\n');
+    // Build the complete file content including frontmatter and header
+    const allLines = [
+      '---',
+      `applyTo: "${this.applyTo}"`,
+      '---',
+      '',
+      `# ${this.name} Instructions`,
+      '',
+      ...this.contentLines,
+    ];
+
+    const content = allLines.join('\n');
 
     if (this.marker) {
       return `<!-- ${this.marker} -->\n\n${content}`;
@@ -151,9 +135,21 @@ export class CopilotInstruction extends ManagedTextFile {
     return content;
   }
 
-  private _rebuildFile(): void {
-    // Clear current content and rebuild from contentLines
-    // Since TextFile doesn't have a clear method, we need to work with what we have
-    // The synthesizeContent method will handle rendering the final content
+  private _addAllLines(): void {
+    // Build the complete file content including frontmatter and header
+    const allLines = [
+      '---',
+      `applyTo: "${this.applyTo}"`,
+      '---',
+      '',
+      `# ${this.name} Instructions`,
+      '',
+      ...this.contentLines,
+    ];
+
+    // Clear existing lines and add new ones
+    allLines.forEach(line => {
+      this.addLine(line);
+    });
   }
 }
