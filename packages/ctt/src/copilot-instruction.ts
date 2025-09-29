@@ -12,7 +12,7 @@ export interface CopilotInstructionOptions extends MangedTextFileOptions {
   /**
    * The content of the instruction
    */
-  readonly content: string;
+  readonly content?: string;
 
   /**
    * The name of the instruction (e.g., 'typescript', 'testing')
@@ -41,10 +41,7 @@ export class CopilotInstruction extends ManagedTextFile {
     this.applyTo = options.applyTo;
 
     // Initialize content lines with only the actual content
-    this.contentLines = options.content.split('\n');
-
-    // Add all lines to the file (including header/frontmatter)
-    this._addAllLines();
+    this.contentLines = options.content?.split('\n') ?? [];
   }
 
   /**
@@ -52,7 +49,6 @@ export class CopilotInstruction extends ManagedTextFile {
    */
   public append(content: string): void {
     this.contentLines = [...this.contentLines, '', ...content.split('\n')];
-    this._addAllLines();
   }
 
   /**
@@ -65,7 +61,6 @@ export class CopilotInstruction extends ManagedTextFile {
       ...newLines,
       ...this.contentLines.slice(lineNumber - 1),
     ];
-    this._addAllLines();
   }
 
   /**
@@ -74,7 +69,6 @@ export class CopilotInstruction extends ManagedTextFile {
   public prepend(content: string): void {
     const newLines = content.split('\n');
     this.contentLines = ['', ...newLines, ...this.contentLines];
-    this._addAllLines();
   }
 
   /**
@@ -86,7 +80,6 @@ export class CopilotInstruction extends ManagedTextFile {
       ...this.contentLines.slice(0, startLineNumber - 1),
       ...this.contentLines.slice(end),
     ];
-    this._addAllLines();
   }
 
   /**
@@ -103,15 +96,17 @@ export class CopilotInstruction extends ManagedTextFile {
       ...newLines,
       ...this.contentLines.slice(endLineNumber),
     ];
-    this._addAllLines();
   }
 
   /**
    * Reset the instruction content like projen tasks
    */
-  public reset(content: string): void {
-    this.contentLines = content.split('\n');
-    this._addAllLines();
+  public reset(content?: string): void {
+    if (content !== undefined) {
+      this.contentLines = content.split('\n');
+    } else {
+      this.contentLines = [];
+    }
   }
 
   protected synthesizeContent(_resolver: IResolver): string | undefined {
@@ -133,23 +128,5 @@ export class CopilotInstruction extends ManagedTextFile {
     }
 
     return content;
-  }
-
-  private _addAllLines(): void {
-    // Build the complete file content including frontmatter and header
-    const allLines = [
-      '---',
-      `applyTo: "${this.applyTo}"`,
-      '---',
-      '',
-      `# ${this.name} Instructions`,
-      '',
-      ...this.contentLines,
-    ];
-
-    // Clear existing lines and add new ones
-    allLines.forEach(line => {
-      this.addLine(line);
-    });
   }
 }
