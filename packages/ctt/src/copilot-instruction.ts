@@ -27,9 +27,9 @@ export interface CopilotInstructionOptions extends MangedTextFileOptions {
 }
 
 export class CopilotInstruction extends ManagedTextFile {
-  public readonly applyTo: string;
-
   public readonly name: string;
+
+  private applyTo: string;
 
   private contentLines: readonly string[] = [];
 
@@ -113,12 +113,9 @@ export class CopilotInstruction extends ManagedTextFile {
       this.contentLines = [];
     }
 
-    // Note: applyTo is readonly, so we can't modify it after construction
-    // If you need to change applyTo, create a new CopilotInstruction instance
+    // Update applyTo if provided
     if (options?.applyTo) {
-      console.warn(
-        'applyTo cannot be modified after construction. Create a new CopilotInstruction instance instead.',
-      );
+      this.applyTo = options.applyTo;
     }
   }
 

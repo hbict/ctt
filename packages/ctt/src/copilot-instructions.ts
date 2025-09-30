@@ -51,7 +51,6 @@ export class CopilotInstructions extends Component {
 - Use meaningful variable and function names
 - Document complex logic with comments
 - Leverage TypeScript's type system for better code safety`,
-      name: 'TypeScript',
     });
 
     this.testInstruction = this.addInstruction('test', {
@@ -71,7 +70,6 @@ export class CopilotInstructions extends Component {
 - Aim for high test coverage
 - Focus on testing critical business logic
 - Include integration tests for complex workflows`,
-      name: 'Testing',
     });
   }
 
@@ -80,16 +78,15 @@ export class CopilotInstructions extends Component {
    */
   public addInstruction(
     name: string,
-    options: { name?: string } & Omit<CopilotInstructionOptions, 'name'>,
+    options: Omit<CopilotInstructionOptions, 'name'>,
   ): CopilotInstruction {
-    const instructionName = options.name ?? name;
     const filePath =
       options.filePath ?? `${this.basePath}/${name}.instructions.md`;
 
     const instruction = new CopilotInstruction(this.project, {
       ...options,
       filePath,
-      name: instructionName,
+      name,
     });
 
     this.instructions.set(name, instruction);
