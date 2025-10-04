@@ -1,7 +1,18 @@
 import { synthSnapshot } from 'projen/lib/util/synth';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { CalmsTypescriptBase } from '../src';
+
+vi.mock('fs', () => ({
+  default: {
+    readFileSync: vi.fn((filePath: string) => {
+      if (filePath.includes('package.json')) {
+        return JSON.stringify({ version: '0.1.0-rc.23' });
+      }
+      return '';
+    }),
+  },
+}));
 
 const requiredFileNames = [
   '.commitlintrc.json',

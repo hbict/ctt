@@ -11,7 +11,7 @@ export class PackageCtt extends CalmsTypescriptPackage {
       deps: ['@inquirer/prompts'],
       entrypoint: 'src/index.ts',
       outdir: 'packages/ctt',
-      packageJsonName: '@calm/ctt',
+      packageJsonName: '@hbict/ctt',
       parent,
       typescriptExecutor: TypescriptExecutor.Tsx,
       versionControlRepoName: 'ctt',

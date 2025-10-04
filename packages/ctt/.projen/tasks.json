@@ -21,6 +21,114 @@
         }
       ]
     },
+    "bump:major": {
+      "name": "bump:major",
+      "description": "Bump major version, commit, tag, and push",
+      "steps": [
+        {
+          "exec": "pnpm version major"
+        },
+        {
+          "exec": "git add package.json"
+        },
+        {
+          "exec": "git commit --no-verify -m \"chore(ctt): release $(node -p \"require('./package.json').version\")\""
+        },
+        {
+          "exec": "git push --no-verify"
+        }
+      ]
+    },
+    "bump:minor": {
+      "name": "bump:minor",
+      "description": "Bump minor version, commit, tag, and push",
+      "steps": [
+        {
+          "exec": "pnpm version minor"
+        },
+        {
+          "exec": "git add package.json"
+        },
+        {
+          "exec": "git commit --no-verify -m \"chore(ctt): release $(node -p \"require('./package.json').version\")\""
+        },
+        {
+          "exec": "git push --no-verify"
+        }
+      ]
+    },
+    "bump:patch": {
+      "name": "bump:patch",
+      "description": "Bump patch version, commit, tag, and push",
+      "steps": [
+        {
+          "exec": "pnpm version patch"
+        },
+        {
+          "exec": "git add package.json"
+        },
+        {
+          "exec": "git commit --no-verify -m \"chore(ctt): release $(node -p \"require('./package.json').version\")\""
+        },
+        {
+          "exec": "git push --no-verify"
+        }
+      ]
+    },
+    "bump:pre-major": {
+      "name": "bump:pre-major",
+      "description": "Bump pre-major version (rc), commit, tag, and push",
+      "steps": [
+        {
+          "exec": "pnpm version premajor --preid=rc"
+        },
+        {
+          "exec": "git add package.json"
+        },
+        {
+          "exec": "git commit --no-verify -m \"chore(ctt): release $(node -p \"require('./package.json').version\")\""
+        },
+        {
+          "exec": "git push --no-verify"
+        }
+      ]
+    },
+    "bump:pre-minor": {
+      "name": "bump:pre-minor",
+      "description": "Bump pre-minor version (rc), commit, tag, and push",
+      "steps": [
+        {
+          "exec": "pnpm version preminor --preid=rc"
+        },
+        {
+          "exec": "git add package.json"
+        },
+        {
+          "exec": "git commit --no-verify -m \"chore(ctt): release $(node -p \"require('./package.json').version\")\""
+        },
+        {
+          "exec": "git push --no-verify"
+        }
+      ]
+    },
+    "bump:pre-patch": {
+      "name": "bump:pre-patch",
+      "description": "Bump pre-patch version (rc), commit, tag, and push",
+      "steps": [
+        {
+          "exec": "pnpm version prepatch --preid=rc"
+        },
+        {
+          "exec": "git add package.json"
+        },
+        {
+          "exec": "git commit --no-verify -m \"chore(ctt): release $(node -p \"require('./package.json').version\")\""
+        },
+        {
+          "exec": "git push --no-verify"
+        }
+      ]
+    },
     "compile": {
       "name": "compile",
       "description": "Only compile",
@@ -102,6 +210,30 @@
       "steps": [
         {
           "exec": "rimraf build"
+        }
+      ]
+    },
+    "publish:official": {
+      "name": "publish:official",
+      "description": "Build and publish official version with latest tag",
+      "steps": [
+        {
+          "spawn": "build"
+        },
+        {
+          "exec": "pnpm publish --tag latest --access private --no-git-checks"
+        }
+      ]
+    },
+    "publish:rc": {
+      "name": "publish:rc",
+      "description": "Build and publish RC version with rc tag",
+      "steps": [
+        {
+          "spawn": "build"
+        },
+        {
+          "exec": "pnpm publish --tag rc --access private --no-git-checks"
         }
       ]
     },

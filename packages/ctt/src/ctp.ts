@@ -24,6 +24,22 @@ export type CalmsTypescriptPackageOptionsWithDefaults = {
 } & CalmsTypescriptPackageOptions;
 
 export class CalmsTypescriptPackage extends CalmsTypescriptBase {
+  public readonly bumpMajorTask;
+
+  public readonly bumpMinorTask;
+
+  public readonly bumpPatchTask;
+
+  public readonly bumpPreMajorTask;
+
+  public readonly bumpPreMinorTask;
+
+  public readonly bumpPrePatchTask;
+
+  public readonly publishOfficialTask;
+
+  public readonly publishRcTask;
+
   constructor(options: CalmsTypescriptPackageOptions) {
     const packageJsonNameParts = options.packageJsonName.split('/');
     const defaultBinScriptName =
@@ -66,5 +82,75 @@ import '../src/cli/${binScriptName}.ts';`,
       this.package.addField('bin', binScripts);
       this.tsconfig?.addInclude('bin/**/*.ts');
     }
+
+    const gitCommitReleaseCommand =
+      'git commit --no-verify -m "chore(ctt): release $(node -p "require(\'./package.json\').version")"';
+    const gitPushReleaseCommand = 'git push --no-verify';
+
+    // Bump version tasks
+    this.bumpMajorTask = this.addTask('bump:major', {
+      description: 'Bump major version, commit, tag, and push',
+      exec: 'pnpm version major',
+    });
+    this.bumpMajorTask.exec('git add package.json');
+    this.bumpMajorTask.exec(gitCommitReleaseCommand);
+    this.bumpMajorTask.exec(gitPushReleaseCommand);
+
+    this.bumpMinorTask = this.addTask('bump:minor', {
+      description: 'Bump minor version, commit, tag, and push',
+      exec: 'pnpm version minor',
+    });
+    this.bumpMinorTask.exec('git add package.json');
+    this.bumpMinorTask.exec(gitCommitReleaseCommand);
+    this.bumpMinorTask.exec(gitPushReleaseCommand);
+
+    this.bumpPatchTask = this.addTask('bump:patch', {
+      description: 'Bump patch version, commit, tag, and push',
+      exec: 'pnpm version patch',
+    });
+    this.bumpPatchTask.exec('git add package.json');
+    this.bumpPatchTask.exec(gitCommitReleaseCommand);
+    this.bumpPatchTask.exec(gitPushReleaseCommand);
+
+    this.bumpPreMajorTask = this.addTask('bump:pre-major', {
+      description: 'Bump pre-major version (rc), commit, tag, and push',
+      exec: 'pnpm version premajor --preid=rc',
+    });
+    this.bumpPreMajorTask.exec('git add package.json');
+    this.bumpPreMajorTask.exec(gitCommitReleaseCommand);
+    this.bumpPreMajorTask.exec(gitPushReleaseCommand);
+
+    this.bumpPreMinorTask = this.addTask('bump:pre-minor', {
+      description: 'Bump pre-minor version (rc), commit, tag, and push',
+      exec: 'pnpm version preminor --preid=rc',
+    });
+    this.bumpPreMinorTask.exec('git add package.json');
+    this.bumpPreMinorTask.exec(gitCommitReleaseCommand);
+    this.bumpPreMinorTask.exec(gitPushReleaseCommand);
+
+    this.bumpPrePatchTask = this.addTask('bump:pre-patch', {
+      description: 'Bump pre-patch version (rc), commit, tag, and push',
+      exec: 'pnpm version prepatch --preid=rc',
+    });
+    this.bumpPrePatchTask.exec('git add package.json');
+    this.bumpPrePatchTask.exec(gitCommitReleaseCommand);
+    this.bumpPrePatchTask.exec(gitPushReleaseCommand);
+
+    // Publish tasks
+    this.publishOfficialTask = this.addTask('publish:official', {
+      description: 'Build and publish official version with latest tag',
+    });
+    this.publishOfficialTask.spawn(this.buildTask);
+    this.publishOfficialTask.exec(
+      'pnpm publish --tag latest --access private --no-git-checks',
+    );
+
+    this.publishRcTask = this.addTask('publish:rc', {
+      description: 'Build and publish RC version with rc tag',
+    });
+    this.publishRcTask.spawn(this.buildTask);
+    this.publishRcTask.exec(
+      'pnpm publish --tag rc --access private --no-git-checks',
+    );
   }
 }
