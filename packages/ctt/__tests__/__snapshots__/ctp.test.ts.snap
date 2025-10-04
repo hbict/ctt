@@ -871,10 +871,16 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "name": "bump:major",
       "steps": [
         {
-          "exec": "pnpm version major -m "chore: release %s"",
+          "exec": "pnpm version major",
         },
         {
-          "exec": "git push --follow-tags --no-verify",
+          "exec": "git add package.json",
+        },
+        {
+          "exec": "git commit --no-verify -m "chore(ctt): release $(node -p "require('./package.json').version")"",
+        },
+        {
+          "exec": "git push --no-verify",
         },
       ],
     },
@@ -883,10 +889,16 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "name": "bump:minor",
       "steps": [
         {
-          "exec": "pnpm version minor -m "chore: release %s"",
+          "exec": "pnpm version minor",
         },
         {
-          "exec": "git push --follow-tags --no-verify",
+          "exec": "git add package.json",
+        },
+        {
+          "exec": "git commit --no-verify -m "chore(ctt): release $(node -p "require('./package.json').version")"",
+        },
+        {
+          "exec": "git push --no-verify",
         },
       ],
     },
@@ -895,10 +907,16 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "name": "bump:patch",
       "steps": [
         {
-          "exec": "pnpm version patch -m "chore: release %s"",
+          "exec": "pnpm version patch",
         },
         {
-          "exec": "git push --follow-tags --no-verify",
+          "exec": "git add package.json",
+        },
+        {
+          "exec": "git commit --no-verify -m "chore(ctt): release $(node -p "require('./package.json').version")"",
+        },
+        {
+          "exec": "git push --no-verify",
         },
       ],
     },
@@ -907,10 +925,16 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "name": "bump:pre-major",
       "steps": [
         {
-          "exec": "pnpm version premajor --preid=rc -m "chore: release %s"",
+          "exec": "pnpm version premajor --preid=rc",
         },
         {
-          "exec": "git push --follow-tags --no-verify",
+          "exec": "git add package.json",
+        },
+        {
+          "exec": "git commit --no-verify -m "chore(ctt): release $(node -p "require('./package.json').version")"",
+        },
+        {
+          "exec": "git push --no-verify",
         },
       ],
     },
@@ -919,10 +943,16 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "name": "bump:pre-minor",
       "steps": [
         {
-          "exec": "pnpm version preminor --preid=rc -m "chore: release %s"",
+          "exec": "pnpm version preminor --preid=rc",
         },
         {
-          "exec": "git push --follow-tags --no-verify",
+          "exec": "git add package.json",
+        },
+        {
+          "exec": "git commit --no-verify -m "chore(ctt): release $(node -p "require('./package.json').version")"",
+        },
+        {
+          "exec": "git push --no-verify",
         },
       ],
     },
@@ -931,10 +961,16 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "name": "bump:pre-patch",
       "steps": [
         {
-          "exec": "pnpm version prepatch --preid=rc -m "chore: release %s"",
+          "exec": "pnpm version prepatch --preid=rc",
         },
         {
-          "exec": "git push --follow-tags --no-verify",
+          "exec": "git add package.json",
+        },
+        {
+          "exec": "git commit --no-verify -m "chore(ctt): release $(node -p "require('./package.json').version")"",
+        },
+        {
+          "exec": "git push --no-verify",
         },
       ],
     },
@@ -2626,7 +2662,7 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
     "watch": "npx projen watch",
   },
   "types": "build/src/index.d.ts",
-  "version": "0.0.0",
+  "version": "0.1.0-rc.23",
 }
 `;
 

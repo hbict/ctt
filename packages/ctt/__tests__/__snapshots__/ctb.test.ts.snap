@@ -2487,7 +2487,7 @@ exports[`CalmsTypescriptBase > should have the correct contents for the required
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
   },
-  "version": "0.0.0",
+  "version": "0.1.0-rc.23",
 }
 `;
 

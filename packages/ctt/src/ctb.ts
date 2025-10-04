@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { github, Task, typescript } from 'projen';
 import {
   ArrowParens,
@@ -200,5 +202,13 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
         condition: 'test -z "$GITHUB_COPILOT_API_TOKEN"',
       },
     );
+
+    const packageJson = JSON.parse(
+      fs.readFileSync(path.join(this.outdir, 'package.json')).toString(),
+    ) as { version: string };
+
+    this.addFields({
+      version: packageJson.version,
+    });
   }
 }
