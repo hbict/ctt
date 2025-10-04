@@ -866,6 +866,78 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
         },
       ],
     },
+    "bump:major": {
+      "description": "Bump major version, commit, tag, and push",
+      "name": "bump:major",
+      "steps": [
+        {
+          "exec": "pnpm version major -m "chore: release %s"",
+        },
+        {
+          "exec": "git push --follow-tags --no-verify",
+        },
+      ],
+    },
+    "bump:minor": {
+      "description": "Bump minor version, commit, tag, and push",
+      "name": "bump:minor",
+      "steps": [
+        {
+          "exec": "pnpm version minor -m "chore: release %s"",
+        },
+        {
+          "exec": "git push --follow-tags --no-verify",
+        },
+      ],
+    },
+    "bump:patch": {
+      "description": "Bump patch version, commit, tag, and push",
+      "name": "bump:patch",
+      "steps": [
+        {
+          "exec": "pnpm version patch -m "chore: release %s"",
+        },
+        {
+          "exec": "git push --follow-tags --no-verify",
+        },
+      ],
+    },
+    "bump:pre-major": {
+      "description": "Bump pre-major version (rc), commit, tag, and push",
+      "name": "bump:pre-major",
+      "steps": [
+        {
+          "exec": "pnpm version premajor --preid=rc -m "chore: release %s"",
+        },
+        {
+          "exec": "git push --follow-tags --no-verify",
+        },
+      ],
+    },
+    "bump:pre-minor": {
+      "description": "Bump pre-minor version (rc), commit, tag, and push",
+      "name": "bump:pre-minor",
+      "steps": [
+        {
+          "exec": "pnpm version preminor --preid=rc -m "chore: release %s"",
+        },
+        {
+          "exec": "git push --follow-tags --no-verify",
+        },
+      ],
+    },
+    "bump:pre-patch": {
+      "description": "Bump pre-patch version (rc), commit, tag, and push",
+      "name": "bump:pre-patch",
+      "steps": [
+        {
+          "exec": "pnpm version prepatch --preid=rc -m "chore: release %s"",
+        },
+        {
+          "exec": "git push --follow-tags --no-verify",
+        },
+      ],
+    },
     "clobber": {
       "condition": "git diff --exit-code > /dev/null",
       "description": "hard resets to HEAD of origin and cleans the local repo",
@@ -991,6 +1063,30 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "steps": [
         {
           "exec": "rimraf build",
+        },
+      ],
+    },
+    "publish:official": {
+      "description": "Build and publish official version with latest tag",
+      "name": "publish:official",
+      "steps": [
+        {
+          "spawn": "build",
+        },
+        {
+          "exec": "pnpm publish --tag latest --access private --no-git-checks",
+        },
+      ],
+    },
+    "publish:rc": {
+      "description": "Build and publish RC version with rc tag",
+      "name": "publish:rc",
+      "steps": [
+        {
+          "spawn": "build",
+        },
+        {
+          "exec": "pnpm publish --tag rc --access private --no-git-checks",
         },
       ],
     },
@@ -2502,6 +2598,12 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
+    "bump:major": "npx projen bump:major",
+    "bump:minor": "npx projen bump:minor",
+    "bump:patch": "npx projen bump:patch",
+    "bump:pre-major": "npx projen bump:pre-major",
+    "bump:pre-minor": "npx projen bump:pre-minor",
+    "bump:pre-patch": "npx projen bump:pre-patch",
     "clobber": "npx projen clobber",
     "compile": "npx projen compile",
     "default": "npx projen default",
@@ -2513,6 +2615,8 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
     "pre-compile": "npx projen pre-compile",
     "prepare": "husky",
     "projen": "npx projen",
+    "publish:official": "npx projen publish:official",
+    "publish:rc": "npx projen publish:rc",
     "release": "npx projen release",
     "test": "npx projen test",
     "test:update-snapshots": "npx projen test:update-snapshots",

@@ -314,6 +314,40 @@ if (preCompileTask) {
 - `this.testTask`
 - `this.defaultTask`
 
+### Task Creation
+
+When creating tasks with `addTask()`, always include the first `exec` command inline in the task options (unless the first step is a `spawn`).
+
+**✅ Good:**
+
+```typescript
+this.deployTask = this.addTask('deploy', {
+  description: 'Deploy the application',
+  exec: 'cdk deploy --all',
+});
+this.deployTask.exec('echo "Deployment complete"');
+```
+
+**❌ Avoid:**
+
+```typescript
+this.deployTask = this.addTask('deploy', {
+  description: 'Deploy the application',
+});
+this.deployTask.exec('cdk deploy --all');
+this.deployTask.exec('echo "Deployment complete"');
+```
+
+**Exception for spawn:** When the first step is a `spawn`, do not include `exec` in the options:
+
+```typescript
+this.publishTask = this.addTask('publish', {
+  description: 'Build and publish',
+});
+this.publishTask.spawn(this.buildTask);
+this.publishTask.exec('pnpm publish');
+```
+
 ### Component Instance Storage
 
 When creating components that define tasks, always save the tasks to instance properties for later access. Also save component instances to the base class for reuse.
