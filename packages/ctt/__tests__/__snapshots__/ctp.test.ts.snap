@@ -372,6 +372,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          ref: \${{ github.ref_name }}
+          token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
       - name: Set up node.js
         uses: actions/setup-node@v4
         with:
@@ -393,13 +396,13 @@ jobs:
       - name: Set git identity
         if: steps.check_for_changes.outputs.has_changes == 'true'
         run: |-
-          git config user.email "github-actions@github.com"
-          git config user.name "github-actions"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
       - name: Commit and push changes
         if: steps.check_for_changes.outputs.has_changes == 'true'
         run: |-
           git commit -s -m "chore: updates snapshots" --no-verify
-          git push origin \${{ github.ref_name }} --no-verify
+          git push origin "HEAD:\${{ github.ref_name }}" --no-verify
 "
 `;
 
