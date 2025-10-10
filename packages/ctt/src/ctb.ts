@@ -168,6 +168,28 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
           labels: ['auto-approve'],
           targetBranches: ['main'],
         });
+
+        const pullRequestLintWorkflow =
+        project.github?.tryFindWorkflow('pull-request-lint');
+        const validateJob = pullRequestLintWorkflow?.getJob('validate') as
+          | Job
+          | undefined;
+  
+        if (pullRequestLintWorkflow) {
+          pullRequestLintWorkflow.on({
+            pullRequest: {
+              types: [
+                'labeled',
+                'opened',
+                'synchronize',
+                'reopened',
+                'ready_for_review',
+                'edited',
+              ],
+            },
+            pullRequestTarget: undefined,
+          });
+        }
       }
     }
 
