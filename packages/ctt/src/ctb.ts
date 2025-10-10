@@ -55,7 +55,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
 
   public readonly lintTask: Task;
 
-  public readonly repoInstructions?: CopilotInstruction;
+  public readonly repoInstruction?: CopilotInstruction;
 
   public readonly runBinaryCommand: string;
 
@@ -169,7 +169,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       this.copilotInstructions = new CopilotInstructions(this);
 
       // Add repository-level copilot instructions
-      this.repoInstructions = new CopilotInstruction(this, {
+      this.repoInstruction = new CopilotInstruction(this, {
         applyTo: '**/*',
         content: `This repository uses projen and @calm/ctt for project management.
 

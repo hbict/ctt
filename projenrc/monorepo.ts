@@ -19,7 +19,7 @@ export class Monorepo extends CalmsTypescriptBase {
     });
 
     // Add more detailed instructions for the CTT monorepo
-    this.repoInstructions
+    this.repoInstruction
       ?.reset(`This repository provides projen-based TypeScript templates for creating consistent project structures.
 
 ## Key Components

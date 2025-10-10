@@ -53,7 +53,7 @@ export class CopilotInstruction extends ManagedTextFile {
    * Append content to the instruction
    */
   public append(content: string): void {
-    this.contentLines = [...this.contentLines, '', ...content.split('\n')];
+    this.contentLines = [...this.contentLines, ...content.split('\n')];
   }
 
   /**
@@ -73,7 +73,7 @@ export class CopilotInstruction extends ManagedTextFile {
    */
   public prepend(content: string): void {
     const newLines = content.split('\n');
-    this.contentLines = ['', ...newLines, ...this.contentLines];
+    this.contentLines = [...newLines, ...this.contentLines];
   }
 
   /**
