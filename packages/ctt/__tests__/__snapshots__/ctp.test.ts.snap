@@ -947,12 +947,7 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "name": "install:ci",
       "steps": [
         {
-          "condition": "test -n "$GITHUB_COPILOT_API_TOKEN"",
-          "exec": "pnpm install",
-        },
-        {
-          "condition": "test -z "$GITHUB_COPILOT_API_TOKEN"",
-          "exec": "pnpm install --frozen-lockfile",
+          "spawn": "install",
         },
       ],
     },

@@ -170,6 +170,10 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
           targetBranches: ['main'],
         });
 
+        // need to modify the installCiTask so the build can update the lock file since it is mutable and since the coding agent can modify the dependencies
+        this.package.installCiTask.reset();
+        this.package.installCiTask.spawn(this.package.installTask);
+
         const pullRequestLintWorkflow =
           this.github.tryFindWorkflow('pull-request-lint');
         const validateJob = pullRequestLintWorkflow?.getJob('validate') as
@@ -233,16 +237,5 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
     this.preCompileTask.reset('rimraf build');
 
     this.addFields({ pnpm: undefined });
-
-    this.package.installCiTask.reset(`${this.package.packageManager} install`, {
-      condition: 'test -n "$GITHUB_COPILOT_API_TOKEN"',
-    });
-
-    this.package.installCiTask.exec(
-      `${this.package.packageManager} install --frozen-lockfile`,
-      {
-        condition: 'test -z "$GITHUB_COPILOT_API_TOKEN"',
-      },
-    );
   }
 }
