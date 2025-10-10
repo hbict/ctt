@@ -53,12 +53,7 @@
       "description": "Install project dependencies using frozen lockfile",
       "steps": [
         {
-          "exec": "pnpm install",
-          "condition": "test -n \"$GITHUB_COPILOT_API_TOKEN\""
-        },
-        {
-          "exec": "pnpm install --frozen-lockfile",
-          "condition": "test -z \"$GITHUB_COPILOT_API_TOKEN\""
+          "exec": "pnpm i --frozen-lockfile"
         }
       ]
     },

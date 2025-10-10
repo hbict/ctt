@@ -233,8 +233,8 @@ jobs:
         run: '[ -s \${{ runner.temp }}/repo.patch ] && git apply \${{ runner.temp }}/repo.patch || echo "Empty patch. Skipping."'
       - name: Set git identity
         run: |-
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Push changes
         env:
           PULL_REQUEST_REF: \${{ github.event.pull_request.head.ref }}
@@ -283,7 +283,8 @@ exports[`CalmsTypescriptApp > should have the correct contents for the required 
 
 name: pull-request-lint
 on:
-  pull_request_target:
+  merge_group: {}
+  pull_request:
     types:
       - labeled
       - opened
@@ -291,13 +292,13 @@ on:
       - reopened
       - ready_for_review
       - edited
-  merge_group: {}
 jobs:
   validate:
     name: Validate PR title
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+      statuses: write
     if: (github.event_name == 'pull_request' || github.event_name == 'pull_request_target')
     steps:
       - uses: amannn/action-semantic-pull-request@v6
@@ -312,6 +313,7 @@ jobs:
             refactor
             test
           requireScope: false
+          wip: true
 "
 `;
 
@@ -344,8 +346,8 @@ jobs:
           fetch-depth: 0
       - name: Set git identity
         run: |-
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -421,6 +423,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          ref: \${{ github.ref_name }}
+          token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
       - name: Set up node.js
         uses: actions/setup-node@v4
         with:
@@ -442,13 +447,13 @@ jobs:
       - name: Set git identity
         if: steps.check_for_changes.outputs.has_changes == 'true'
         run: |-
-          git config user.email "github-actions@github.com"
-          git config user.name "github-actions"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
       - name: Commit and push changes
         if: steps.check_for_changes.outputs.has_changes == 'true'
         run: |-
           git commit -s -m "chore: updates snapshots" --no-verify
-          git push origin \${{ github.ref_name }} --no-verify
+          git push origin "HEAD:\${{ github.ref_name }}" --no-verify
 "
 `;
 
@@ -520,8 +525,8 @@ jobs:
         run: '[ -s \${{ runner.temp }}/repo.patch ] && git apply \${{ runner.temp }}/repo.patch || echo "Empty patch. Skipping."'
       - name: Set git identity
         run: |-
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Create Pull Request
         id: create-pr
         uses: peter-evans/create-pull-request@v7
@@ -548,8 +553,8 @@ jobs:
             ------
 
             *Automatically created by projen via the "upgrade-main" workflow*
-          author: github-actions <github-actions@github.com>
-          committer: github-actions <github-actions@github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           signoff: true
 "
 `;
@@ -999,12 +1004,7 @@ exports[`CalmsTypescriptApp > should have the correct contents for the required 
       "name": "install:ci",
       "steps": [
         {
-          "condition": "test -n "$GITHUB_COPILOT_API_TOKEN"",
-          "exec": "pnpm install",
-        },
-        {
-          "condition": "test -z "$GITHUB_COPILOT_API_TOKEN"",
-          "exec": "pnpm install --frozen-lockfile",
+          "spawn": "install",
         },
       ],
     },

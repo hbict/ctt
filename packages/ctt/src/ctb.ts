@@ -1,4 +1,5 @@
 import { github, Task, typescript } from 'projen';
+import { Job, JobPermission } from 'projen/lib/github/workflows-model';
 import {
   ArrowParens,
   EndOfLine,
@@ -191,6 +192,53 @@ To make changes:
           labels: ['auto-approve'],
           targetBranches: ['main'],
         });
+
+        // need to modify the installCiTask so the build can update the lock file since it is mutable and since the coding agent can modify the dependencies
+        this.package.installCiTask.reset();
+        this.package.installCiTask.spawn(this.package.installTask);
+
+        const pullRequestLintWorkflow =
+          this.github.tryFindWorkflow('pull-request-lint');
+        const validateJob = pullRequestLintWorkflow?.getJob('validate') as
+          | Job
+          | undefined;
+
+        if (pullRequestLintWorkflow) {
+          pullRequestLintWorkflow.on({
+            pullRequest: {
+              types: [
+                'labeled',
+                'opened',
+                'synchronize',
+                'reopened',
+                'ready_for_review',
+                'edited',
+              ],
+            },
+            pullRequestTarget: undefined,
+          });
+        }
+
+        if (validateJob?.steps[0]) {
+          const correctedValidateJob = {
+            ...validateJob,
+            permissions: {
+              'pull-requests': JobPermission.WRITE,
+              statuses: JobPermission.WRITE,
+            },
+            steps: [
+              {
+                ...validateJob.steps[0],
+                with: {
+                  ...validateJob.steps[0].with,
+                  wip: true,
+                },
+              },
+            ],
+          };
+
+          pullRequestLintWorkflow?.updateJob('validate', correctedValidateJob);
+        }
       }
     }
 
@@ -212,16 +260,5 @@ To make changes:
     this.preCompileTask.reset('rimraf build');
 
     this.addFields({ pnpm: undefined });
-
-    this.package.installCiTask.reset(`${this.package.packageManager} install`, {
-      condition: 'test -n "$GITHUB_COPILOT_API_TOKEN"',
-    });
-
-    this.package.installCiTask.exec(
-      `${this.package.packageManager} install --frozen-lockfile`,
-      {
-        condition: 'test -z "$GITHUB_COPILOT_API_TOKEN"',
-      },
-    );
   }
 }

@@ -29,6 +29,12 @@ export class UpdateSnapshotsWorkflow {
         {
           name: 'Checkout',
           uses: 'actions/checkout@v5',
+          with: {
+            // eslint-disable-next-line no-template-curly-in-string
+            ref: '${{ github.ref_name }}',
+            // eslint-disable-next-line no-template-curly-in-string
+            token: '${{ secrets.PROJEN_GITHUB_TOKEN }}',
+          },
         },
         {
           name: 'Set up node.js',
@@ -65,8 +71,8 @@ export class UpdateSnapshotsWorkflow {
           if: "steps.check_for_changes.outputs.has_changes == 'true'",
           name: 'Set git identity',
           run: [
-            'git config user.email "github-actions@github.com"',
-            'git config user.name "github-actions"',
+            'git config user.email "41898282+github-actions[bot]@users.noreply.github.com"',
+            'git config user.name "github-actions[bot]"',
           ].join('\n'),
         },
         {
@@ -77,7 +83,7 @@ export class UpdateSnapshotsWorkflow {
             'git commit -s -m "chore: updates snapshots" --no-verify',
             // the build verifies mutation, so no-verify can be used
             // eslint-disable-next-line no-template-curly-in-string
-            'git push origin ${{ github.ref_name }} --no-verify',
+            'git push origin "HEAD:${{ github.ref_name }}" --no-verify',
           ].join('\n'),
         },
       ],
