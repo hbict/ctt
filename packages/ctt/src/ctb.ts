@@ -190,6 +190,27 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
             pullRequestTarget: undefined,
           });
         }
+        
+        if (validateJob?.steps[0]) {
+          const correctedValidateJob = {
+            ...validateJob,
+            permissions: {
+              'pull-requests': JobPermission.WRITE,
+              statuses: JobPermission.WRITE,
+            },
+            steps: [
+              {
+                ...validateJob.steps[0],
+                with: {
+                  ...validateJob.steps[0].with,
+                  wip: true,
+                },
+              },
+            ],
+          };
+  
+          pullRequestLintWorkflow?.updateJob('validate', correctedValidateJob);
+        }
       }
     }
 
