@@ -1,4 +1,5 @@
 import { github, Task, typescript } from 'projen';
+import { Job, JobPermission } from 'projen/lib/github/workflows-model';
 import {
   ArrowParens,
   EndOfLine,
@@ -6,7 +7,6 @@ import {
   TrailingComma,
   TypeScriptModuleResolution,
 } from 'projen/lib/javascript';
-import { Job, JobPermission } from 'projen/lib/github/workflows-model';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
 
@@ -171,11 +171,11 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
         });
 
         const pullRequestLintWorkflow =
-        this.github.tryFindWorkflow('pull-request-lint');
+          this.github.tryFindWorkflow('pull-request-lint');
         const validateJob = pullRequestLintWorkflow?.getJob('validate') as
           | Job
           | undefined;
-  
+
         if (pullRequestLintWorkflow) {
           pullRequestLintWorkflow.on({
             pullRequest: {
@@ -191,7 +191,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
             pullRequestTarget: undefined,
           });
         }
-        
+
         if (validateJob?.steps[0]) {
           const correctedValidateJob = {
             ...validateJob,
@@ -209,7 +209,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
               },
             ],
           };
-  
+
           pullRequestLintWorkflow?.updateJob('validate', correctedValidateJob);
         }
       }
