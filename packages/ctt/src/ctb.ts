@@ -6,6 +6,7 @@ import {
   TrailingComma,
   TypeScriptModuleResolution,
 } from 'projen/lib/javascript';
+import { Job, JobPermission } from 'projen/lib/github/workflows-model';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
 
