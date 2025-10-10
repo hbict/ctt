@@ -170,7 +170,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
         });
 
         const pullRequestLintWorkflow =
-        project.github?.tryFindWorkflow('pull-request-lint');
+        this.github?.tryFindWorkflow('pull-request-lint');
         const validateJob = pullRequestLintWorkflow?.getJob('validate') as
           | Job
           | undefined;
