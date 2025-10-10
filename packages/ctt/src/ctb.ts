@@ -170,6 +170,10 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
           targetBranches: ['main'],
         });
 
+        // need to modify the installCiTask so the build can update the lock file since it is mutable and since the coding agent can modify the dependencies
+        this.package.installCiTask.reset();
+        this.package.installCiTask.spawn(project.package.installTask);
+
         const pullRequestLintWorkflow =
           this.github.tryFindWorkflow('pull-request-lint');
         const validateJob = pullRequestLintWorkflow?.getJob('validate') as
