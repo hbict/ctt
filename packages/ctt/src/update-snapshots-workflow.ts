@@ -34,7 +34,7 @@ export class UpdateSnapshotsWorkflow {
             ref: '${{ github.ref_name }}',
             // eslint-disable-next-line no-template-curly-in-string
             token: '${{ secrets.PROJEN_GITHUB_TOKEN }}',
-          }
+          },
         },
         {
           name: 'Set up node.js',
@@ -71,8 +71,8 @@ export class UpdateSnapshotsWorkflow {
           if: "steps.check_for_changes.outputs.has_changes == 'true'",
           name: 'Set git identity',
           run: [
-             'git config user.email "41898282+github-actions[bot]@users.noreply.github.com"',
-             'git config user.name "github-actions[bot]"',
+            'git config user.email "41898282+github-actions[bot]@users.noreply.github.com"',
+            'git config user.name "github-actions[bot]"',
           ].join('\n'),
         },
         {
