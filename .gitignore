@@ -52,6 +52,9 @@ test-reports/
 !/.husky/commit-msg
 !/.husky/pre-commit
 !/.husky/pre-push
+!/.github/instructions/typescript.instructions.md
+!/.github/instructions/test.instructions.md
+!/.github/copilot-instructions.md
 !/.github/workflows/copilot-setup-steps.yml
 !/.github/workflows/update-snapshots.yml
 !/.github/workflows/auto-queue.yml

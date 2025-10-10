@@ -11,6 +11,8 @@ import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
 
 import { CalmsEslint } from './calms-eslint';
+import { CopilotInstruction } from './copilot-instruction';
+import { CopilotInstructions } from './copilot-instructions';
 import { CopilotSetupWorkflow } from './copilot-setup-workflow';
 import { GitHooks } from './git-hooks';
 import { TypescriptExecutor } from './types';
@@ -44,6 +46,8 @@ export type CalmsTypescriptBaseOptionsWithDefaults = {
 export class CalmsTypescriptBase extends typescript.TypeScriptProject {
   public readonly calmsEslint: CalmsEslint;
 
+  public readonly copilotInstructions?: CopilotInstructions;
+
   public readonly copilotSetupWorkflow?: CopilotSetupWorkflow;
 
   public readonly defaultTask: Task;
@@ -51,6 +55,8 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
   public readonly gitHooks?: GitHooks;
 
   public readonly lintTask: Task;
+
+  public readonly repoInstruction?: CopilotInstruction;
 
   public readonly runBinaryCommand: string;
 
@@ -159,6 +165,23 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       this.tryRemoveFile('.npmrc');
     } else {
       this.gitHooks = new GitHooks(this);
+
+      // Add Copilot Instructions only for root projects
+      this.copilotInstructions = new CopilotInstructions(this);
+
+      // Add repository-level copilot instructions
+      this.repoInstruction = new CopilotInstruction(this, {
+        applyTo: '**/*',
+        content: `This repository uses projen and @calm/ctt for project management.
+
+**DO NOT** manually edit files managed by projen - they will be overwritten.
+
+To make changes:
+1. Edit the \`.projenrc.ts\` file
+2. Run \`npx projen\` to regenerate managed files`,
+        filePath: '.github/copilot-instructions.md',
+        name: this.name,
+      });
 
       if (this.github) {
         this.copilotSetupWorkflow = new CopilotSetupWorkflow(this);
