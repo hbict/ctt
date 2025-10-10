@@ -237,16 +237,5 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
     this.preCompileTask.reset('rimraf build');
 
     this.addFields({ pnpm: undefined });
-
-    this.package.installCiTask.reset(`${this.package.packageManager} install`, {
-      condition: 'test -n "$GITHUB_COPILOT_API_TOKEN"',
-    });
-
-    this.package.installCiTask.exec(
-      `${this.package.packageManager} install --frozen-lockfile`,
-      {
-        condition: 'test -z "$GITHUB_COPILOT_API_TOKEN"',
-      },
-    );
   }
 }
