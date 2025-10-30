@@ -48,7 +48,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
-    "projen": "^0.98.5",
+    "projen": "^0.98.6",
     "rimraf": "^6.0.1",
     "ts-deepmerge": "^7.0.3",
     "tsx": "^4.20.6",
