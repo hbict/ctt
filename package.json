@@ -48,12 +48,12 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
-    "projen": "^0.98.7",
+    "projen": "^0.98.11",
     "rimraf": "^6.1.0",
     "ts-deepmerge": "^7.0.3",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.3",
+    "typescript-eslint": "^8.46.4",
     "vitest": "^3.2.4"
   },
   "engines": {
