@@ -142,7 +142,7 @@
       },
       "steps": [
         {
-          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,prettier,rimraf,ts-deepmerge,tsx,typescript,typescript-eslint,vitest,@inquirer/prompts"
+          "exec": "pnpm dlx npm-check-updates@18 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,prettier,rimraf,ts-deepmerge,tsx,typescript,typescript-eslint,vitest,@inquirer/prompts"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
