@@ -27,10 +27,10 @@ export class Vitest extends Component {
 
 export default defineConfig({
   test: {
-    clearMocks: false,
+    clearMocks: true,
     exclude: ['**/dist/**', '**/build/**', '**/node_modules/**'],
     include: ['**/*.test.ts?(x)'],
-    mockReset: true,
+    mockReset: false,
     restoreMocks: false,
   },
 });
