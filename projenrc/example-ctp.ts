@@ -8,7 +8,7 @@ export class ExampleCtp extends CalmsTypescriptPackage {
     super({
       authorEmail: 'mostcolm@gmail.com',
       authorName: 'Alex Wendte',
-      devDeps: ['@calm/ctt@workspace:*'],
+      devDeps: ['@hbict/ctt@workspace:*'],
       github: false,
       outdir: 'examples/ctp',
       packageJsonName: 'example-ctp',

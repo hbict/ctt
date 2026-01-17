@@ -1,12 +1,12 @@
 {
   "dependencies": [
     {
-      "name": "@calm/ctt",
-      "version": "workspace:*",
+      "name": "@eslint/js",
       "type": "build"
     },
     {
-      "name": "@eslint/js",
+      "name": "@hbict/ctt",
+      "version": "workspace:*",
       "type": "build"
     },
     {

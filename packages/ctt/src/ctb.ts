@@ -203,12 +203,20 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       },
     );
 
-    const packageJson = JSON.parse(
-      fs.readFileSync(path.join(this.outdir, 'package.json')).toString(),
-    ) as { version: string };
+    // Try to preserve existing version if package.json exists
+    try {
+      const packageJson = JSON.parse(
+        fs.readFileSync(path.join(this.outdir, 'package.json')).toString(),
+      ) as { version: string };
 
-    this.addFields({
-      version: packageJson.version,
-    });
+      this.addFields({
+        version: packageJson.version,
+      });
+    } catch {
+      // Package.json doesn't exist yet (new project), use default version
+      this.addFields({
+        version: '0.0.0',
+      });
+    }
   }
 }

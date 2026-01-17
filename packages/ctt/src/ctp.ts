@@ -60,6 +60,8 @@ export class CalmsTypescriptPackage extends CalmsTypescriptBase {
 
     super(mergedOptions);
 
+    this.package.addField('types', 'build/src/index.d.ts');
+
     mergedOptions.binScriptNames?.forEach(binScriptName => {
       new SampleFile(this, `bin/${binScriptName}.ts`, {
         contents: `#!/usr/bin/env node

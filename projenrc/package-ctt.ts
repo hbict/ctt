@@ -8,7 +8,7 @@ export class PackageCtt extends CalmsTypescriptPackage {
     super({
       authorEmail: 'mostcolm@gmail.com',
       authorName: 'Alex Wendte',
-      deps: ['@inquirer/prompts'],
+      deps: ['@inquirer/prompts', 'commander'],
       entrypoint: 'src/index.ts',
       outdir: 'packages/ctt',
       packageJsonName: '@hbict/ctt',

@@ -285,7 +285,7 @@
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @calm/ctt @eslint/js @stylistic/eslint-plugin @types/node @vitest/coverage-v8 eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist prettier rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
+          "exec": "pnpm update @eslint/js @hbict/ctt @stylistic/eslint-plugin @types/node @vitest/coverage-v8 eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist prettier rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
         },
         {
           "exec": "npx projen"

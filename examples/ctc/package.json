@@ -30,8 +30,8 @@
     "organization": false
   },
   "devDependencies": {
-    "@calm/ctt": "workspace:*",
     "@eslint/js": "^9.36.0",
+    "@hbict/ctt": "workspace:*",
     "@stylistic/eslint-plugin": "^4.4.1",
     "@types/node": "^22",
     "@vitest/coverage-v8": "^3.2.4",

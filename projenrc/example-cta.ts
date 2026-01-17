@@ -8,7 +8,7 @@ export class ExampleCta extends CalmsTypescriptBase {
     super({
       authorEmail: 'mostcolm@gmail.com',
       authorName: 'Alex Wendte',
-      devDeps: ['@calm/ctt@workspace:*'],
+      devDeps: ['@hbict/ctt@workspace:*'],
       github: false,
       outdir: 'examples/cta',
       packageJsonName: 'example-cta',
