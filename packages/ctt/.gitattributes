@@ -10,6 +10,7 @@
 /.projen/deps.json linguist-generated
 /.projen/files.json linguist-generated
 /.projen/tasks.json linguist-generated
+/e2e/vitest.config.mts linguist-generated
 /eslint.config.mjs linguist-generated
 /LICENSE linguist-generated
 /package.json linguist-generated

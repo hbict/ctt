@@ -7,6 +7,7 @@
     ".projen/deps.json",
     ".projen/files.json",
     ".projen/tasks.json",
+    "e2e/vitest.config.mts",
     "eslint.config.mjs",
     "LICENSE",
     "tsconfig.json",

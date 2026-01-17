@@ -251,6 +251,15 @@
         }
       ]
     },
+    "test:e2e": {
+      "name": "test:e2e",
+      "description": "Run e2e tests",
+      "steps": [
+        {
+          "exec": "vitest run --config e2e/vitest.config.mts"
+        }
+      ]
+    },
     "test:update-snapshots": {
       "name": "test:update-snapshots",
       "description": "run tests and update snapshots",

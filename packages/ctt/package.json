@@ -25,6 +25,7 @@
     "publish:official": "npx projen publish:official",
     "publish:rc": "npx projen publish:rc",
     "test": "npx projen test",
+    "test:e2e": "npx projen test:e2e",
     "test:update-snapshots": "npx projen test:update-snapshots",
     "test:watch": "npx projen test:watch",
     "upgrade": "npx projen upgrade",

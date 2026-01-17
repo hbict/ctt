@@ -37,7 +37,9 @@
     ".projenrc.ts",
     "__tests__/**/*.ts",
     "vitest.config.mts",
-    "bin/**/*.ts"
+    "bin/**/*.ts",
+    "e2e/**/*.ts",
+    "e2e/vitest.config.mts"
   ],
   "exclude": [
     "**/node_modules/*",

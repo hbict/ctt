@@ -39,3 +39,4 @@ jspm_packages/
 !/eslint.config.mjs
 test-reports/
 !/vitest.config.mts
+!/e2e/vitest.config.mts
