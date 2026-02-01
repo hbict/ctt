@@ -15,5 +15,12 @@ export class ExampleCta extends CalmsTypescriptBase {
       parent,
       typescriptExecutor: TypescriptExecutor.Tsx,
     });
+
+    // testing out eslint overrides
+    this.calmsEslint.addRules({ 'perfectionist/sort-modules': 'off' });
+
+    // we are @hbict/ctt so we need to use it differently
+    this.deps.removeDependency('@hbict/ctt');
+    this.addDevDeps('@hbict/ctt@workspace:*');
   }
 }

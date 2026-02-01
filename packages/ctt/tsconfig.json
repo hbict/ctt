@@ -11,7 +11,7 @@
     "lib": [
       "esnext"
     ],
-    "module": "node16",
+    "module": "NodeNext",
     "noEmitOnError": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -28,7 +28,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
-    "moduleResolution": "node16",
+    "moduleResolution": "nodenext",
     "skipLibCheck": true,
     "sourceMap": true
   },

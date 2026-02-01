@@ -485,11 +485,7 @@ export const airbnbCustomConfig: Linter.Config = {
       'error',
       {
         capIsNew: false,
-        capIsNewExceptions: [
-          'Immutable.Map',
-          'Immutable.Set',
-          'Immutable.List',
-        ],
+        capIsNewExceptions: ['Immutable.Map', 'Immutable.Set', 'Immutable.List'],
         newIsCap: true,
         newIsCapExceptions: [],
         properties: true,

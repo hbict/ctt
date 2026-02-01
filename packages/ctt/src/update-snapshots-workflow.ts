@@ -6,17 +6,12 @@ import { TypeScriptProject } from 'projen/lib/typescript';
 export class UpdateSnapshotsWorkflow {
   public readonly updateSnapshotsWorkflow: GithubWorkflow;
 
-  constructor(
-    project: { vitest: { updateSnapshotsTask: Task } } & TypeScriptProject,
-  ) {
+  constructor(project: { vitest: { updateSnapshotsTask: Task } } & TypeScriptProject) {
     if (!project.github) {
-      throw new Error(
-        'github must be enabled to use update snapshots workflow',
-      );
+      throw new Error('github must be enabled to use update snapshots workflow');
     }
 
-    this.updateSnapshotsWorkflow =
-      project.github.addWorkflow('update-snapshots');
+    this.updateSnapshotsWorkflow = project.github.addWorkflow('update-snapshots');
 
     this.updateSnapshotsWorkflow.on({ workflowDispatch: {} });
 

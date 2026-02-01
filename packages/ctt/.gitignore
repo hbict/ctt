@@ -36,7 +36,7 @@ jspm_packages/
 !/src/
 /build
 /dist/
-!/eslint.config.mjs
 test-reports/
 !/vitest.config.mts
 !/e2e/vitest.config.mts
+!/eslint.config.mjs

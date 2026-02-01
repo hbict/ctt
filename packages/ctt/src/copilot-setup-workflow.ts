@@ -10,9 +10,7 @@ export class CopilotSetupWorkflow {
       throw new Error('github must be enabled to use copilot setup workflow');
     }
 
-    this.copilotSetupWorkflow = project.github.addWorkflow(
-      'copilot-setup-steps',
-    );
+    this.copilotSetupWorkflow = project.github.addWorkflow('copilot-setup-steps');
 
     this.copilotSetupWorkflow.on({
       pullRequest: {

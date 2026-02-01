@@ -259,7 +259,7 @@
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
+          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @hbict/ctt @stylistic/eslint-plugin @types/node @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen rimraf ts-deepmerge tsx typescript typescript-eslint vitest"
         },
         {
           "exec": "npx projen"

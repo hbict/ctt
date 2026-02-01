@@ -31,14 +31,9 @@ describe('CLI E2E Tests', () => {
       expect(fs.existsSync(path.join(tmpDir, '.projenrc.ts'))).toBe(true);
       expect(fs.existsSync(path.join(tmpDir, 'tsconfig.json'))).toBe(true);
       expect(fs.existsSync(path.join(tmpDir, 'bin', 'e2e-ctp.ts'))).toBe(true);
-      expect(fs.existsSync(path.join(tmpDir, 'src', 'cli', 'e2e-ctp.ts'))).toBe(
-        true,
-      );
+      expect(fs.existsSync(path.join(tmpDir, 'src', 'cli', 'e2e-ctp.ts'))).toBe(true);
 
-      const projenrcContent = fs.readFileSync(
-        path.join(tmpDir, '.projenrc.ts'),
-        'utf-8',
-      );
+      const projenrcContent = fs.readFileSync(path.join(tmpDir, '.projenrc.ts'), 'utf-8');
       expect(projenrcContent).toContain('CalmsTypescriptPackage');
       expect(projenrcContent).toContain('@test/e2e-ctp');
       expect(projenrcContent).toContain('e2e-ctp');
@@ -75,10 +70,7 @@ describe('CLI E2E Tests', () => {
       expect(fs.existsSync(path.join(tmpDir, '.projenrc.ts'))).toBe(true);
       expect(fs.existsSync(path.join(tmpDir, 'tsconfig.json'))).toBe(true);
 
-      const projenrcContent = fs.readFileSync(
-        path.join(tmpDir, '.projenrc.ts'),
-        'utf-8',
-      );
+      const projenrcContent = fs.readFileSync(path.join(tmpDir, '.projenrc.ts'), 'utf-8');
       expect(projenrcContent).toContain('CalmsTypescriptApp');
       expect(projenrcContent).toContain('@test/e2e-cta');
       expect(projenrcContent).toContain("devDeps: ['@hbict/ctt']");
@@ -114,10 +106,7 @@ describe('CLI E2E Tests', () => {
       expect(fs.existsSync(path.join(tmpDir, '.projenrc.ts'))).toBe(true);
       expect(fs.existsSync(path.join(tmpDir, 'cdk.json'))).toBe(true);
 
-      const projenrcContent = fs.readFileSync(
-        path.join(tmpDir, '.projenrc.ts'),
-        'utf-8',
-      );
+      const projenrcContent = fs.readFileSync(path.join(tmpDir, '.projenrc.ts'), 'utf-8');
       expect(projenrcContent).toContain('CalmsTypescriptCdk');
       expect(projenrcContent).toContain('@test/e2e-ctc');
       expect(projenrcContent).toContain("devDeps: ['@hbict/ctt']");

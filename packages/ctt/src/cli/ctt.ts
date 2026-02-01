@@ -32,16 +32,10 @@ const parseArgs = (): CliOptions => {
     .argument('[directory]', 'Directory to create the project in', '.')
     .option('-t, --template <name>', 'Template to use (cta, ctc, ctp, ctb)')
     .option('-n, --package-json-name <name>', 'Package name for package.json')
-    .option(
-      '-v, --version-control-repo-name <name>',
-      'Repository name (e.g., my-project)',
-    )
+    .option('-v, --version-control-repo-name <name>', 'Repository name (e.g., my-project)')
     .option('--author-name <name>', 'Author name', 'Alex Wendte')
     .option('--author-email <email>', 'Author email', 'mostcolm@gmail.com')
-    .option(
-      '--useLocalCtt',
-      'Use local @hbict/ctt package (for development/testing)',
-    )
+    .option('--useLocalCtt', 'Use local @hbict/ctt package (for development/testing)')
     .addHelpText(
       'after',
       `
@@ -77,9 +71,7 @@ Templates:
 };
 
 // Map short template names to full names
-const mapTemplateShorthand = (
-  template: string,
-): null | TemplateUserFriendly => {
+const mapTemplateShorthand = (template: string): null | TemplateUserFriendly => {
   const mapping: Record<string, TemplateUserFriendly> = {
     cta: TemplateUserFriendly.CalmsTypescriptApp,
     ctb: TemplateUserFriendly.CalmsTypescriptBase,
@@ -121,8 +113,7 @@ const promptUser = async (cliOptions: CliOptions) => {
     cliOptions.directory ||
     (await input({
       default: '.',
-      message:
-        'What directory would you like the service created in? (use . for cwd)',
+      message: 'What directory would you like the service created in? (use . for cwd)',
     }));
 
   const packageJsonName =
@@ -139,8 +130,7 @@ const promptUser = async (cliOptions: CliOptions) => {
     cliOptions.versionControlRepoName ||
     (await input({
       default: packageActualName,
-      message:
-        'What is the version control repository name? (e.g., my-project)',
+      message: 'What is the version control repository name? (e.g., my-project)',
     }));
 
   return {
@@ -287,8 +277,7 @@ const go = async () => {
   if (cliOptions.useLocalCtt) {
     console.log('\n🔗 Linking local CTT package...');
     const cttPackagePath = path.join(__dirname, '..', '..', '..');
-    const projectDir =
-      answers.directory === '.' ? process.cwd() : answers.directory;
+    const projectDir = answers.directory === '.' ? process.cwd() : answers.directory;
 
     try {
       // Link @hbict/ctt using directory path (don't add to package.json first)

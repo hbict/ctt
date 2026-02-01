@@ -12,6 +12,10 @@ export class Monorepo extends CalmsTypescriptBase {
       versionControlRepoName: 'ctt',
     });
 
+    // we are @hbict/ctt so we need to use it differently
+    this.deps.removeDependency('@hbict/ctt');
+    this.addDevDeps('@hbict/ctt@workspace:*');
+
     new ManagedYamlFile(this, 'pnpm-workspace.yaml', {
       obj: {
         packages: ['packages/*', 'examples/*'],

@@ -44,7 +44,6 @@ jspm_packages/
 !/src/
 /build
 /dist/
-!/eslint.config.mjs
 test-reports/
 !/vitest.config.mts
 !/.commitlintrc.json
@@ -57,3 +56,4 @@ test-reports/
 !/.github/workflows/auto-queue.yml
 !/pnpm-workspace.yaml
 !/.projenrc.ts
+!/eslint.config.mjs

@@ -3,8 +3,7 @@ import { merge } from 'ts-deepmerge';
 
 import { CalmsTypescriptBase, CalmsTypescriptBaseOptions } from './ctb';
 
-export interface CalmsTypescriptPackageOptions
-  extends CalmsTypescriptBaseOptions {
+export interface CalmsTypescriptPackageOptions extends CalmsTypescriptBaseOptions {
   /**
    * The scripts that will be added as bins to the package.json will be stubbed out for you to populate. Set shouldAddBinScripts to false to not include any bin scripts
    * @default [packageJsonName.after('/')]
@@ -42,21 +41,16 @@ export class CalmsTypescriptPackage extends CalmsTypescriptBase {
 
   constructor(options: CalmsTypescriptPackageOptions) {
     const packageJsonNameParts = options.packageJsonName.split('/');
-    const defaultBinScriptName =
-      packageJsonNameParts[1] || packageJsonNameParts[0];
+    const defaultBinScriptName = packageJsonNameParts[1] || packageJsonNameParts[0];
 
     const defaultOptions: CalmsTypescriptPackageOptionsWithDefaults = {
       authorEmail: options.authorEmail,
       authorName: options.authorName,
-      binScriptNames:
-        options.shouldAddBinScripts === false ? [] : [defaultBinScriptName],
+      binScriptNames: options.shouldAddBinScripts === false ? [] : [defaultBinScriptName],
       entrypoint: 'build/src/index.js',
       packageJsonName: options.packageJsonName,
     };
-    const mergedOptions: CalmsTypescriptPackageOptions = merge(
-      defaultOptions,
-      options,
-    );
+    const mergedOptions: CalmsTypescriptPackageOptions = merge(defaultOptions, options);
 
     super(mergedOptions);
 
@@ -143,16 +137,12 @@ import '../src/cli/${binScriptName}.ts';`,
       description: 'Build and publish official version with latest tag',
     });
     this.publishOfficialTask.spawn(this.buildTask);
-    this.publishOfficialTask.exec(
-      'pnpm publish --tag latest --access private --no-git-checks',
-    );
+    this.publishOfficialTask.exec('pnpm publish --tag latest --access private --no-git-checks');
 
     this.publishRcTask = this.addTask('publish:rc', {
       description: 'Build and publish RC version with rc tag',
     });
     this.publishRcTask.spawn(this.buildTask);
-    this.publishRcTask.exec(
-      'pnpm publish --tag rc --access private --no-git-checks',
-    );
+    this.publishRcTask.exec('pnpm publish --tag rc --access private --no-git-checks');
   }
 }

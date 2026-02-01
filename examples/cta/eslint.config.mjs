@@ -25,6 +25,27 @@ export default defineConfig(
       },
     },
     rules: {
+      '@stylistic/arrow-parens': ['error', 'as-needed'],
+      '@stylistic/brace-style': 'off',
+      '@stylistic/indent': 'off',
+      '@stylistic/indent-binary-ops': 'off',
+      '@stylistic/member-delimiter-style': [
+        'error',
+        {
+          multiline: {
+            delimiter: 'semi',
+            requireLast: true,
+          },
+          singleline: {
+            delimiter: 'semi',
+            requireLast: false,
+          },
+        },
+      ],
+      '@stylistic/operator-linebreak': 'off',
+      '@stylistic/quote-props': ['error', 'as-needed'],
+      '@stylistic/quotes': 'off',
+      '@stylistic/semi': ['error', 'always'],
       '@typescript-eslint/ban-ts-comment': 'error',
       '@typescript-eslint/no-array-constructor': 'error',
       '@typescript-eslint/no-duplicate-enum-values': 'error',
@@ -36,14 +57,35 @@ export default defineConfig(
       '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
       '@typescript-eslint/no-require-imports': 'error',
       '@typescript-eslint/no-this-alias': 'error',
+      '@typescript-eslint/no-unnecessary-template-expression': 'error',
       '@typescript-eslint/no-unnecessary-type-constraint': 'error',
       '@typescript-eslint/no-unsafe-declaration-merging': 'error',
       '@typescript-eslint/no-unsafe-function-type': 'error',
       '@typescript-eslint/no-unused-expressions': 'error',
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+          varsIgnorePattern: '^_',
+        },
+      ],
       '@typescript-eslint/no-wrapper-object-types': 'error',
       '@typescript-eslint/prefer-as-const': 'error',
       '@typescript-eslint/prefer-namespace-keyword': 'error',
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowBoolean: true,
+          allowNever: true,
+          allowNullish: true,
+          allowNumber: true,
+        },
+      ],
       '@typescript-eslint/triple-slash-reference': 'error',
       'accessor-pairs': 'off',
       'array-bracket-newline': ['off', 'consistent'],
@@ -183,6 +225,14 @@ export default defineConfig(
       'func-names': 'warn',
       'func-style': ['off', 'expression'],
       'function-call-argument-newline': ['error', 'consistent'],
+      'functional/immutable-data': [
+        'error',
+        {
+          ignoreClasses: 'fieldsOnly',
+          ignoreMapsAndSets: true,
+        },
+      ],
+      'functional/no-let': 'error',
       'generator-star-spacing': [
         'error',
         {
@@ -211,6 +261,7 @@ export default defineConfig(
           webpackChunknameFormat: '[0-9a-zA-Z-_/.]+',
         },
       ],
+      'import/export': 'off',
       'import/exports-last': 'off',
       'import/first': 'error',
       'import/group-exports': 'off',
@@ -273,6 +324,15 @@ export default defineConfig(
       'import/no-restricted-paths': 'off',
       'import/no-self-import': 'error',
       'import/no-unassigned-import': 'off',
+      'import/no-unresolved': [
+        'error',
+        {
+          caseSensitive: true,
+          caseSensitiveStrict: false,
+          commonjs: true,
+          ignore: ['aws-lambda', 'vitest/config'],
+        },
+      ],
       'import/no-unused-modules': [
         'off',
         {
@@ -383,11 +443,7 @@ export default defineConfig(
         'error',
         {
           capIsNew: false,
-          capIsNewExceptions: [
-            'Immutable.Map',
-            'Immutable.Set',
-            'Immutable.List',
-          ],
+          capIsNewExceptions: ['Immutable.Map', 'Immutable.Set', 'Immutable.List'],
           newIsCap: true,
           newIsCapExceptions: [],
           properties: true,
@@ -1043,70 +1099,7 @@ export default defineConfig(
       'wrap-regex': 'off',
       'yield-star-spacing': ['error', 'after'],
       yoda: 'error',
-      '@stylistic/arrow-parens': ['error', 'as-needed'],
-      '@stylistic/brace-style': 'off',
-      '@stylistic/indent': 'off',
-      '@stylistic/indent-binary-ops': 'off',
-      '@stylistic/member-delimiter-style': [
-        'error',
-        {
-          multiline: {
-            delimiter: 'semi',
-            requireLast: true,
-          },
-          singleline: {
-            delimiter: 'semi',
-            requireLast: false,
-          },
-        },
-      ],
-      '@stylistic/operator-linebreak': 'off',
-      '@stylistic/quote-props': ['error', 'as-needed'],
-      '@stylistic/quotes': 'off',
-      '@stylistic/semi': ['error', 'always'],
-      '@typescript-eslint/no-unnecessary-template-expression': 'error',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          args: 'all',
-          argsIgnorePattern: '^_',
-          caughtErrors: 'all',
-          caughtErrorsIgnorePattern: '^_',
-          destructuredArrayIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-          varsIgnorePattern: '^_',
-        },
-      ],
-      '@typescript-eslint/restrict-template-expressions': [
-        'error',
-        {
-          allowBoolean: true,
-          allowNever: true,
-          allowNullish: true,
-          allowNumber: true,
-        },
-      ],
-      'functional/immutable-data': [
-        'error',
-        { ignoreClasses: 'fieldsOnly', ignoreMapsAndSets: true },
-      ],
-      'functional/no-let': 'error',
-      'import/export': 'off',
-      'import/no-unresolved': [
-        'error',
-        {
-          caseSensitive: true,
-          caseSensitiveStrict: false,
-          commonjs: true,
-          ignore: ['aws-lambda', 'vitest/config'],
-        },
-      ],
-      'no-else-return': 'error',
-      'no-lonely-if': 'error',
-      'no-nested-ternary': 'error',
-      'no-template-curly-in-string': 'error',
-      'object-shorthand': ['error', 'always'],
-      'prefer-template': 'error',
+      'perfectionist/sort-modules': 'off',
     },
     settings: {
       'import/resolver': {

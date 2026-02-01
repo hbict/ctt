@@ -54,18 +54,13 @@ describe('CalmsTypescriptCdk', () => {
   });
   const snapshot = synthSnapshot(project);
 
-  it.each(requiredFileNames)(
-    'should include the required file: %s',
-    fileName => {
-      expect(Object.keys(snapshot)).toContain(fileName);
-    },
-  );
+  it.each(requiredFileNames)('should include the required file: %s', fileName => {
+    expect(Object.keys(snapshot)).toContain(fileName);
+  });
 
   it('should not generate any files other than the required files', () => {
     const generatedFiles = Object.keys(snapshot);
-    const unexpectedFiles = generatedFiles.filter(
-      file => !requiredFileNames.includes(file),
-    );
+    const unexpectedFiles = generatedFiles.filter(file => !requiredFileNames.includes(file));
 
     expect(unexpectedFiles).toEqual([]);
   });

@@ -13,6 +13,11 @@
       "type": "build"
     },
     {
+      "name": "@hbict/ctt",
+      "version": "workspace:*",
+      "type": "build"
+    },
+    {
       "name": "@stylistic/eslint-plugin",
       "type": "build"
     },

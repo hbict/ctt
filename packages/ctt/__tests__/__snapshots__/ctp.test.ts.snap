@@ -550,7 +550,6 @@ jspm_packages/
 !/src/
 /build
 /dist/
-!/eslint.config.mjs
 test-reports/
 !/vitest.config.mts
 !/.commitlintrc.json
@@ -562,6 +561,7 @@ test-reports/
 !/.github/workflows/update-snapshots.yml
 !/.github/workflows/auto-queue.yml
 !/.projenrc.ts
+!/eslint.config.mjs
 "
 `;
 
@@ -673,8 +673,7 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
   "arrowParens": "avoid",
   "endOfLine": "lf",
   "overrides": [],
-  "printWidth": 80,
-  "semi": true,
+  "printWidth": 100,
   "singleQuote": true,
   "trailingComma": "all",
 }
@@ -694,6 +693,10 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
     },
     {
       "name": "@eslint/js",
+      "type": "build",
+    },
+    {
+      "name": "@hbict/ctt",
       "type": "build",
     },
     {
@@ -1209,13 +1212,13 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
       "name": "upgrade",
       "steps": [
         {
-          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@commitlint/cli,@commitlint/config-conventional,@eslint/js,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,husky,lint-staged,prettier,projen,rimraf,ts-deepmerge,ts-node,typescript,typescript-eslint,vitest",
+          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@commitlint/cli,@commitlint/config-conventional,@eslint/js,@hbict/ctt,@stylistic/eslint-plugin,@vitest/coverage-v8,eslint,eslint-import-resolver-typescript,eslint-plugin-functional,eslint-plugin-import,eslint-plugin-perfectionist,husky,lint-staged,prettier,projen,rimraf,ts-deepmerge,ts-node,typescript,typescript-eslint,vitest",
         },
         {
           "exec": "pnpm i --no-frozen-lockfile",
         },
         {
-          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @stylistic/eslint-plugin @types/node @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen rimraf ts-deepmerge ts-node typescript typescript-eslint vitest",
+          "exec": "pnpm update @commitlint/cli @commitlint/config-conventional @eslint/js @hbict/ctt @stylistic/eslint-plugin @types/node @vitest/coverage-v8 commit-and-tag-version constructs eslint eslint-import-resolver-typescript eslint-plugin-functional eslint-plugin-import eslint-plugin-perfectionist husky lint-staged prettier projen rimraf ts-deepmerge ts-node typescript typescript-eslint vitest",
         },
         {
           "exec": "npx projen",
@@ -1480,6 +1483,27 @@ export default defineConfig(
       },
     },
     rules: {
+      '@stylistic/arrow-parens': ['error', 'as-needed'],
+      '@stylistic/brace-style': 'off',
+      '@stylistic/indent': 'off',
+      '@stylistic/indent-binary-ops': 'off',
+      '@stylistic/member-delimiter-style': [
+        'error',
+        {
+          multiline: {
+            delimiter: 'semi',
+            requireLast: true,
+          },
+          singleline: {
+            delimiter: 'semi',
+            requireLast: false,
+          },
+        },
+      ],
+      '@stylistic/operator-linebreak': 'off',
+      '@stylistic/quote-props': ['error', 'as-needed'],
+      '@stylistic/quotes': 'off',
+      '@stylistic/semi': ['error', 'always'],
       '@typescript-eslint/ban-ts-comment': 'error',
       '@typescript-eslint/no-array-constructor': 'error',
       '@typescript-eslint/no-duplicate-enum-values': 'error',
@@ -1491,14 +1515,35 @@ export default defineConfig(
       '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
       '@typescript-eslint/no-require-imports': 'error',
       '@typescript-eslint/no-this-alias': 'error',
+      '@typescript-eslint/no-unnecessary-template-expression': 'error',
       '@typescript-eslint/no-unnecessary-type-constraint': 'error',
       '@typescript-eslint/no-unsafe-declaration-merging': 'error',
       '@typescript-eslint/no-unsafe-function-type': 'error',
       '@typescript-eslint/no-unused-expressions': 'error',
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+          varsIgnorePattern: '^_',
+        },
+      ],
       '@typescript-eslint/no-wrapper-object-types': 'error',
       '@typescript-eslint/prefer-as-const': 'error',
       '@typescript-eslint/prefer-namespace-keyword': 'error',
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowBoolean: true,
+          allowNever: true,
+          allowNullish: true,
+          allowNumber: true,
+        },
+      ],
       '@typescript-eslint/triple-slash-reference': 'error',
       'accessor-pairs': 'off',
       'array-bracket-newline': ['off', 'consistent'],
@@ -1638,6 +1683,14 @@ export default defineConfig(
       'func-names': 'warn',
       'func-style': ['off', 'expression'],
       'function-call-argument-newline': ['error', 'consistent'],
+      'functional/immutable-data': [
+        'error',
+        {
+          ignoreClasses: 'fieldsOnly',
+          ignoreMapsAndSets: true,
+        },
+      ],
+      'functional/no-let': 'error',
       'generator-star-spacing': [
         'error',
         {
@@ -1666,6 +1719,7 @@ export default defineConfig(
           webpackChunknameFormat: '[0-9a-zA-Z-_/.]+',
         },
       ],
+      'import/export': 'off',
       'import/exports-last': 'off',
       'import/first': 'error',
       'import/group-exports': 'off',
@@ -1728,6 +1782,15 @@ export default defineConfig(
       'import/no-restricted-paths': 'off',
       'import/no-self-import': 'error',
       'import/no-unassigned-import': 'off',
+      'import/no-unresolved': [
+        'error',
+        {
+          caseSensitive: true,
+          caseSensitiveStrict: false,
+          commonjs: true,
+          ignore: ['aws-lambda', 'vitest/config'],
+        },
+      ],
       'import/no-unused-modules': [
         'off',
         {
@@ -1838,11 +1901,7 @@ export default defineConfig(
         'error',
         {
           capIsNew: false,
-          capIsNewExceptions: [
-            'Immutable.Map',
-            'Immutable.Set',
-            'Immutable.List',
-          ],
+          capIsNewExceptions: ['Immutable.Map', 'Immutable.Set', 'Immutable.List'],
           newIsCap: true,
           newIsCapExceptions: [],
           properties: true,
@@ -2498,70 +2557,6 @@ export default defineConfig(
       'wrap-regex': 'off',
       'yield-star-spacing': ['error', 'after'],
       yoda: 'error',
-      '@stylistic/arrow-parens': ['error', 'as-needed'],
-      '@stylistic/brace-style': 'off',
-      '@stylistic/indent': 'off',
-      '@stylistic/indent-binary-ops': 'off',
-      '@stylistic/member-delimiter-style': [
-        'error',
-        {
-          multiline: {
-            delimiter: 'semi',
-            requireLast: true,
-          },
-          singleline: {
-            delimiter: 'semi',
-            requireLast: false,
-          },
-        },
-      ],
-      '@stylistic/operator-linebreak': 'off',
-      '@stylistic/quote-props': ['error', 'as-needed'],
-      '@stylistic/quotes': 'off',
-      '@stylistic/semi': ['error', 'always'],
-      '@typescript-eslint/no-unnecessary-template-expression': 'error',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          args: 'all',
-          argsIgnorePattern: '^_',
-          caughtErrors: 'all',
-          caughtErrorsIgnorePattern: '^_',
-          destructuredArrayIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-          varsIgnorePattern: '^_',
-        },
-      ],
-      '@typescript-eslint/restrict-template-expressions': [
-        'error',
-        {
-          allowBoolean: true,
-          allowNever: true,
-          allowNullish: true,
-          allowNumber: true,
-        },
-      ],
-      'functional/immutable-data': [
-        'error',
-        { ignoreClasses: 'fieldsOnly', ignoreMapsAndSets: true },
-      ],
-      'functional/no-let': 'error',
-      'import/export': 'off',
-      'import/no-unresolved': [
-        'error',
-        {
-          caseSensitive: true,
-          caseSensitiveStrict: false,
-          commonjs: true,
-          ignore: ['aws-lambda', 'vitest/config'],
-        },
-      ],
-      'no-else-return': 'error',
-      'no-lonely-if': 'error',
-      'no-nested-ternary': 'error',
-      'no-template-curly-in-string': 'error',
-      'object-shorthand': ['error', 'always'],
-      'prefer-template': 'error',
     },
     settings: {
       'import/resolver': {
@@ -2603,6 +2598,7 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
     "@commitlint/cli": "*",
     "@commitlint/config-conventional": "*",
     "@eslint/js": "*",
+    "@hbict/ctt": "*",
     "@stylistic/eslint-plugin": "*",
     "@types/node": "^22",
     "@vitest/coverage-v8": "*",
@@ -2688,8 +2684,8 @@ exports[`CalmsTypescriptPackage > with default bin scripts > should have the cor
     "lib": [
       "esnext",
     ],
-    "module": "node16",
-    "moduleResolution": "node16",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "noEmitOnError": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,

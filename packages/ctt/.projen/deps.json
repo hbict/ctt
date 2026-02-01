@@ -70,6 +70,10 @@
       "type": "runtime"
     },
     {
+      "name": "@prettier/sync",
+      "type": "runtime"
+    },
+    {
       "name": "commander",
       "type": "runtime"
     }

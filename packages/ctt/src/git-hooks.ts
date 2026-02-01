@@ -41,17 +41,14 @@ export class GitHooks extends Component {
 
     new ManagedTextFile(project, '.husky/commit-msg', {
       commentSymbol: '#',
-      lines: [
-        'set -e',
-        '',
-        `${project.runBinaryCommand} commitlint --edit $1`,
-        '',
-      ],
+      executable: true,
+      lines: ['set -e', '', `${project.runBinaryCommand} commitlint --edit $1`, ''],
       shebang: '#!/bin/sh',
     });
 
     new ManagedTextFile(project, '.husky/pre-commit', {
       commentSymbol: '#',
+      executable: true,
       lines: [
         'set -e',
         '',
@@ -65,6 +62,7 @@ export class GitHooks extends Component {
 
     new ManagedTextFile(project, '.husky/pre-push', {
       commentSymbol: '#',
+      executable: true,
       lines: `set -e
 
 CYAN="\\033[1;36m"

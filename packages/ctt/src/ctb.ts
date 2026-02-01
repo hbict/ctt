@@ -1,28 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import { github, Task, typescript } from 'projen';
-import {
-  ArrowParens,
-  EndOfLine,
-  NodePackageManager,
-  TrailingComma,
-  TypeScriptModuleResolution,
-} from 'projen/lib/javascript';
+import { NodePackageManager, TypeScriptModuleResolution } from 'projen/lib/javascript';
 import { TypeScriptProjectOptions } from 'projen/lib/typescript';
 import { merge } from 'ts-deepmerge';
 
 import { CalmsEslint } from './calms-eslint';
 import { CopilotSetupWorkflow } from './copilot-setup-workflow';
 import { GitHooks } from './git-hooks';
+import { prettierSettings } from './shared';
 import { TypescriptExecutor } from './types';
 import { UpdateSnapshotsWorkflow } from './update-snapshots-workflow';
 import { Vitest } from './vitest';
 
 export interface CalmsTypescriptBaseOptions
-  extends Omit<
-    TypeScriptProjectOptions,
-    'defaultReleaseBranch' | 'name' | 'repository'
-  > {
+  extends Omit<TypeScriptProjectOptions, 'defaultReleaseBranch' | 'name' | 'repository'> {
   authorEmail: string;
 
   authorName: string;
@@ -62,8 +54,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
   public readonly vitest: Vitest;
 
   constructor(options: CalmsTypescriptBaseOptions) {
-    const versionControlRepoName =
-      options.versionControlRepoName ?? options.packageJsonName;
+    const versionControlRepoName = options.versionControlRepoName ?? options.packageJsonName;
 
     const versionControlRepoUrl = `https://github.com/hbict/${versionControlRepoName}.git`;
 
@@ -77,7 +68,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
           labels: ['auto-approve'],
         },
       },
-      devDeps: ['ts-deepmerge', 'rimraf'],
+      devDeps: ['ts-deepmerge', 'rimraf', '@hbict/ctt'],
       disableTsconfigDev: true,
       // most projects will not have a main file
       entrypoint: '',
@@ -99,14 +90,7 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       packageManager: NodePackageManager.PNPM,
       prettier: true,
       prettierOptions: {
-        settings: {
-          arrowParens: ArrowParens.AVOID,
-          endOfLine: EndOfLine.LF,
-          printWidth: 80,
-          semi: true,
-          singleQuote: true,
-          trailingComma: TrailingComma.ALL,
-        },
+        settings: prettierSettings,
       },
       projenrcTs: true,
       repository: versionControlRepoUrl,
@@ -117,12 +101,11 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
           allowSyntheticDefaultImports: true,
           baseUrl: '.',
           emitDecoratorMetadata: true,
+          esModuleInterop: true,
           inlineSourceMap: undefined,
           lib: ['esnext'],
-          // may not be compatible with all node modules, may have to change
-          module: 'node16',
-          // may not be compatible with all node modules, may have to change
-          moduleResolution: TypeScriptModuleResolution.NODE16,
+          module: 'NodeNext',
+          moduleResolution: TypeScriptModuleResolution.NODE_NEXT,
           rootDir: '.',
           skipLibCheck: true,
           sourceMap: true,
@@ -136,17 +119,12 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       versionControlRepoName,
     };
 
-    const mergedOptions = merge(
-      defaultOptions,
-      options,
-    ) as CalmsTypescriptBaseOptionsWithDefaults;
+    const mergedOptions = merge(defaultOptions, options) as CalmsTypescriptBaseOptionsWithDefaults;
 
     super(mergedOptions);
 
     this.runBinaryCommand =
-      this.package.packageManager === NodePackageManager.PNPM
-        ? 'pnpm exec'
-        : 'npx';
+      this.package.packageManager === NodePackageManager.PNPM ? 'pnpm exec' : 'npx';
 
     this.typescriptExecutor = mergedOptions.typescriptExecutor;
 
@@ -196,12 +174,9 @@ export class CalmsTypescriptBase extends typescript.TypeScriptProject {
       condition: 'test -n "$GITHUB_COPILOT_API_TOKEN"',
     });
 
-    this.package.installCiTask.exec(
-      `${this.package.packageManager} install --frozen-lockfile`,
-      {
-        condition: 'test -z "$GITHUB_COPILOT_API_TOKEN"',
-      },
-    );
+    this.package.installCiTask.exec(`${this.package.packageManager} install --frozen-lockfile`, {
+      condition: 'test -z "$GITHUB_COPILOT_API_TOKEN"',
+    });
 
     // Try to preserve existing version if package.json exists
     try {

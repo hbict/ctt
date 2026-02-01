@@ -13,7 +13,7 @@ export class PackageCtt extends CalmsTypescriptPackage {
     super({
       authorEmail: 'mostcolm@gmail.com',
       authorName: 'Alex Wendte',
-      deps: ['@inquirer/prompts', 'commander'],
+      deps: ['@inquirer/prompts', '@prettier/sync', 'commander'],
       entrypoint: 'src/index.ts',
       outdir: 'packages/ctt',
       packageJsonName: '@hbict/ctt',
@@ -21,6 +21,9 @@ export class PackageCtt extends CalmsTypescriptPackage {
       typescriptExecutor: TypescriptExecutor.Tsx,
       versionControlRepoName: 'ctt',
     });
+
+    // we are @hbict/ctt so we can't rely on it
+    this.deps.removeDependency('@hbict/ctt');
 
     this.addFields({ types: undefined });
 

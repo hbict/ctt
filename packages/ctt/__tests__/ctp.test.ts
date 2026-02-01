@@ -59,18 +59,13 @@ describe('CalmsTypescriptPackage', () => {
       'src/cli/test-package.ts',
     ];
 
-    it.each(requiredFileNames)(
-      'should include the required file: %s',
-      fileName => {
-        expect(Object.keys(snapshot)).toContain(fileName);
-      },
-    );
+    it.each(requiredFileNames)('should include the required file: %s', fileName => {
+      expect(Object.keys(snapshot)).toContain(fileName);
+    });
 
     it('should not generate any files other than the required files', () => {
       const generatedFiles = Object.keys(snapshot);
-      const unexpectedFiles = generatedFiles.filter(
-        file => !requiredFileNames.includes(file),
-      );
+      const unexpectedFiles = generatedFiles.filter(file => !requiredFileNames.includes(file));
 
       expect(unexpectedFiles).toEqual([]);
     });
@@ -90,10 +85,7 @@ describe('CalmsTypescriptPackage', () => {
       packageJsonName: '@scope/test-package',
     });
     const snapshot = synthSnapshot(project);
-    const specificFileNames = [
-      'bin/test-package.ts',
-      'src/cli/test-package.ts',
-    ];
+    const specificFileNames = ['bin/test-package.ts', 'src/cli/test-package.ts'];
 
     it.each(specificFileNames)('should include the bin file: %s', fileName => {
       expect(Object.keys(snapshot)).toContain(fileName);
@@ -149,16 +141,12 @@ describe('CalmsTypescriptPackage', () => {
       'src/cli/test-package.ts',
     ];
 
-    it.each(customBinFiles)(
-      'should include the custom bin file: %s',
-      fileName => {
-        expect(Object.keys(snapshot)).toContain(fileName);
-      },
-    );
+    it.each(customBinFiles)('should include the custom bin file: %s', fileName => {
+      expect(Object.keys(snapshot)).toContain(fileName);
+    });
 
     it('should generate additional files for custom bin scripts', () => {
-      const expectedFileCount =
-        baseRequiredFileNames.length + customBinFiles.length;
+      const expectedFileCount = baseRequiredFileNames.length + customBinFiles.length;
       expect(Object.keys(snapshot)).toHaveLength(expectedFileCount);
     });
 
