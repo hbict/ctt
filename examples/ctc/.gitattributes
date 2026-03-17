@@ -15,5 +15,5 @@
 /LICENSE linguist-generated
 /package.json linguist-generated
 /pnpm-lock.yaml linguist-generated
-/tsconfig.json linguist-generated
+/tsconfig.json linguist-generated linguist-language=JSON-with-Comments
 /vitest.config.mts linguist-generated
